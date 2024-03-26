@@ -1,0 +1,14 @@
+footer {
+  background-color: var(--dark-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+footer p {
+  color: var(--light-foreground-color);
+}

@@ -1,0 +1,23 @@
+:root {
+  --dark-background-color: #001046;
+  --light-background-color: #e0e4e8;
+  --dark-foreground-color: #2f3e46;
+  --light-foreground-color: #b8dafe;
+  --accent-color: #3a9ad9;
+  --grey-color: #a8bfc9;
+  --general-padding: 1em;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--dark-color);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
