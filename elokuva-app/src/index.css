@@ -1,5 +1,5 @@
 :root {
-  --dark-background-color: #001046;
+  --dark-background-color: #0c132b;
   --light-background-color: #e0e4e8;
   --dark-foreground-color: #2f3e46;
   --light-foreground-color: #b8dafe;
@@ -11,7 +11,6 @@
 * {
   margin: 0;
   padding: 0;
-  border: 0;
   color: var(--dark-color);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -20,4 +19,9 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+#input input {
+  border: 2px solid var(--dark-background-color);
+  margin: 3px;
 }

@@ -1,29 +1,37 @@
 import React from "react";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
+import { useUser } from "../context/UseUser";
 
 export default function Navbar() {
+  const { user } = useUser();
   return (
     <nav>
       <ul>
         <li>
-          <a>Koti</a>
+          <Link to="/">Koti</Link>
         </li>
         <li>
-          <a>Haku</a>
+          <Link to="/search">Haku</Link>
         </li>
         <li>
-          <a>Ryhmät</a>
+          <Link to="/showtimes">Näytösajat</Link>
         </li>
         <li>
-          <a>Näytösajat</a>
+          <Link to="/allgroups">Ryhmät</Link>
         </li>
         <li>
-          <a>Asetukset</a>
+          <Link to="/userpage">Omat tiedot</Link>
         </li>
         <li>
-          <a>Luo tunnus</a>
+          <Link to="/register">Tee tunnus</Link>
         </li>
       </ul>
+
+      <div>
+        {user === null && <Link to="/login">Kirjaudu</Link>}
+        {user && <Link to="/logout">Kirjaudu ulos</Link>}
+      </div>
     </nav>
   );
 }
