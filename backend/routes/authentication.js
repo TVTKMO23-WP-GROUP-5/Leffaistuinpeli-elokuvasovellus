@@ -1,4 +1,3 @@
-const joopajoo = require("joo");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const { register, getPw } = require("../database/auth_db");
@@ -19,7 +18,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const uname = req.body.username;
-  const pw = req.body.pw;
+  const pw = req.body.password;
 
   const db_pw = await getPw(uname);
 
@@ -32,6 +31,7 @@ router.post("/login", async (req, res) => {
       res.status(401).json({ error: "Wrong password" });
     }
   } else {
+    console.log("Täällä");
     res.status(404).json({ error: "User not found" });
   }
 });
