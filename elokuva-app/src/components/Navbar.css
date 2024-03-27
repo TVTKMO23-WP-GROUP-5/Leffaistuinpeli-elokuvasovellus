@@ -1,0 +1,28 @@
+nav {
+  background-color: var(--grey-color);
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 3px;
+  max-width: 320px;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+nav a {
+  padding: 0.5em var(--general-padding);
+}
+
+nav a:hover {
+  color: var(--accent-color);
+}
