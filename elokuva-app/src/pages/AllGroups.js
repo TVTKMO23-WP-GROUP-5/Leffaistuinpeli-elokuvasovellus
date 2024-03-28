@@ -1,11 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import './AllGroups.css'
 import '../index.css'
+import { type } from '@testing-library/user-event/dist/type'
 
 export default function AllGroups() {
   const [groups, setGroups] = useState([])
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/allgroups')
+      .then(response => {
+        setGroups(response.data)
+      })
+      .catch(error => {
+        console.error("Fetching failed", error)
+      })
+  }, []);
+
   return (
-    <div className='container'>
+    <div className='container_allgroups'>
       <div className='buttons'>
         <button className='makegroup'>Luo ryhmä</button>
         <button className='mygroups'>Omat ryhmät</button>
@@ -20,9 +33,11 @@ export default function AllGroups() {
       </div>
       <div className='groups'>
         <ul>
-          {groups && groups.map((group, index) => (
-            <li key={index}>{group.name}</li>
-          ))}
+          {groups && groups.map((group, index) => 
+            <li key={index}>
+              <strong>{group.name}:</strong> {group.description} (perustaja:{group.owner})
+            </li>
+          )}
         </ul>
       </div>
     </div>

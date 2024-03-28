@@ -2,6 +2,7 @@ CREATE TABLE account(
     idAccount INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     fname TEXT,
     lname TEXT,
+    email TEXT,
     username TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL
 );
@@ -10,7 +11,7 @@ CREATE TABLE groups(
     idGroup INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     groupname TEXT NOT NULL UNIQUE,
     description TEXT,
-    idOwner INT NOT NULL REFERENCES account(idAccount)
+    owner TEXT NOT NULL REFERENCES account(username)
 );
 
 CREATE TABLE groupmovies(

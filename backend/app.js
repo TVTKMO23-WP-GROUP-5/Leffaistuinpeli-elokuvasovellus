@@ -1,6 +1,7 @@
 require("dotenv").config();
 const cors = require('cors')
 const account = require("./routes/account");
+const groups = require("./routes/groups")
 const auth = require("./routes/authentication"); // Muutin nimeksi auth, koska siellä login ja register. Jaakko
 const express = require("express");
 const app = express();
@@ -10,6 +11,7 @@ app.use(express.urlencoded({extended: true})) // vastaanottaa form-url-encoded. 
 app.use(express.json()) // Ottaa vastaaan jsonia. Jaakko
 app.use((cors())) // poistaa header-ongelmia. Jaakko
 app.use("/account", account);
+app.use("/allgroups", groups);
 app.use("/auth", auth); // Hieman muuttelin osoitteita. keskustellaan näistä. Jaakko
 
 
