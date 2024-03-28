@@ -1,4 +1,8 @@
-div.info {
+.container_allgroups {
+    height: 80vh;
+}
+
+.info {
     display: flex;
     justify-content: center;
     margin-top: 50px;
@@ -6,7 +10,7 @@ div.info {
     padding: 0.5em;
 }
 
-div.buttons {
+.buttons {
     display: flex;
     justify-content: center;
     margin-top: 2em;
@@ -18,10 +22,13 @@ div.buttons {
     min-width: 150px;
 }
 
-div.grouplist {
-    margin: 2em 20% 0.5em;
+.grouplist {
+    width: 60vw;
     display: flex;
-    justify-content: space-between;
+}
+
+.description {
+    margin-left: 10%;
 }
 
 .alph_order {
@@ -29,7 +36,12 @@ div.grouplist {
     width: 50px;
 }
 
-div.groups {
-    margin: 0 15%;
+.groups {
+    border: 1px solid black;
+    width: 60vw;
     height: auto;
+}
+
+ul {
+    list-style-type: none;
 }
