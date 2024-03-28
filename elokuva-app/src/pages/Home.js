@@ -20,6 +20,18 @@ export default function Home() {
         <img src={dog1} alt="Näytösaikojen selaaminen" />
         <p>Selaa elokuvien näytösaikoja!</p>
       </Link>
+      <div className="card">
+        <img src={dog3} alt="Elokuvia" />
+        <p>Hae ja arvostele elokuvia!</p>
+      </div>
+      <div className="card">
+        <img src={dog2} alt="Ryhmiin liittyminen" />
+        <p>Liity ryhmiin ja keskustele!</p>
+      </div>
+      <div className="card">
+        <img src={dog1} alt="Näytösaikojen selaaminen" />
+        <p>Selaa elokuvien näytösaikoja!</p>
+      </div>
     </div>
   );
 }
