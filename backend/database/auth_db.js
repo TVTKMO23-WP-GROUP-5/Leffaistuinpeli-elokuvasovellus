@@ -1,7 +1,7 @@
 const pgPool = require("./pg_connection");
 
 const sql = {
-  REGISTER: "INSERT INTO account VALUES ($1,$2,$3,$4,$5)",
+  REGISTER: "INSERT INTO account (fname, lname, email, username, password) VALUES ($1, $2, $3, $4, $5)", // Muutin hieman. Lisäsin (fname, lname, email, username, password). Jaakko
   GET_PASSWORD: "SELECT password FROM account WHERE username=$1",
 };
 
