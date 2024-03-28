@@ -1,0 +1,27 @@
+h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+  
+.rekisteröidy:first-child{
+    margin-top: 50px;
+}
+  
+.rekisteröidy *{
+    margin: 1em;
+    padding: 0.5em;
+    min-width: 350px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+  
+button {
+    background-color: #293887;
+    color: white;
+}
