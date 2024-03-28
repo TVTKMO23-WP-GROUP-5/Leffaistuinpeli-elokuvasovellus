@@ -1,0 +1,35 @@
+div.info {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    padding: 0.5em;
+}
+
+div.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.makegroup, .mygroups {
+    margin: 0.5em;
+    border-radius: 8px;
+    min-width: 150px;
+}
+
+div.grouplist {
+    margin: 2em 20% 0.5em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.alph_order {
+    border-radius: 8px;
+    width: 50px;
+}
+
+div.groups {
+    margin: 0 15%;
+    height: auto;
+}
