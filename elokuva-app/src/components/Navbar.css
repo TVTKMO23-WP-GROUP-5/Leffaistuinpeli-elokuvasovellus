@@ -1,29 +1,99 @@
 nav {
-  background-color: var(--grey-color);
-  height: 80px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  background-image: linear-gradient(135deg, #f5fbff 0%, #9dafd1 100%);
+  min-height: 110px;
+  max-height: 110px;
+  border-bottom: 0.1px solid var(--dark-background-color);
 }
 
 nav ul {
   list-style-type: none;
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 3px;
-  max-width: 320px;
+  gap: 0.5em;
 }
 
 nav ul li {
+  display: flex;
+  width: 28.333%;
+}
+
+.logo-container {
+  order: 1;
+  height: auto;
+  width: 30vh;
+  max-width: 155px;
+  flex-shrink: 0;
+  margin-right: 2vw;
+}
+
+.logo-container img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.button-container {
+  order: 2;
+  display: flex;
+  flex-grow: 1;
+  margin-top: 2vh;
+}
+
+.navButton {
   display: inline-block;
+  align-self: flex-start;
+  font-weight: 600;
+  font-size: 1.3em;
+}
+
+.search-container input[type="text"] {
+  width: 20vw;
+  padding: 0.5em;
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+  margin-right: 20vw;
+  margin-left: auto;
+  margin-top: 2vh;
+}
+
+.search-container {
+  order: 3;
+}
+
+.sign-container {
+  order: 4;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+
+.signButton {
+  padding: 0.5em 0.5em;
+  z-index: 100;
+  font-size: 1.3em;
+  font-weight: 600;
 }
 
 nav a {
   text-decoration: none;
-  padding: 0.5em var(--general-padding);
 }
 
 nav a:hover {
-  color: var(--accent-color);
+  color: var(--light-background-color);
+}
+
+@media (max-width: 600px) {
+  .search-container input[type="text"] {
+    width: 170px;
+  }
+
+  nav {
+    padding-left: 1em;
+  }
 }

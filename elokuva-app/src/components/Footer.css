@@ -1,5 +1,5 @@
 footer {
-  background-color: var(--dark-background-color);
+  background-color: var(--light-background-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,5 +10,5 @@ footer {
 }
 
 footer p {
-  color: var(--light-foreground-color);
+  color: var(--dark-foreground-color);
 }

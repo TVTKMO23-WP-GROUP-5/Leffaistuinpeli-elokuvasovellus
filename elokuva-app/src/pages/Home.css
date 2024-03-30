@@ -4,7 +4,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
-  background-color: var(--accent-color);
+  background-image: var(--background-image);
   padding: 16px;
   padding-bottom: 34px;
 }
@@ -16,7 +16,7 @@
   padding: 20px;
   margin: 10px;
   border-radius: 10px;
-  background-color: var(--dark-background-color);
+  background-image: var(--button-gradient);
   color: var(--light-foreground-color);
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
