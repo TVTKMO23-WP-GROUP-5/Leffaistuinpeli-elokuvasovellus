@@ -1,10 +1,12 @@
 :root {
-  --dark-background-color: #0c132b;
-  --light-background-color: #e0e4e8;
-  --dark-foreground-color: #2f3e46;
-  --light-foreground-color: #b8dafe;
-  --accent-color: #3a9ad9;
-  --grey-color: #a8bfc9;
+  --background-image: linear-gradient(135deg, #f5fbff 0%, #9dafd1 100%);
+  --button-gradient: linear-gradient(247deg, #536068 0%, #0d174b 100%);
+  --dark-background-color: #00416a;
+  --light-background-color: #72a0c1;
+  --dark-foreground-color: #002244;
+  --light-foreground-color: #f0f8ff;
+  --accent-color: #318ce7;
+  --grey-color: #b2adca;
   --general-padding: 1em;
 }
 
@@ -21,7 +23,32 @@
   box-sizing: border-box;
 }
 
-#input input {
+input {
   border: 2px solid var(--dark-background-color);
   margin: 3px;
+  width: 100%;
+  border-radius: 30px;
+}
+
+button,
+.button,
+.navButton,
+.signButton {
+  width: 100%;
+  background-image: var(--button-gradient);
+  border: 2px solid var(--light-foreground-color);
+  border-radius: 30px;
+  box-shadow: var(--dark-foreground-color) 3px 3px 0 0;
+  color: var(--light-foreground-color);
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+}
+
+button:hover,
+.button:hover,
+.navButton:hover,
+.signButton:hover {
+  transform: translate3d(-1px, 1px, 1px);
 }
