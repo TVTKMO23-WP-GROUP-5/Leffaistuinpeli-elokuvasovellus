@@ -2,6 +2,7 @@ import "./Register.css"
 import React from 'react'
 import { useUser } from '../context/UseUser'
 import axios from 'axios'
+import { useNavigate} from 'react-router-dom'
 
 export default function Register() {
 
@@ -23,6 +24,9 @@ const handleChange = (e) => {
     console.log(registerData)
 }
 
+// luo navigointimahdollisuuden 
+const navigate =  useNavigate()
+
 // funktio, joka tapahtuu, kun painetaan tunnuksen luomista
 const handleSubmit = (event) => {
     event.preventDefault()
@@ -39,6 +43,7 @@ const handleSubmit = (event) => {
         .then(response => {
             console.log('User registered successfully:', response.data);
             alert("Käyttäjätunnuksen luominen onnistui")
+            navigate('/userpage')
 
         })
         .catch(error => {
