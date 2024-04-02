@@ -1,41 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useUser } from '../context/UseUser'
 import './AllGroups.css'
 import '../index.css'
-import { type } from '@testing-library/user-event/dist/type'
+import { UserContext } from '../context/UserContext'
 
 export default function AllGroups() {
-  const [groups, setGroups] = useState([])
+  let navigate = useNavigate();
+  const { groups, setGroups } = useUser()
+  const { getAllGroups } = useContext(UserContext)
 
   useEffect(() => {
-    axios.get('http://localhost:3001/allgroups')
-      .then(response => {
-        setGroups(response.data)
-      })
-      .catch(error => {
-        console.error("Fetching failed", error)
-      })
-  }, []);
+    getAllGroups();
+  });
 
   return (
     <div className='container_allgroups'>
       <div className='buttons'>
-        <button className='makegroup'>Luo ryhmä</button>
-        <button className='mygroups'>Omat ryhmät</button>
+        <button onClick={() => navigate('/reggroup')} className='makegroup'>Luo ryhmä</button>
+        <button onClick={() => navigate('/grouppage')} className='mygroups'>Omat ryhmät</button>
       </div>
       <div className='info'>
         <h2>Kaikki ryhmät</h2>
       </div>
-      <div className='grouplist'>
+      <div className='orderGroups'>
         <button className='alph_order'>A-Z ↑↓</button>
-        <p className='groupname'>Ryhmän nimi</p>
-        <p className='description'>Ryhmän kuvaus</p>
+      </div>
+      <div className='grouplist'>
+        <p className='groupname'> <strong>Ryhmän nimi</strong></p>
+        <p className='description'><strong>Ryhmän kuvaus</strong></p>
       </div>
       <div className='groups'>
         <ul>
           {groups && groups.map((group, index) => 
             <li key={index}>
-              <strong>{group.name}:</strong> {group.description} (perustaja:{group.owner})
+              <div className='list_groupname'>
+                <p><strong>{group.name}</strong></p>
+              </div>
+              <div className='list_groupdescription'>
+                <em>{group.description}</em>
+              </div>
             </li>
           )}
         </ul>
