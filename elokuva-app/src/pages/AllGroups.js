@@ -12,7 +12,7 @@ export default function AllGroups() {
 
   useEffect(() => {
     getAllGroups();
-  });
+  }, []);
 
   return (
     <div className='container_allgroups'>
