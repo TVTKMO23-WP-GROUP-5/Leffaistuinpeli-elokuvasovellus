@@ -8,9 +8,14 @@
     font-size: var(--button-font-size);
 }
 
+
 .container_allgroups {
     height: 80vh;
     margin: 0 2em;
+}
+
+.buttons button {
+    font-size: var(--button-font-size)
 }
 
 .info {

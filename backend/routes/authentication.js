@@ -35,6 +35,7 @@ router.post("/login", async (req, res) => {
     console.log("Täällä");
     res.status(404).json({ error: "User not found" });
   }
+  console.log("Testi");
 });
 
 module.exports = router;

@@ -1,7 +1,8 @@
 require("dotenv").config();
 const cors = require('cors')
+const jwt = require('jsonwebtoken');
 const account = require("./routes/account");
-const groups = require("./routes/groups")
+const groups = require("./routes/groups");
 const auth = require("./routes/authentication"); // Muutin nimeksi auth, koska siellä login ja register. Jaakko
 const express = require("express");
 const app = express();
@@ -22,3 +23,22 @@ app.listen(PORT, () => {
 app.get("/", (req, res) => {
   res.send("moro");
 });
+
+
+//Tämä toistaiseksi testinä -Taneli
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+
+  console.log("token = "+token);
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, process.env.JWT_SECRET, function(err, username) {
+
+    if (err) return res.sendStatus(403)
+
+    req.username = username
+
+    next()
+  })
+}
