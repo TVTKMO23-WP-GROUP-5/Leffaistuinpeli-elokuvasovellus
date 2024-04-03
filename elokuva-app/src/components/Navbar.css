@@ -80,11 +80,6 @@ nav ul li {
   font-weight: 600;
 }
 
-nav a {
-  text-decoration: none;
-}
-
-
 @media (max-width: 600px) {
   .search-container input[type="text"] {
     width: 170px;
