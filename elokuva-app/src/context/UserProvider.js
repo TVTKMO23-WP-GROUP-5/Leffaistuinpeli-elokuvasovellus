@@ -7,6 +7,7 @@ import { jwtToken } from '../components/Auth_signals'
 export default function UserProvider({children}) {
     const [user, setUser] = useState(null)
     const [registerData, setRegisterData] = useState() // Jaakon lisäys 27.3. rekisteröintiä varten
+    const [movieData, setMovieData] = useState()
     const [groups, setGroups] = useState([])
     const navigate = useNavigate()
     
@@ -33,7 +34,7 @@ export default function UserProvider({children}) {
     }
 
     return (
-        <UserContext.Provider value={{user,setUser,registerData, setRegisterData,groups,setGroups,getAllGroups,login}}>
+        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,groups,setGroups,getAllGroups,login}}>
             { children }
         </UserContext.Provider>
     )

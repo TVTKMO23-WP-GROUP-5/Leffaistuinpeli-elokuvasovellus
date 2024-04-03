@@ -2,8 +2,9 @@ require("dotenv").config();
 const fetch = require("node-fetch");
 const router = require("express").Router();
 
-router.get("/", async (req, res) => {
-  const url = "https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc";
+router.post("/", async (req, res) => {
+  const query = req.body.search;
+  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&api_key=${process.env.MOVIEDB_API_KEY}`;
   const options = {
     method: "GET",
     headers: {
@@ -12,11 +13,25 @@ router.get("/", async (req, res) => {
     },
   };
 
-  fetch(url, options)
-    .then((res) => res.json())
-    .then((json) => console.log(json))
-    .catch((err) => console.error("error:" + err))
-    res.end()
+  try {
+    const response = await fetch(url, options);
+    const json = await response.json();
+
+    const movies = json.results.map((movie) => ({
+      title: movie.title,
+      release_date: movie.release_date,
+      original_language: movie.original_language,
+      overview: movie.overview,
+      poster_path: movie.poster_path,
+      popularity: movie.popularity,
+      vote_average: movie.vote_average,
+    }));
+
+    res.json(movies);
+  } catch (err) {
+    console.error("error:", err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 module.exports = router;
