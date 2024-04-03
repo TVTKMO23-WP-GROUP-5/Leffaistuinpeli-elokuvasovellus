@@ -84,9 +84,6 @@ nav a {
   text-decoration: none;
 }
 
-nav a:hover {
-  color: var(--light-background-color);
-}
 
 @media (max-width: 600px) {
   .search-container input[type="text"] {

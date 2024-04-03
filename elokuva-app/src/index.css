@@ -51,4 +51,5 @@ button:hover,
 .navButton:hover,
 .signButton:hover {
   transform: translate3d(-1px, 1px, 1px);
+  color: var(--light-background-color);
 }

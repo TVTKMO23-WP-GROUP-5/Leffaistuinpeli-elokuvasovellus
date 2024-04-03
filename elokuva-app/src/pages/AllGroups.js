@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { useUser } from '../context/UseUser'
 import './AllGroups.css'
 import '../index.css'
 import { UserContext } from '../context/UserContext'
 
 export default function AllGroups() {
-  let navigate = useNavigate();
   const { groups, setGroups } = useUser()
   const { getAllGroups } = useContext(UserContext)
 
@@ -17,8 +16,12 @@ export default function AllGroups() {
   return (
     <div className='container_allgroups'>
       <div className='buttons'>
-        <button onClick={() => navigate('/reggroup')} className='makegroup'>Luo ryhmä</button>
-        <button onClick={() => navigate('/grouppage')} className='mygroups'>Omat ryhmät</button>
+        <Link to='/reggroup'>
+          <button className='makegroup'>Luo ryhmä</button>
+        </Link>
+        <Link to='/grouppage'>
+          <button className='mygroups'>Omat ryhmät</button>
+        </Link>
       </div>
       <div className='info'>
         <h2>Kaikki ryhmät</h2>
