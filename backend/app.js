@@ -3,7 +3,8 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const account = require("./routes/account");
 const groups = require("./routes/groups");
-const auth = require("./routes/authentication"); // Muutin nimeksi auth, koska siellä login ja register. Jaakko
+const auth = require("./routes/authentication");
+const movies = require("./routes/movie_search");
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,6 +15,7 @@ app.use((cors())) // poistaa header-ongelmia. Jaakko
 app.use("/account", account);
 app.use("/allgroups", groups);
 app.use("/auth", auth); // Hieman muuttelin osoitteita. keskustellaan näistä. Jaakko
+app.use("/movies", movies);
 
 
 app.listen(PORT, () => {
