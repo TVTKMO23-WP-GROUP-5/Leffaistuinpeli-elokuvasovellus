@@ -1,0 +1,22 @@
+.search {
+  display: flex;
+  width: 30vw;
+  height: 20vh;
+  margin: 50px;
+}
+
+.movieList img {
+  max-width: 13vw;
+  max-height: auto;
+  min-width: 13vw;
+  min-height: auto;
+  border-radius: 6px;
+}
+
+.movieList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
