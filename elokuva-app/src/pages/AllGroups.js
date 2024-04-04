@@ -2,19 +2,32 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useUser } from '../context/UseUser'
+import axios from 'axios'
 import './AllGroups.css'
 import '../index.css'
-import { UserContext } from '../context/UserContext'
 
 export default function AllGroups() {
   let navigate = useNavigate();
-  const { groups, setGroups } = useUser()
-  const { getAllGroups } = useContext(UserContext)
+  const { groups, setGroups } = useUser();
 
   useEffect(() => {
-    getAllGroups();
+      axios.get('http://localhost:3001/allgroups')
+          .then(response => {
+              setGroups(response.data)
+          })
+          .catch(error => {
+              console.error("Fetching failed", error)
+          })
   }, []);
 
+  /*Seuraava otettu pois div class buttons:in jälkeen testiksi
+  <Link to='/reggroup'>
+          <button className='makegroup'>Luo ryhmä</button>
+        </Link>
+        <Link to='/grouppage'>
+          <button className='mygroups'>Omat ryhmät</button>
+        </Link>
+  */
   return (
     <div className='container_allgroups'>
       <div className='buttons'>
@@ -24,8 +37,6 @@ export default function AllGroups() {
         <Link to='/grouppage'>
           <button className='mygroups'>Omat ryhmät</button>
         </Link>
-        <button onClick={() => navigate('/reggroup')} className='makegroup'>Luo ryhmä</button>
-        <button onClick={() => navigate('/grouppage')} className='mygroups'>Omat ryhmät</button>
       </div>
       <div className='info'>
         <h2>Kaikki ryhmät</h2>
@@ -33,9 +44,13 @@ export default function AllGroups() {
       <div className='orderGroups'>
         <button className='alph_order'>A-Z ↑↓</button>
       </div>
-      <div className='grouplist'>
-        <p className='groupname'> <strong>Ryhmän nimi</strong></p>
-        <p className='description'><strong>Ryhmän kuvaus</strong></p>
+      <div className='groupinfo'>
+        <div className='groupname'>
+          <p> <strong>Ryhmän nimi</strong></p>
+        </div>
+        <div className='group_description'>
+          <p><strong>Ryhmän kuvaus</strong></p>
+        </div>
       </div>
       <div className='groups'>
         <ul>
@@ -47,6 +62,9 @@ export default function AllGroups() {
               <div className='list_groupdescription'>
                 <em>{group.description}</em>
               </div>
+            <div className='apply_button'>
+              <button>Liity ryhmään</button>
+            </div>
             </li>
           )}
         </ul>

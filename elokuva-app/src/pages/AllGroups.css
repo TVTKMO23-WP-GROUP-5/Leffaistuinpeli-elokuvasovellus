@@ -1,21 +1,25 @@
-:root {
-    --button-padding: 10px 20px;
-    --button-font-size: 16px;
-}
-
 .buttons button {
-    padding: var(--button-padding);
-    font-size: var(--button-font-size);
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 30px;
+    width: 150px;
+    height: 50px;
 }
 
+.buttons {
+    display: flex;
+    margin-top: 2em;
+    justify-content: space-around;
+}
 
 .container_allgroups {
     height: 80vh;
     margin: 0 2em;
+    
 }
 
-.buttons button {
-    font-size: var(--button-font-size)
+.makegroup, .mygroups {
+    border-radius: 8px;
 }
 
 .info {
@@ -26,24 +30,18 @@
     padding: 0.5em;
 }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 2em;
-}
-
-.makegroup, .mygroups {
-    margin: 1em;
-    border-radius: 8px;
-}
-
-.grouplist {
-    width: 60vw;
+.groupinfo {
     display: flex;
 }
 
-.grouplist p {
-    width: 50%;
+.groupname {
+    display: flex;
+    padding: 0.5em;
+    width: 35%;
+}
+
+.group_description {
+    width: auto;
 }
 
 .alph_order {
@@ -61,15 +59,31 @@
 }
 
 .groups li {
-    display: flex;
     padding: 0.5em;
     border: 1px solid black;
     border-radius: 8px;
 }
 
-.groups div {
-    width: 50%;
+li {
+    display: flex;
+    justify-content: space-between;
 }
+
+.list_groupname {
+    width: 35%;
+}
+
+.list_groupdescription {
+    display: flex;
+    justify-content: left;
+    flex-grow: 1;
+}
+
+.apply_button {
+    flex-basis: 100px;
+    flex-shrink: 0;
+}
+
 
 
 @media (max-width: 1100px) {
@@ -79,20 +93,24 @@
 }
   
 @media (max-width: 655px) {
-   .groups h3 {
-   
-   }
    .grouplist, .groups {
     width: 80vw;
    }
-   
+   .buttons {
+    justify-content: center;
+    }
+    .list_groupname {
+        margin-right: 1em;
+    }
+    .apply_button {
+        margin-left: 1em;
+    }
 }
 
 @media (max-width: 405px) {
     .grouplist, .groups {
         width: 95vw;
-    }
-    
+    }    
 }
   
 @media (max-width: 350px) {
