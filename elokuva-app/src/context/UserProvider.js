@@ -23,18 +23,8 @@ export default function UserProvider({children}) {
             .catch(err => console.log(err.message))
     }
 
-    const getAllGroups = () => {
-        axios.get('http://localhost:3001/allgroups')
-            .then(response => {
-                setGroups(response.data)
-            })
-            .catch(error => {
-                console.error("Fetching failed", error)
-            })
-    }
-
     return (
-        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,groups,setGroups,getAllGroups,login}}>
+        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,groups,setGroups,login}}>
             { children }
         </UserContext.Provider>
     )
