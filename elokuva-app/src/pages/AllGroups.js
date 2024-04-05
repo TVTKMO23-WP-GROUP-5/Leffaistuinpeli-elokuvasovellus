@@ -20,14 +20,6 @@ export default function AllGroups() {
           })
   }, []);
 
-  /*Seuraava otettu pois div class buttons:in jälkeen testiksi
-  <Link to='/reggroup'>
-          <button className='makegroup'>Luo ryhmä</button>
-        </Link>
-        <Link to='/grouppage'>
-          <button className='mygroups'>Omat ryhmät</button>
-        </Link>
-  */
   return (
     <div className='container_allgroups'>
       <div className='buttons'>
