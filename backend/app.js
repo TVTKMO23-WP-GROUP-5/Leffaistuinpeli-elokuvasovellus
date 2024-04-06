@@ -3,6 +3,7 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const account = require("./routes/account");
 const groups = require("./routes/groups");
+const getmembers = require("./routes/groupmembers")
 const auth = require("./routes/authentication");
 const movies = require("./routes/movie_search");
 const express = require("express");
@@ -16,6 +17,7 @@ app.use("/account", account);
 app.use("/allgroups", groups);
 app.use("/auth", auth); // Hieman muuttelin osoitteita. keskustellaan näistä. Jaakko
 app.use("/movies", movies);
+app.use("/getmembers", getmembers)
 
 
 app.listen(PORT, () => {
