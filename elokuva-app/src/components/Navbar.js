@@ -34,23 +34,20 @@ export default function Navbar() {
               Ryhmät
             </Link>
           </li>
-          <li>
-            <Link to="/userpage" className="navButton">
-              Omat tiedot
-            </Link>
-          </li>
-          <li>
-            <Link to="/register" className="navButton">
-              Tee tunnus
-            </Link>
-          </li>
-          {/* tällä hetkellä kaikille kirjautujille avautuu adminpage. Kenties linkki omille sivuille, että sieltä pääsee ylläpitosivuille? */}
-          {user !== null && (
-            <li>
-              <Link to="/adminpage" className="navButton">
-                Ryhmän ylläpito
-              </Link>
-            </li>
+
+          {user && (
+            <>
+              <li>
+                <Link to="/userpage" className="navButton">
+                  Omat tiedot
+                </Link>
+              </li>
+              <li>
+                <Link to="/adminpage" className="navButton">
+                  Ryhmän ylläpito
+                </Link>
+              </li>
+            </>
           )}
         </ul>
       </div>
@@ -66,7 +63,9 @@ export default function Navbar() {
           </Link>
         )}
         {user && (
-          <Link to="/logout" className="signButton" >Kirjaudu ulos</Link>
+          <Link to="/logout" className="signButton">
+            Kirjaudu ulos
+          </Link>
         )}
       </div>
     </nav>
