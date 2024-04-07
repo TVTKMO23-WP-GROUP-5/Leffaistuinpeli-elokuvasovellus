@@ -21,6 +21,7 @@ import UserProvider from "./context/UserProvider";
 function App() {
   return (
     <UserProvider>
+      <div className="site-container">
       <Navbar></Navbar>
       <div className="container">
         <Routes>
@@ -39,6 +40,7 @@ function App() {
         </Routes>
       </div>
       <Footer></Footer>
+      </div>
     </UserProvider>
   );
 }

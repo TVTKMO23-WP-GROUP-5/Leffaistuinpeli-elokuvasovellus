@@ -1,14 +1,3 @@
-.container {
-  display: flex;
-  min-height: 80vh;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: flex-start;
-  background-image: var(--background-image);
-  padding: 16px;
-  padding-bottom: 34px;
-}
-
 .card {
   flex: 0 1 calc(32.333% - 40px);
   min-height: 398px;
