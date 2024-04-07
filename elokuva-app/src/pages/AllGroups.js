@@ -1,24 +1,46 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
-import { Navigate, useNavigate } from 'react-router-dom'
 import { useUser } from '../context/UseUser'
 import axios from 'axios'
 import './AllGroups.css'
 import '../index.css'
 
 export default function AllGroups() {
-  let navigate = useNavigate();
   const { groups, setGroups } = useUser();
+  const [ activeGroup, setActiveGroup ] = useState(null);
+  const [ isSortedAsc, setIsSortedAsc ] = useState(true)
 
   useEffect(() => {
-      axios.get('http://localhost:3001/allgroups')
+      axios.get('http://localhost:3001/groups/allgroups')
           .then(response => {
-              setGroups(response.data)
+              const sortedGroups = response.data.sort((a, b ) => a.name.localeCompare(b.name))
+              setGroups(sortedGroups)
           })
           .catch(error => {
               console.error("Fetching failed", error)
           })
-  }, []);
+  }, [setGroups]);
+
+  const toggleSort = () => {
+    const sortedGroups = [...groups].sort((a, b) => {
+      return isSortedAsc ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name)
+    })
+    setGroups(sortedGroups)
+    setIsSortedAsc(!isSortedAsc)
+  }
+
+  const handleInvitation = (index) => {
+    setActiveGroup(index)
+  }
+
+  const handleUserResponse = (userChoise) => {
+    setActiveGroup(null)
+    if (userChoise) {
+      alert("Liittymispyyntö lähetetty")
+    } else {
+      alert("Tapahtuma keskeytetty")
+    }
+  }
 
   return (
     <div className='container_allgroups'>
@@ -34,7 +56,7 @@ export default function AllGroups() {
         <h2>Kaikki ryhmät</h2>
       </div>
       <div className='orderGroups'>
-        <button className='alph_order'>A-Z ↑↓</button>
+        <button className='alph_order' onClick={toggleSort}>A-Z ↑↓</button>
       </div>
       <div className='groupinfo'>
         <div className='groupname'>
@@ -55,7 +77,14 @@ export default function AllGroups() {
                 <em>{group.description}</em>
               </div>
             <div className='apply_button'>
-              <button>Liity ryhmään</button>
+                <button onClick={() => handleInvitation(index)}>Liity ryhmään </button>
+                {activeGroup === index && (
+                  <div>
+                    <p>Haluatko liittyä tähän ryhmään?</p>
+                    <button onClick={() => handleUserResponse(true, index)}>Kyllä</button>
+                    <button onClick={() => handleUserResponse(false, index)}>Ei</button>
+                  </div>
+                )}
             </div>
             </li>
           )}

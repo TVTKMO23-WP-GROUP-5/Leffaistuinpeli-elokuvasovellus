@@ -2,9 +2,12 @@ const pgPool = require("./pg_connection");
 
 const sql = {
   GET_ALLGROUPS: "SELECT * FROM groups",
-  GET_GROUPSBYIDACCOUNT: "SELECT idGroup, groupname, description FROM groups JOIN groupmembers ON groups.idGroup=groupmembers.idGroup WHERE groupmembers.idAccount=$1",
+  GET_GROUPSBYIDACCOUNT: "SELECT * FROM groups INNER JOIN groupmembers ON groups.idGroup=groupmembers.idGroup WHERE groupmembers.idAccount=$1",
   GET_GROUPBYNAME: "SELECT * FROM groups WHERE groupname=$1",
-  POST_NEWGROUP: "INSERT INTO group (groupname, description, owner) VALUES ($1, $2, $3)"
+  POST_NEWGROUP: "INSERT INTO group (groupname, description, owner) VALUES ($1, $2, $3)",
+  GET_GROUPID: "SELECT idgroup FROM groups WHERE groupname=$1",
+  GET_OWNERID: "SELECT idaccount FROM account INNER JOIN groups on account.username=groups.owner WHERE groups.owner=$1",
+  DELETE_GROUP: "DELETE FROM groups WHERE idgroup=$1"
 };
 
 async function getAllGroups() {
@@ -22,6 +25,21 @@ async function getGroupByName(groupname) {
   return result.rows[0];
 }
 
+async function getGroupId(groupname) {
+  let result = await pgPool.query(sql.GET_GROUPID, [groupname]);
+  return result.rows[0];
+}
+
+async function getOwnerid(owner) {
+  let result = await pgPool.query(sql.GET_OWNERID, [owner]);
+  return result.rows[0];
+}
+
+async function deleteGroup(idgroup) {
+  let result = await pgPool.query(sql.DELETE_GROUP, [idgroup]);
+  return result.rows[0]
+}
 
 
-module.exports = { getAllGroups, getGroupByName, getGroupsByIdAccount };
+
+module.exports = { getAllGroups, getGroupByName, getGroupsByIdAccount, getGroupId, getOwnerid, deleteGroup };

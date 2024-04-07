@@ -1,4 +1,4 @@
-const { getAllGroups, getGroupByName, getGroupsByIdAccount } = require("../database/groups_db");
+const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup } = require("../database/groups_db");
 const router = require("express").Router();
 
 router.get("/allgroups", async (req, res) => {
@@ -8,7 +8,7 @@ router.get("/allgroups", async (req, res) => {
         const filteredGroups = groups.map(group => ({
             name: group.groupname,
             description: group.description,
-            owner: group.ownerd
+            owner: group.owner
         }));
         console.log(filteredGroups);
         res.json(filteredGroups);
@@ -52,5 +52,17 @@ router.get("/groupname", async (req, res) => {
         res.status(500).send('Server error');
     }
 });
+
+router.post("/delete", async (req, res) =>{
+    try{
+        let groupname = req.body.groupname
+        let group_id = await getGroupId(groupname) //Tämä vielä selvityksessä -Taneli
+        await deleteGroup(group_id)
+    } catch (error) {
+        console.error("Error deleting group:", error);
+        res.status(500).json({ success: false, message: "Error deleting group" });
+    }
+});
+
 
 module.exports = router;
