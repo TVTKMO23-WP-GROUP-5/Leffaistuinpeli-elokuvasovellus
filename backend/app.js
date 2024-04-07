@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: true})) // vastaanottaa form-url-encoded. 
 app.use(express.json()) // Ottaa vastaaan jsonia. Jaakko
 app.use((cors())) // poistaa header-ongelmia. Jaakko
 app.use("/account", account);
-app.use("/allgroups", groups);
+app.use("/groups", groups);
 app.use("/auth", auth); // Hieman muuttelin osoitteita. keskustellaan näistä. Jaakko
 app.use("/movies", movies);
 app.use("/getmembers", getmembers)
