@@ -10,11 +10,13 @@ import AllGroups from "./pages/AllGroups";
 import Search from "./pages/Search";
 import ShowTimes from "./pages/ShowTimes";
 import NotFound from "./pages/NotFound";
+import AdminPage from "./pages/AdminPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 import { Route, Routes } from "react-router-dom";
 import UserProvider from "./context/UserProvider";
+
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
           <Route path="/allgroups" element={<AllGroups />} />
           <Route path="/search" element={<Search />} />
           <Route path="/showtimes" element={<ShowTimes />} />
+          <Route path="/adminpage" element = {<AdminPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
