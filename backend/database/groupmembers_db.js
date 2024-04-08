@@ -5,7 +5,8 @@ const sql = {
     GET_MEMBERSINGROUP: "SELECT a.username FROM account a INNER JOIN groupmembers gm ON a.idaccount = gm.idaccount WHERE gm.idgroup = $1",
     GET_GROUPID: "SELECT idgroup, groupname, description FROM groups WHERE owner = $1",
     GET_IDACCOUNT: "SELECT idaccount FROM account WHERE username = $1",
-    DELETE_MEMBERFROMGROUP: "DELETE FROM groupmembers WHERE idgroup = $1 AND idaccount = $2"
+    DELETE_MEMBERFROMGROUP: "DELETE FROM groupmembers WHERE idgroup = $1 AND idaccount = $2",
+    DELETE_GROUP: "DELETE FROM groups WHERE idgroup = $1 AND owner = $2"
   };
 
 async function getGroupMember(idgroup) {
@@ -15,7 +16,7 @@ async function getGroupMember(idgroup) {
 
 async function getGroupId(owner) {
     let result = await pgPool.query(sql.GET_GROUPID, [owner]);
-    return result.rows[0]
+    return result.rows
 }
 
 async function gedDeleteId(uname) {
@@ -27,5 +28,9 @@ async function deleteMemberFromGroup(idgroup, idaccount) {
     await pgPool.query(sql.DELETE_MEMBERFROMGROUP, [idgroup, idaccount]);
 }
 
-module.exports = { getGroupMember, getGroupId, gedDeleteId, deleteMemberFromGroup };
+async function deleteGroup(idgroup, owner) {
+  await pgPool.query(sql.DELETE_GROUP, [idgroup, owner]);
+}
+
+module.exports = { getGroupMember, getGroupId, gedDeleteId, deleteMemberFromGroup, deleteGroup };
   
