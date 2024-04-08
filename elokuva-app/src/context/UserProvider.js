@@ -16,7 +16,8 @@ export default function UserProvider({children}) {
             {username: uname, password: password})
             .then(resp => {
                 setUser(uname)
-                jwtToken.value = resp.data.jwtToken 
+                jwtToken.value = resp.data.jwtToken
+                sessionStorage.setItem('username', uname) 
                 navigate('/userpage')
                 alert("Kirjautuminen onnistui!")
             })

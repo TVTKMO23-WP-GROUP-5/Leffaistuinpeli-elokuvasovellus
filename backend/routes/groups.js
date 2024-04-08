@@ -1,4 +1,4 @@
-const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup } = require("../database/groups_db");
+const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername } = require("../database/groups_db");
 const router = require("express").Router();
 
 router.get("/allgroups", async (req, res) => {
@@ -20,7 +20,7 @@ router.get("/allgroups", async (req, res) => {
 
 router.get("/owngroups", async (req, res) => {
     try {
-    const owngroups = await getGroupsByIdAccount(req.query.idaccount);
+    const owngroups = await getGroupsByUsername(req.query.username);
 
     const filteredGroup = owngroups.map(group => ({
         name: group.groupname,
