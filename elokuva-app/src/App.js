@@ -31,7 +31,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/userpage" element={<UserPage />} />
-          <Route path="/grouppage" element={<GroupPage />} />
+          <Route path="/grouppage/:groupName" element={<GroupPage />} />
           <Route path="/reggroup" element={<RegGroup />} />
           <Route path="/allgroups" element={<AllGroups />} />
           <Route path="/owngroups" element={<OwnGroups />} />

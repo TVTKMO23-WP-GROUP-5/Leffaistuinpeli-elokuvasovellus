@@ -1,5 +1,6 @@
-const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername } = require("../database/groups_db");
+const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName } = require("../database/groups_db");
 const router = require("express").Router();
+
 
 router.get("/allgroups", async (req, res) => {
     try {
@@ -50,6 +51,18 @@ router.get("/groupname", async (req, res) => {
     res.json(filteredGroup);
     } catch (error) {
         res.status(500).send('Server error');
+    }
+});
+
+router.get("/owner", async (req, res) => {
+    try {
+        const owner = await getOwnersName(req.query.groupname);
+
+        console.log(owner);
+        res.json(owner.owner);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Sever error');
     }
 });
 
