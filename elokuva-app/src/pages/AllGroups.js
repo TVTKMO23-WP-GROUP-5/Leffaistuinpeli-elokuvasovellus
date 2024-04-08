@@ -6,6 +6,7 @@ import './AllGroups.css'
 import '../index.css'
 
 export default function AllGroups() {
+  const { user } = useUser();
   const { groups, setGroups } = useUser();
   const [ activeGroup, setActiveGroup ] = useState(null);
   const [ isSortedAsc, setIsSortedAsc ] = useState(true)
@@ -44,14 +45,16 @@ export default function AllGroups() {
 
   return (
     <div className='container_allgroups'>
+      {user && (
       <div className='buttons'>
         <Link to='/reggroup'>
           <button className='makegroup'>Luo ryhmä</button>
         </Link>
-        <Link to='/grouppage'>
+        <Link to='/owngroups'>
           <button className='mygroups'>Omat ryhmät</button>
         </Link>
       </div>
+      )}
       <div className='info'>
         <h2>Kaikki ryhmät</h2>
       </div>
@@ -68,7 +71,7 @@ export default function AllGroups() {
       </div>
       <div className='groups'>
         <ul>
-          {groups && groups.map((group, index) => 
+          {groups && groups.map((group, index) => (
             <li key={index}>
               <div className='list_groupname'>
                 <p><strong>{group.name}</strong></p>
@@ -76,7 +79,8 @@ export default function AllGroups() {
               <div className='list_groupdescription'>
                 <em>{group.description}</em>
               </div>
-            <div className='apply_button'>
+              {user && (
+              <div className='apply_button'>
                 <button onClick={() => handleInvitation(index)}>Liity ryhmään </button>
                 {activeGroup === index && (
                   <div>
@@ -85,9 +89,9 @@ export default function AllGroups() {
                     <button onClick={() => handleUserResponse(false, index)}>Ei</button>
                   </div>
                 )}
-            </div>
+              </div> )}
             </li>
-          )}
+            ))}
         </ul>
       </div>
     </div>
