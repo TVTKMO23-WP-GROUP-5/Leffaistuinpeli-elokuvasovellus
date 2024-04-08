@@ -1,0 +1,67 @@
+.showtimes-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .filter-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .filter-select {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .st-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .st-item {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .st-item:last-child {
+    border-bottom: none;
+  }
+  
+  .st-time p,
+  .st-title,
+  .st-details {
+    margin: 5px 0;
+  }
+  
+  .st-title {
+    font-size: 20px;
+    color: var(--accent-color);
+    margin-top: 10px;
+  }
+  
+  .st-details {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  @media (max-width: 600px) {
+    .showtimes-container {
+      padding: 10px;
+    }
+  }
+  
