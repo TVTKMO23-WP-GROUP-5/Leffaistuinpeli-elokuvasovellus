@@ -7,6 +7,7 @@ import UserPage from "./pages/UserPage";
 import GroupPage from "./pages/GroupPage";
 import RegGroup from "./pages/RegGroup";
 import AllGroups from "./pages/AllGroups";
+import OwnGroups from "./pages/OwnGroups";
 import Search from "./pages/Search";
 import ShowTimes from "./pages/ShowTimes";
 import NotFound from "./pages/NotFound";
@@ -33,6 +34,7 @@ function App() {
           <Route path="/grouppage" element={<GroupPage />} />
           <Route path="/reggroup" element={<RegGroup />} />
           <Route path="/allgroups" element={<AllGroups />} />
+          <Route path="/owngroups" element={<OwnGroups />} />
           <Route path="/search" element={<Search />} />
           <Route path="/showtimes" element={<ShowTimes />} />
           <Route path="/adminpage" element = {<AdminPage />} />

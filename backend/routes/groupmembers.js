@@ -28,16 +28,12 @@ router.post("/", async (req, res) =>{
             );
         });
     
-        // Wait for all promises to resolve using Promise.all()
         const results = await Promise.all(promises);
     
-        // Extract data from results
         const membersList = results.map(result => result.uname);
         const membersIdList = results.map(result => result.id);
         const groupNameList = results.map(result => result.name);
         const descriptionList = results.map(result => result.description);
-        // console.log(membersList, membersIdList, groupNameList, descriptionList)
-        // console.log({members:membersList, name:groupNameList, kuvaus: descriptionList, ID: membersIdList}) // tarkastus
 
         res.json({members:membersList, name:groupNameList, kuvaus: descriptionList, ID: membersIdList}) // lähetetään sellaisten ryhmäjäsenten tietoja
     } catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
@@ -69,16 +65,12 @@ router.post("/deleteuser", async (req, res) =>{
             );
         });
 
-            // Wait for all promises to resolve using Promise.all()
             const results = await Promise.all(promises);
 
-            // Extract data from results
             const membersList = results.map(result => result.uname);
             const membersIdList = results.map(result => result.id);
             const groupNameList = results.map(result => result.name);
             const descriptionList = results.map(result => result.description);
-            // console.log(membersList, membersIdList, groupNameList, descriptionList)
-            // console.log({members:membersList, name:groupNameList, kuvaus: descriptionList, ID: membersIdList}) // tarkastus
 
             res.json({members:membersList, name:groupNameList, kuvaus: descriptionList, ID: membersIdList}) // lähetetään sellaisten ryhmäjäsenten tietoja
         } catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
@@ -107,16 +99,12 @@ router.post("/deletegroup", async (req, res) =>{
             );
         });
 
-            // Wait for all promises to resolve using Promise.all()
             const results = await Promise.all(promises);
 
-            // Extract data from results
             const membersList = results.map(result => result.uname);
             const membersIdList = results.map(result => result.id);
             const groupNameList = results.map(result => result.name);
             const descriptionList = results.map(result => result.description);
-            // console.log(membersList, membersIdList, groupNameList, descriptionList)
-            // console.log({members:membersList, name:groupNameList, kuvaus: descriptionList, ID: membersIdList}) // tarkastus
 
             res.json({members:membersList, name:groupNameList, kuvaus: descriptionList, ID: membersIdList}) // lähetetään sellaisten ryhmäjäsenten tietoja
         } catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
