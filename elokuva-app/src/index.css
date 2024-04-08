@@ -80,7 +80,8 @@ button,
 button:hover,
 .button:hover,
 .navButton:hover,
-.signButton:hover {
+.signButton:hover,
+a:hover {
   transform: translate3d(-1px, 1px, 1px);
   color: var(--light-background-color);
 }

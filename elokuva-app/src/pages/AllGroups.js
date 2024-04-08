@@ -63,7 +63,7 @@ export default function AllGroups() {
       </div>
       <div className='groupinfo'>
         <div className='groupname'>
-          <p> <strong>Ryhmän nimi</strong></p>
+          <p><strong>Ryhmän nimi</strong></p>
         </div>
         <div className='group_description'>
           <p><strong>Ryhmän kuvaus</strong></p>
@@ -81,12 +81,12 @@ export default function AllGroups() {
               </div>
               {user && (
               <div className='apply_button'>
-                <button onClick={() => handleInvitation(index)}>Liity ryhmään </button>
+                <button onClick={() => handleInvitation(index)}>Liity</button>
                 {activeGroup === index && (
-                  <div>
-                    <p>Haluatko liittyä tähän ryhmään?</p>
-                    <button onClick={() => handleUserResponse(true, index)}>Kyllä</button>
-                    <button onClick={() => handleUserResponse(false, index)}>Ei</button>
+                  <div className='confirm_apply'>
+                    <p>Haluatko lähettää <br></br> liittymispyynnön <br></br> tähän ryhmään?</p>
+                    <button className='confirm_button' onClick={() => handleUserResponse(true, index)}>Kyllä</button>
+                    <button className='confirm_button' onClick={() => handleUserResponse(false, index)}>Ei</button>
                   </div>
                 )}
               </div> )}
