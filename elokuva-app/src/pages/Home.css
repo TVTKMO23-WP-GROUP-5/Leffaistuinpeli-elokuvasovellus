@@ -1,9 +1,10 @@
 .card {
   flex: 0 1 calc(32.333% - 40px);
-  min-height: 398px;
-  max-height: 530px;
+  min-height: calc(var(--base-size) * 7);
+  max-height: calc(var(--base-size) * 7);
   padding: 20px;
   margin: 10px;
+  margin-top: calc(var(--general-margin) * 3);
   border-radius: 10px;
   background-image: var(--button-gradient);
   color: var(--light-foreground-color);
