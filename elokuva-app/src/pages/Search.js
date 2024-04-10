@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Search.css";
@@ -7,6 +7,7 @@ import no_image from "../images/no_image.png";
 export default function Search() {
   const [movieData, setMovieData] = useState({ search: "" });
   const [moviePick, setMoviePick] = useState([]);
+  const resultsRef = useRef(null);
 
   const handleChange = (e) => {
     setMovieData((prevMovieData) => ({
@@ -29,18 +30,20 @@ export default function Search() {
       .post("http://localhost:3001/movies?query=", movieData)
       .then((response) => {
         setMoviePick(response.data);
+        if (resultsRef.current) {
+          resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
         /*setMoviePick(
           "https://image.tmdb.org/t/p/w342/" + response.data[0].poster_path
         );*/
-        alert("Haussa tapahtuu jotain");
       })
       .catch((error) => {
-        alert("Haussa tapahtuu jotain negatiivista");
+        alert("Haku epäonnistui jostain syystä");
       });
   };
 
   return (
-    <>
+    <div className="searchpage-container">
       <form className="search" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -50,7 +53,7 @@ export default function Search() {
         />
         <button type="submit">Jatka</button>
       </form>
-      <div className="movieList">
+      <div className="movieList" ref={resultsRef}>
         {moviePick &&
           moviePick.map((movie, index) => (
             <div className="poster" key={index}>
@@ -59,13 +62,13 @@ export default function Search() {
                 <Link to={`/movie/${(movie.title)}`}>
                 <img
                   src={"https://image.tmdb.org/t/p/w342/" + movie.poster_path}
-                  alt="joo"
+                  alt="Movie poster"
                 />
                 </Link>
               ) : null}
             </div>
           ))}
       </div>
-    </>
+    </div>
   );
 }
