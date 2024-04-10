@@ -9,12 +9,12 @@
   --grey-color: #b2adca;
   --general-padding: 1em;
   --general-margin: 2vh;
+  --base-size: 5vw;
 }
 
 * {
   margin: 0;
   padding: 0;
-  color: var(--dark-color);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
