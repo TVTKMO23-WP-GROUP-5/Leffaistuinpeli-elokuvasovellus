@@ -2,11 +2,11 @@ import React, { useState, useRef } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Search.css";
-import no_image from "../images/no_image.png";
+import { useUser } from '../context/UseUser'
 
 export default function Search() {
   const [movieData, setMovieData] = useState({ search: "" });
-  const [moviePick, setMoviePick] = useState([]);
+  const { moviePick, setMoviePick } = useUser();
   const resultsRef = useRef(null);
 
   const handleChange = (e) => {
@@ -59,7 +59,8 @@ export default function Search() {
             <div className="poster" key={index}>
               {/*<h2>{movie.title}</h2>*/}
               {movie.poster_path ? (
-                <Link to={`/movie/${(movie.title)}`}>
+                <Link to={`/movie/?id=${(movie.id)}`}> 
+                {/*<Link to={`/movie/${(movie.title)}?poster=${(movie.poster_path)}/${(movie.id)}`}>*/}
                 <img
                   src={"https://image.tmdb.org/t/p/w342/" + movie.poster_path}
                   alt="Movie poster"
