@@ -3,7 +3,13 @@ const pgPool = require("./pg_connection");
 const sql = {
   GET_ALLGROUPS: "SELECT * FROM groups",
   GET_GROUPBYNAME: "SELECT * FROM groups WHERE groupname=$1",
-  GET_OWNGROUPS: "SELECT * FROM groups INNER JOIN groupmembers ON groups.idGroup=groupmembers.idGroup INNER JOIN account ON groupmembers.idAccount=account.idAccount WHERE account.username=$1",
+  GET_OWNGROUPS: `SELECT * FROM groups 
+                  INNER JOIN groupmembers 
+                  ON groups.idGroup=groupmembers.idGroup 
+                  INNER JOIN account 
+                  ON groupmembers.idAccount=account.idAccount 
+                  WHERE account.username=$1 
+                  AND groupmembers.isMember = TRUE`, // Jaakko lisäsi, että se tarkistaa isMemberin.
   GET_GROUPID: "SELECT idgroup FROM groups WHERE groupname=$1",
   GET_OWNERID: "SELECT idaccount FROM account INNER JOIN groups on account.username=groups.owner WHERE groups.owner=$1",
   GET_OWNERSNAME: "SELECT owner FROM groups WHERE groupname=$1",

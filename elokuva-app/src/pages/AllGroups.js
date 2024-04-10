@@ -33,11 +33,21 @@ export default function AllGroups() {
   const handleInvitation = (index) => {
     setActiveGroup(index)
   }
-
-  const handleUserResponse = (userChoise) => {
+/*Jaakko muokkasi, asettaa kirjautuneen käyttäjän pyytämäänsä ryhmään, 
+mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
+  const handleUserResponse = (userChoise, groupOwner, groupName, username) => {
     setActiveGroup(null)
     if (userChoise) {
-      alert("Liittymispyyntö lähetetty")
+      axios.post("http://localhost:3001/getmembers/insertapplication", {groupOwner: groupOwner,groupName: groupName, username:username})
+        .then(response => {
+          console.log(response.data)
+          alert("Liittymispyyntö lähetetty")
+        })
+        .catch(error => {
+            console.error('Error deleting user:', error.response.data);
+            alert("Jotain meni pieleen")
+        })  
+      
     } else {
       alert("Tapahtuma keskeytetty")
     }
@@ -85,8 +95,8 @@ export default function AllGroups() {
                 {activeGroup === index && (
                   <div className='confirm_apply'>
                     <p>Haluatko lähettää <br></br> liittymispyynnön <br></br> tähän ryhmään?</p>
-                    <button className='confirm_button' onClick={() => handleUserResponse(true, index)}>Kyllä</button>
-                    <button className='confirm_button' onClick={() => handleUserResponse(false, index)}>Ei</button>
+                    <button className='confirm_button' onClick={() => handleUserResponse(true, group.owner, group.name, user, index)}>Kyllä</button>
+                    <button className='confirm_button' onClick={() => handleUserResponse(false, group.owner, group.name, user, index)}>Ei</button>
                   </div>
                 )}
               </div> )}
