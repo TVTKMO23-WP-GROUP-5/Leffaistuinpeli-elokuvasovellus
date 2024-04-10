@@ -28,7 +28,7 @@ export default function Showtimes() {
         const result = xml2js.xml2js(response.data, { compact: true });
         setShowtimes(result);
         if (resultsRef.current) {
-          resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+          resultsRef.current.scrollIntoView({ behavior: "smooth" });
         }
       })
       .catch((error) => {
@@ -42,6 +42,23 @@ export default function Showtimes() {
   const filteredShows = showtimes?.Schedule?.Shows?.Show.filter((show) => {
     return show;
   });
+
+  const locationOptions = [
+    <>
+      <option value="1012">Espoo</option>
+      <option value="1002">Helsinki</option>
+      <option value="1015">Jyväskylä</option>
+      <option value="1016">Kuopio</option>
+      <option value="1017">Lahti</option>
+      <option value="1041">Lappeenranta</option>
+      <option value="1018">Oulu</option>
+      <option value="1019">Pori</option>
+      <option value="1021">Tampere</option>
+      <option value="1022">Turku</option>
+      <option value="1046">Raisio</option>
+      <option value="1013">Vantaa</option>
+    </>
+  ];
 
   const dateOptions = Array.from({ length: 7 }, (_, i) => (
     <option value={getCurrentDate(i)}>{getCurrentDate(i)}</option>
@@ -83,18 +100,7 @@ export default function Showtimes() {
           onChange={(e) => setFilter(e.target.value)}
         >
           <option value="">Valitse sijainti</option>
-          <option value="1012">Espoo</option>
-          <option value="1002">Helsinki</option>
-          <option value="1015">Jyväskylä</option>
-          <option value="1016">Kuopio</option>
-          <option value="1017">Lahti</option>
-          <option value="1041">Lappeenranta</option>
-          <option value="1018">Oulu</option>
-          <option value="1019">Pori</option>
-          <option value="1021">Tampere</option>
-          <option value="1022">Turku</option>
-          <option value="1046">Raisio</option>
-          <option value="1013">Vantaa</option>
+          {locationOptions}
         </select>
         <select
           className="filter-select"
