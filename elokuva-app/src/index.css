@@ -3,6 +3,7 @@
   --button-gradient: linear-gradient(247deg, #536068 0%, #0d174b 100%);
   --dark-background-color: #00416a;
   --light-background-color: #72a0c1;
+  --white-background-color: #f0f0f0;
   --dark-foreground-color: #002244;
   --light-foreground-color: #f0f8ff;
   --accent-color: #318ce7;
@@ -52,11 +53,19 @@ body,
 
 input {
   border: 2px solid var(--dark-background-color);
-
   text-align: center;
   font-size: 1em;
   width: 100%;
   border-radius: 18px;
+  background-color: var(--white-background-color);
+  color: var(--dark-foreground-color);
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid var(--dark-background-color);
+  background-color: var(--white-background-color);
+  color: var(--dark-foreground-color);
 }
 
 button,

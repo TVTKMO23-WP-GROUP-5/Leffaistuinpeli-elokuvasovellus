@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ShowTimes.css";
 import axios from "axios";
 import xml2js from "xml-js";
@@ -8,6 +8,7 @@ export default function Showtimes() {
   const [filter, setFilter] = useState("");
   const [date, setDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const resultsRef = useRef(null);
 
   useEffect(() => {
     if (!filter || !date) {
@@ -26,6 +27,9 @@ export default function Showtimes() {
       .then((response) => {
         const result = xml2js.xml2js(response.data, { compact: true });
         setShowtimes(result);
+        if (resultsRef.current) {
+          resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
       })
       .catch((error) => {
         console.error("XML-haku epäonnistui: ", error);
@@ -71,14 +75,14 @@ export default function Showtimes() {
   }
 
   return (
-    <div className="showtimes-container">
+    <div className="showtimes-container" ref={resultsRef}>
       <div className="filter-container">
         <select
           className="filter-select"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
-          <option value="">Valitse teatteri</option>
+          <option value="">Valitse sijainti</option>
           <option value="1012">Espoo</option>
           <option value="1002">Helsinki</option>
           <option value="1015">Jyväskylä</option>

@@ -1,8 +1,29 @@
+.searchpage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 .search {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 30vw;
   height: 20vh;
-  margin: 50px;
+  margin: 50px auto;
+}
+
+input {
+  border: 2px solid var(--dark-background-color);
+  text-align: center;
+  font-size: 1.2em;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .movieList img {
@@ -19,4 +40,14 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  border: 2px solid var(--dark-background-color);
+  -webkit-text-fill-color: var(--dark-foreground-color);
+  -webkit-box-shadow: 0 0 0px 1000px var(--white-background-color) inset;
+  box-shadow: 0 0 0px 1000px var(--white-background-color) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
