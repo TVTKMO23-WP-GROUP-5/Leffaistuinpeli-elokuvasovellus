@@ -34,7 +34,7 @@ CREATE TABLE ratings(
     moviename TEXT NOT NULL,
     idAccount INT NOT NULL REFERENCES account(idAccount),
     stars INT NOT NULL,
-    texg TEXT
+    description TEXT
 );
 
 CREATE TABLE favorites(
