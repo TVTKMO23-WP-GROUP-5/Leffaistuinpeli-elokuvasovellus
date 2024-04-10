@@ -2,7 +2,7 @@ import "./Register.css"
 import React from 'react'
 import { useUser } from '../context/UseUser'
 import axios from 'axios'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
 
