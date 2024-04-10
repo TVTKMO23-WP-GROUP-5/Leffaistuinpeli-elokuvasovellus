@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./Search.css";
 import no_image from "../images/no_image.png";
 
@@ -58,10 +59,12 @@ export default function Search() {
             <div className="poster" key={index}>
               {/*<h2>{movie.title}</h2>*/}
               {movie.poster_path ? (
+                <Link to={`/movie/${(movie.title)}`}>
                 <img
                   src={"https://image.tmdb.org/t/p/w342/" + movie.poster_path}
                   alt="Movie poster"
                 />
+                </Link>
               ) : null}
             </div>
           ))}
