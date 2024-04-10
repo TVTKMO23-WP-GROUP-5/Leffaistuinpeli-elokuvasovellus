@@ -11,7 +11,7 @@ export default function OwnGroups() {
 
   useEffect(() => {
     const username = sessionStorage.getItem('username')
-    axios.get(`http://localhost:3001/groups/owngroups?username=${encodeURIComponent(username)}`)
+    axios.get(`http://localhost:3001/groups/owngroups?username=${(username)}`)
           .then(response => {
             const sortedGroups = response.data.sort((a, b ) => a.name.localeCompare(b.name))
             setGroup(sortedGroups)
@@ -50,7 +50,7 @@ export default function OwnGroups() {
           {group && 
             group.map((group, index) => 
             <li key={group.name || index}>
-              <Link to={`/grouppage/${encodeURIComponent(group.name)}`}>
+              <Link to={`/grouppage/${(group.name)}`}>
               <div className='list_groupname'>
                 <p><strong>{group.name}</strong></p>
               </div>
