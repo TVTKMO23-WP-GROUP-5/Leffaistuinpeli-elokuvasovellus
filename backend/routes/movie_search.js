@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
       poster_path: movie.poster_path,
       popularity: movie.popularity,
       vote_average: movie.vote_average,
+      id: movie.id
     }));
 
     res.json(movies);

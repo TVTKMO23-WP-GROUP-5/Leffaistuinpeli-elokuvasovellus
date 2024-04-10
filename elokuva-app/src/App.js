@@ -34,7 +34,7 @@ function App() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/userpage" element={<UserPage />} />
           <Route path="/grouppage/:groupName" element={<GroupPage />} />
-          <Route path="/movie/:movieName" element={<MoviePage />} />
+          <Route path="/movie" element={<MoviePage />} />
           <Route path="/reggroup" element={<RegGroup />} />
           <Route path="/allgroups" element={<AllGroups />} />
           <Route path="/owngroups" element={<OwnGroups />} />
