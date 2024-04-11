@@ -7,7 +7,8 @@ const {
     getGroupApplication, 
     updateGroupMembership, 
     deleteAllMembers,
-    groupApplication 
+    groupApplication,
+    checkUserOwner 
 } = require('../database/groupmembers_db')
 const router = require("express").Router();
 
@@ -104,6 +105,19 @@ router.post("/insertapplication", async (req, res) => {
     }catch (error) {
         console.error(error);
         res.status(500).send('Mahdollisesti olet jo ryhmän jäsen?');
+    }
+
+})
+
+router.post("/checkowner", async (req, res) => {
+    try{
+        const admin = req.body.username
+        const isOwner = await checkUserOwner(admin)
+        console.log(admin, isOwner)
+        res.send(isOwner)
+    } catch(error) {
+        console.error(error);
+        res.status(500).send('Ongelmia löytää ryhmäomistajuus');
     }
 
 })
