@@ -1,11 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import logo1 from "../images/logo1.png";
 import { Link } from "react-router-dom";
 import { useUser } from "../context/UseUser";
+import axios from "axios";
 
 export default function Navbar() {
   const { user } = useUser();
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    axios.post('http://localhost:3001/getmembers/checkowner', {username: user})
+      .then(response => {
+        console.log(response.data)
+        setIsAdmin(response.data)
+      })
+      .catch(error => {
+        console.error("Fetching failed", error)
+      })
+  }, [user]);
+
   return (
     <nav>
       <div className="logo-container">
@@ -42,6 +56,11 @@ export default function Navbar() {
                   Omat tiedot
                 </Link>
               </li>
+            </>
+          )}
+
+          {isAdmin && (
+            <>
               <li>
                 <Link to="/adminpage" className="navButton">
                   Ryhmän ylläpito
