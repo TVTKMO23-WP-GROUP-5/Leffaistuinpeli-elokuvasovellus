@@ -5,18 +5,19 @@ const bcrypt = require("bcrypt");
 const { register, getPw } = require("../database/auth_db");
 
 router.post("/register", async (req, res) => {
-  const fname = req.body.fname;
-  const lname = req.body.lname;
-  const email = req.body.email;
-  const username = req.body.username;
-  const password = req.body.password;
-
-  const hashPw = await bcrypt.hash(password, 10);
-
-
-  await register(fname, lname, email, username, hashPw);
-
-  res.end();
+  try {  
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+    const hashPw = await bcrypt.hash(password, 10);
+    await register(fname, lname, email, username, hashPw);
+    res.json({message: "success"})
+    res.end();
+  } catch (error) {
+    res.json({message: error})
+  }
 });
 
 router.post("/login", async (req, res) => {

@@ -2,7 +2,7 @@ import "./Register.css"
 import React from 'react'
 import { useUser } from '../context/UseUser'
 import axios from 'axios'
-import { useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
 
@@ -41,9 +41,15 @@ const handleSubmit = (event) => {
 
     axios.post('http://localhost:3001/auth/register', registerData)
         .then(response => {
-            console.log('User registered successfully:', response.data);
-            alert("Käyttäjätunnuksen luominen onnistui")
-            navigate('/userpage')
+            if (response.data.message === "success"){
+                console.log('User registered successfully:', response.data);
+                alert("Käyttäjätunnuksen luominen onnistui")
+                navigate('/userpage')
+            } else {
+                console.log('Something went wrong:', response.data);
+                alert("Tunnuksen luominen epäonnistui...")
+            }
+
 
         })
         .catch(error => {

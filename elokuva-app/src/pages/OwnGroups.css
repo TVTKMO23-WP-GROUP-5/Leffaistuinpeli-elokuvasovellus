@@ -1,0 +1,52 @@
+.container_owngroups {
+    height: 80vh;
+    margin: 0 2em;
+}
+
+.container_owngroups a {
+    text-decoration: none;
+    display: flex;
+}
+
+.container_owngroups .groups ul {
+    width: 60vw;
+    height: auto;
+}
+
+.container_owngroups .groupname, .group_description {
+    display: block;
+    flex: 1;
+}
+
+.container_owngroups .groups li {
+    display: block;
+}
+
+.container_owngroups .list_groupname, .list_groupdescription {
+    flex: 1;
+}
+
+.container_owngroups .list_groupname{
+    text-align: left;
+}
+
+.container_owngroups .list_groupdescription {
+    text-align: left;
+}
+
+  
+@media (max-width: 655px) {
+    .container_owngroups,
+    .groups, 
+    li {
+        width: 70vw;
+    }
+}
+
+@media (max-width: 405px) {
+    .container_owngroups,
+    .groups, 
+    li {
+        width: 90vw;
+    }
+}

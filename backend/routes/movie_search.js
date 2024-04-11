@@ -4,7 +4,7 @@ const router = require("express").Router();
 
 router.post("/", async (req, res) => {
   const query = req.body.search;
-  const url = `https://api.themoviedb.org/3/search/multi?query=${query}&api_key=${process.env.MOVIEDB_API_KEY}`;
+  const url = `https://api.themoviedb.org/3/search/multi?query=${query}&api_key=${process.env.MOVIEDB_API_KEY}&language=fi-FI`;
   const options = {
     method: "GET",
     headers: {
@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
       poster_path: movie.poster_path,
       popularity: movie.popularity,
       vote_average: movie.vote_average,
+      id: movie.id
     }));
 
     res.json(movies);

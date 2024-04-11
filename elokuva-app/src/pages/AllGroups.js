@@ -1,52 +1,79 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
-import { Navigate, useNavigate } from 'react-router-dom'
 import { useUser } from '../context/UseUser'
 import axios from 'axios'
 import './AllGroups.css'
 import '../index.css'
 
 export default function AllGroups() {
-  let navigate = useNavigate();
+  const { user } = useUser();
   const { groups, setGroups } = useUser();
+  const [ activeGroup, setActiveGroup ] = useState(null);
+  const [ isSortedAsc, setIsSortedAsc ] = useState(true)
 
   useEffect(() => {
-      axios.get('http://localhost:3001/allgroups')
+      axios.get('http://localhost:3001/groups/allgroups')
           .then(response => {
-              setGroups(response.data)
+              const sortedGroups = response.data.sort((a, b ) => a.name.localeCompare(b.name))
+              setGroups(sortedGroups)
           })
           .catch(error => {
               console.error("Fetching failed", error)
           })
-  }, []);
+  }, [setGroups]);
 
-  /*Seuraava otettu pois div class buttons:in jälkeen testiksi
-  <Link to='/reggroup'>
-          <button className='makegroup'>Luo ryhmä</button>
-        </Link>
-        <Link to='/grouppage'>
-          <button className='mygroups'>Omat ryhmät</button>
-        </Link>
-  */
+  const toggleSort = () => {
+    const sortedGroups = [...groups].sort((a, b) => {
+      return isSortedAsc ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name)
+    })
+    setGroups(sortedGroups)
+    setIsSortedAsc(!isSortedAsc)
+  }
+
+  const handleInvitation = (index) => {
+    setActiveGroup(index)
+  }
+/*Jaakko muokkasi, asettaa kirjautuneen käyttäjän pyytämäänsä ryhmään, 
+mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
+  const handleUserResponse = (userChoise, groupOwner, groupName, username) => {
+    setActiveGroup(null)
+    if (userChoise) {
+      axios.post("http://localhost:3001/getmembers/insertapplication", {groupOwner: groupOwner,groupName: groupName, username:username})
+        .then(response => {
+          console.log(response.data)
+          alert("Liittymispyyntö lähetetty")
+        })
+        .catch(error => {
+            console.error('Error deleting user:', error.response.data);
+            alert("Jotain meni pieleen")
+        })  
+      
+    } else {
+      alert("Tapahtuma keskeytetty")
+    }
+  }
+
   return (
     <div className='container_allgroups'>
+      {user && (
       <div className='buttons'>
         <Link to='/reggroup'>
           <button className='makegroup'>Luo ryhmä</button>
         </Link>
-        <Link to='/grouppage'>
+        <Link to='/owngroups'>
           <button className='mygroups'>Omat ryhmät</button>
         </Link>
       </div>
+      )}
       <div className='info'>
         <h2>Kaikki ryhmät</h2>
       </div>
       <div className='orderGroups'>
-        <button className='alph_order'>A-Z ↑↓</button>
+        <button className='alph_order' onClick={toggleSort}>A-Z ↑↓</button>
       </div>
       <div className='groupinfo'>
         <div className='groupname'>
-          <p> <strong>Ryhmän nimi</strong></p>
+          <p><strong>Ryhmän nimi</strong></p>
         </div>
         <div className='group_description'>
           <p><strong>Ryhmän kuvaus</strong></p>
@@ -54,7 +81,7 @@ export default function AllGroups() {
       </div>
       <div className='groups'>
         <ul>
-          {groups && groups.map((group, index) => 
+          {groups && groups.map((group, index) => (
             <li key={index}>
               <div className='list_groupname'>
                 <p><strong>{group.name}</strong></p>
@@ -62,11 +89,19 @@ export default function AllGroups() {
               <div className='list_groupdescription'>
                 <em>{group.description}</em>
               </div>
-            <div className='apply_button'>
-              <button>Liity ryhmään</button>
-            </div>
+              {user && (
+              <div className='apply_button'>
+                <button onClick={() => handleInvitation(index)}>Liity</button>
+                {activeGroup === index && (
+                  <div className='confirm_apply'>
+                    <p>Haluatko lähettää <br></br> liittymispyynnön <br></br> tähän ryhmään?</p>
+                    <button className='confirm_button' onClick={() => handleUserResponse(true, group.owner, group.name, user, index)}>Kyllä</button>
+                    <button className='confirm_button' onClick={() => handleUserResponse(false, group.owner, group.name, user, index)}>Ei</button>
+                  </div>
+                )}
+              </div> )}
             </li>
-          )}
+            ))}
         </ul>
       </div>
     </div>

@@ -3,6 +3,16 @@
     flex-direction: column;
 }
 
+.group-title {
+    margin-bottom: 0.5em;
+    margin-top: 1.0em;
+}
+
+.group-descripe {
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+}
+
 .members-list{
     font-weight: bold;
     display: flex;

@@ -1,4 +1,14 @@
-const {getGroupMember, getGroupId, gedDeleteId, deleteMemberFromGroup} = require('../database/groupmembers_db')
+const {
+    getGroupMember, 
+    getGroupId, 
+    getAccountId, 
+    deleteMemberFromGroup, 
+    deleteGroup,
+    getGroupApplication, 
+    updateGroupMembership, 
+    deleteAllMembers,
+    groupApplication 
+} = require('../database/groupmembers_db')
 const router = require("express").Router();
 
 router.post("/", async (req, res) =>{
@@ -6,45 +16,155 @@ router.post("/", async (req, res) =>{
     
     try {
         const admin = req.body.username
-        console.log(admin)
         id = await getGroupId(admin)    // saadaan adminin nimimerkin mukainen ryhmäid. 
+
     } catch (error) {
         console.error(error);
         res.status(500).send('Sever error');
     }
 
-    try{
-        if (!id) {
-            return res.status(404).send('ID not found')
-        }
-        const members = await getGroupMember(id.idgroup) // otetaan sellaiset ryhmänjäsenet, joilla on sama ryhmäid kuin adminilla. 
-        const groupName = id.groupname
-        const description = id.description
-        res.json({members:members, name:groupName, kuvaus: description}) // lähetetään sellaisten ryhmäjäsenten tietoja
-    } catch(error) {                                                    // jotka ovat samassa ryhmässä kuin admin
-        console.error(error);
-        res.status(500).send('Sever error');
-    }
+    handleGroups(id, req, res)
 })
 
-router.post("/delete", async (req, res) =>{
+router.post("/deleteuser", async (req, res) =>{
+    let id;
+    
     try{
         const del = req.body.username
-        const delId = await gedDeleteId(del) // muutat usernamen sen id:ksi
+        const delId = await getAccountId(del) // muutat usernamen sen id:ksi
         const admin = req.body.admin
-        id = await getGroupId(admin) // otetaan adminin id
-        console.log(id.idgroup, delId.idaccount)
-        await deleteMemberFromGroup(id.idgroup, delId.idaccount)
+        const groupID = req.body.ID         // frontin puolelta saadaan takaisin usernamen ryhmäID
+        id = await getGroupId(admin)        // uusien ryhmien palautukseen tähän id:hen tulee listana kaikki adminin ryhmät
+        await deleteMemberFromGroup(groupID, delId.idaccount)
         // onnistuneen poiston jälkeen haetaan uudet jäsenet
-        const updatedGroupMembers = await getGroupMember(id.idgroup)
-        const groupName = id.groupname
-        const description = id.description   
-        // Lähetetään päivitetty lista fronttiin
-        res.json({members:updatedGroupMembers, name:groupName, kuvaus: description})
     } catch (error) {
-        console.error("Error deleting member:", error);
-        res.status(500).json({ success: false, message: "Error deleting member" });
+        console.error(error);
+        res.status(500).send('Sever error');
     }
+
+// ------ tässä vain toistetaan aiemman endpointin koodi, jossa palautetaan päivitetyt ryhmät jäsenen poistamisen jälkeen ---- //
+    handleGroups(id, req, res)
 })
 
+router.post("/deletegroup", async (req, res) =>{
+    let id;
+    
+    try{
+        const owner = req.body.owner
+        const groupID = req.body.ID
+        await deleteAllMembers(groupID)
+        await deleteGroup(groupID, owner)
+        id = await getGroupId(owner)
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+// ------ tässä vain toistetaan aiemman endpointin koodi, jossa palautetaan päivitetyt ryhmät jäsenen poistamisen jälkeen ---- //
+    handleGroups(id, req, res)
+})
+
+router.post("/handleapplication", async (req, res) => {
+    let id
+    try{
+        const username = req.body.user
+        const groupID = req.body.ID
+        const admin = req.body.admin
+        console.log(username)
+        id_account = await getAccountId(username)
+        id = await getGroupId(admin)
+        console.log(groupID, id_account.idaccount, admin) 
+        await updateGroupMembership(groupID, id_account.idaccount)
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Sever error');
+    }
+    console.log("käytiin")
+    handleGroups(id, req, res)
+})
 module.exports = router;
+
+router.post("/insertapplication", async (req, res) => {
+    try {
+        const uname = req.body.username
+        const admin = req.body.groupOwner
+        const groupName = req.body.groupName
+        console.log("username: ",uname,"Admin: ", admin, "nimi: ", groupName)
+        const userId = await getAccountId(uname)
+        const groupId = await getGroupId(admin)
+        let grId
+        for (let i = 0; i<groupId.length; i++){
+            if (groupId[i].groupname === groupName){
+                console.log("hep")
+                grId = groupId[i].idgroup
+            }
+        }
+        console.log("AccountID: ", userId.idaccount, "groupID: ", grId)
+        await groupApplication(grId, userId.idaccount)
+        res.send("Meni perille")
+    }catch (error) {
+        console.error(error);
+        res.status(500).send('Mahdollisesti olet jo ryhmän jäsen?');
+    }
+
+})
+
+// funktio, jolla haetaan aina päivitetty ryhmätilanne adminille
+async function handleGroups(group_id, req, res) {
+    try{
+        if (!group_id) {
+            return res.status(404).send('ID not found')
+        }
+        
+        // haetaan ryhmänjäsenet, jotka on hyväksytty
+        const promises = [];
+        group_id.forEach((group) => {
+            promises.push(
+                getGroupMember(group.idgroup).then((uname) => {
+                    return { 
+                        uname, 
+                        id: group.idgroup, 
+                        name: group.groupname, 
+                        description: group.description };
+                })
+            );
+        });
+        const results = await Promise.all(promises);
+        const membersList = results.map(result => result.uname);
+        const membersIdList = results.map(result => result.id);
+        const groupNameList = results.map(result => result.name);
+        const descriptionList = results.map(result => result.description);
+
+        // haetaan ryhmäjäsenet, jotka odottavat hyväksyntää
+        const applies = []
+        group_id.forEach((group) => {
+            applies.push(
+                getGroupApplication(group.idgroup).then((uname) => {
+                    return { 
+                        uname, 
+                        id: group.idgroup, 
+                        name: group.groupname, 
+                        description: group.description };
+                })
+            );
+        });
+        const resultsApplication = await Promise.all(applies)
+        const membersListApplication = resultsApplication.map(result => result.uname);
+        const membersIdListApplication = resultsApplication.map(result => result.id);
+        const groupNameListApplication = resultsApplication.map(result => result.name);
+
+
+        res.json({
+            members:membersList, 
+            name:groupNameList, 
+            kuvaus: descriptionList, 
+            ID: membersIdList,
+            application:membersListApplication,
+            applicationID: membersIdListApplication,
+            applicationGroupName: groupNameListApplication
+
+        }) // lähetetään sellaisten ryhmäjäsenten tietoja
+    } catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
+        console.error(error);
+        res.status(500).send('Sever error');
+    }
+}

@@ -3,17 +3,19 @@
   --button-gradient: linear-gradient(247deg, #536068 0%, #0d174b 100%);
   --dark-background-color: #00416a;
   --light-background-color: #72a0c1;
+  --white-background-color: #f0f0f0;
   --dark-foreground-color: #002244;
   --light-foreground-color: #f0f8ff;
   --accent-color: #318ce7;
   --grey-color: #b2adca;
   --general-padding: 1em;
+  --general-margin: 2vh;
+  --base-size: 5vw;
 }
 
 * {
   margin: 0;
   padding: 0;
-  color: var(--dark-color);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -26,35 +28,58 @@
 html,
 body,
 #root,
+.siteContainer,
 .App {
   height: 100%;
+  min-height: 100vh;
+  background-color: var(--grey-color);
   display: flex;
   flex-direction: column;
 }
 
 .container {
+  display: flex;
   flex: 1;
   overflow: auto;
-  padding-bottom: 60px;
+  min-height: 100vh;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  background-image: var(--background-image);
+  padding: 20px;
+  padding-bottom: 34px;
 }
 
 input {
   border: 2px solid var(--dark-background-color);
-  margin: 3px;
+  text-align: center;
+  font-size: 1em;
   width: 100%;
-  border-radius: 30px;
+  border-radius: 18px;
+  background-color: var(--white-background-color);
+  color: var(--dark-foreground-color);
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid var(--dark-background-color);
+  background-color: var(--white-background-color);
+  color: var(--dark-foreground-color);
 }
 
 button,
 .button,
 .navButton,
-.signButton {
+.signButton,
+.loginButton {
   width: 100%;
   background-image: var(--button-gradient);
   border: 2px solid var(--light-foreground-color);
-  border-radius: 30px;
+  border-radius: 18px;
   box-shadow: var(--dark-foreground-color) 3px 3px 0 0;
   color: var(--light-foreground-color);
+  font-size: 1.2em;
   cursor: pointer;
   text-align: center;
   text-decoration: none;
@@ -64,7 +89,8 @@ button,
 button:hover,
 .button:hover,
 .navButton:hover,
-.signButton:hover {
+.signButton:hover,
+a:hover {
   transform: translate3d(-1px, 1px, 1px);
   color: var(--light-background-color);
 }

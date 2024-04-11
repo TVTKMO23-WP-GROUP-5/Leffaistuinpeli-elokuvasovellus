@@ -8,6 +8,7 @@ export default function UserProvider({children}) {
     const [user, setUser] = useState(null)
     const [registerData, setRegisterData] = useState() // Jaakon lisäys 27.3. rekisteröintiä varten
     const [movieData, setMovieData] = useState()
+    const [moviePick, setMoviePick] = useState([])
     const [groups, setGroups] = useState([])
     const navigate = useNavigate()
     
@@ -16,7 +17,8 @@ export default function UserProvider({children}) {
             {username: uname, password: password})
             .then(resp => {
                 setUser(uname)
-                jwtToken.value = resp.data.jwtToken 
+                jwtToken.value = resp.data.jwtToken
+                sessionStorage.setItem('username', uname) 
                 navigate('/userpage')
                 alert("Kirjautuminen onnistui!")
             })
@@ -24,7 +26,7 @@ export default function UserProvider({children}) {
     }
 
     return (
-        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,groups,setGroups,login}}>
+        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,moviePick,setMoviePick,groups,setGroups,login}}>
             { children }
         </UserContext.Provider>
     )
