@@ -1,13 +1,17 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Search.css";
-import { useUser } from '../context/UseUser'
+import { useUser } from "../context/UseUser";
 
 export default function Search() {
   const [movieData, setMovieData] = useState({ search: "" });
   const { moviePick, setMoviePick } = useUser();
   const resultsRef = useRef(null);
+
+  useEffect(() => {
+    setMoviePick(null);
+  }, [setMoviePick]);
 
   const handleChange = (e) => {
     setMovieData((prevMovieData) => ({
@@ -31,7 +35,7 @@ export default function Search() {
       .then((response) => {
         setMoviePick(response.data);
         if (resultsRef.current) {
-          resultsRef.current.scrollIntoView({ behavior: 'smooth' });
+          resultsRef.current.scrollIntoView({ behavior: "smooth" });
         }
         /*setMoviePick(
           "https://image.tmdb.org/t/p/w342/" + response.data[0].poster_path
@@ -59,12 +63,12 @@ export default function Search() {
             <div className="poster" key={index}>
               {/*<h2>{movie.title}</h2>*/}
               {movie.poster_path ? (
-                <Link to={`/movie/?id=${(movie.id)}`}> 
-                {/*<Link to={`/movie/${(movie.title)}?poster=${(movie.poster_path)}/${(movie.id)}`}>*/}
-                <img
-                  src={"https://image.tmdb.org/t/p/w342/" + movie.poster_path}
-                  alt="Movie poster"
-                />
+                <Link to={`/movie/?id=${movie.id}`}>
+                  {/*<Link to={`/movie/${(movie.title)}?poster=${(movie.poster_path)}/${(movie.id)}`}>*/}
+                  <img
+                    src={"https://image.tmdb.org/t/p/w342/" + movie.poster_path}
+                    alt="Movie poster"
+                  />
                 </Link>
               ) : null}
             </div>
