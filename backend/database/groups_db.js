@@ -2,7 +2,7 @@ const pgPool = require("./pg_connection");
 
 const sql = {
   GET_ALLGROUPS: "SELECT * FROM groups",
-  GET_GROUPBYNAME: "SELECT * FROM groups WHERE groupname=$1",
+  GET_GROUPBNAME: "SELECT * FROM groups WHERE groupname=$1",
   GET_OWNGROUPS: `SELECT * FROM groups 
                   INNER JOIN groupmembers 
                   ON groups.idGroup=groupmembers.idGroup 
@@ -22,14 +22,9 @@ async function getAllGroups() {
   return result.rows;
 }
 
-async function getGroupsByUsername(username) {
+async function getOwnGroups(username) {
   let result = await pgPool.query(sql.GET_OWNGROUPS, [username]);
   return result.rows;
-}
-
-async function getGroupByName(groupname) {
-  let result = await pgPool.query(sql.GET_GROUPBYNAME, [groupname]);
-  return result.rows[0];
 }
 
 async function getGroupId(groupname) {
@@ -54,4 +49,4 @@ async function deleteGroup(idgroup) {
 
 
 
-module.exports = { getAllGroups, getGroupByName, getGroupsByUsername, getGroupId, getOwnerid, getOwnersName, deleteGroup };
+module.exports = { getAllGroups, getOwnGroups, getGroupId, getOwnerid, getOwnersName, deleteGroup };

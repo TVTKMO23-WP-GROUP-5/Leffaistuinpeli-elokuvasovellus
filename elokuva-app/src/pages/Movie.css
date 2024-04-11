@@ -37,6 +37,9 @@ h3 {
 }
 
 .overview, .imdb {
-    flex-shrink: 1;
-  }
+  flex-shrink: 1;
+}
+
+.movie_poster {
+}
 

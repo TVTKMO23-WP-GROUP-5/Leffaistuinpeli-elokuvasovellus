@@ -34,6 +34,7 @@ export default function Search() {
       .post("http://localhost:3001/movies?query=", movieData)
       .then((response) => {
         setMoviePick(response.data);
+        sessionStorage.setItem('moviePick', JSON.stringify(response.data))
         if (resultsRef.current) {
           resultsRef.current.scrollIntoView({ behavior: "smooth" });
         }
