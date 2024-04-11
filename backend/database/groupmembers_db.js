@@ -10,7 +10,8 @@ const sql = {
     DELETE_MEMBERFROMGROUP: "DELETE FROM groupmembers WHERE idgroup = $1 AND idaccount = $2",
     DELETE_ALLMEMBERS: "DELETE FROM groupmembers WHERE idgroup = $1",
     DELETE_GROUP: "DELETE FROM groups WHERE idgroup = $1 AND owner = $2",
-    INSERT_APPLICATION: "INSERT INTO groupmembers (idgroup, idaccount) VALUES ($1, $2)"
+    INSERT_APPLICATION: "INSERT INTO groupmembers (idgroup, idaccount) VALUES ($1, $2)",
+    CHECK_USER_OWNER: "SELECT EXISTS (SELECT 1 FROM groups WHERE owner = $1)"
   };
 
 async function getGroupMember(idgroup) {
@@ -53,6 +54,11 @@ async function groupApplication(idgroup,idaccount) {
   await pgPool.query(sql.INSERT_APPLICATION, [idgroup,idaccount]);
 }
 
+async function checkUserOwner(username) {
+  const result = await pgPool.query(sql.CHECK_USER_OWNER, [username]);
+  return result.rows[0].exists;
+}
+
 module.exports = { 
   getGroupMember, 
   getGroupId, 
@@ -62,6 +68,7 @@ module.exports = {
   getGroupApplication, 
   updateGroupMembership,
   deleteAllMembers,
-  groupApplication 
+  groupApplication, 
+  checkUserOwner 
 }
   
