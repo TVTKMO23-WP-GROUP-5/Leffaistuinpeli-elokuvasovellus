@@ -5,6 +5,7 @@
 
 .container_owngroups a {
     text-decoration: none;
+    color: var(--black-foreground-color);
     display: flex;
 }
 
