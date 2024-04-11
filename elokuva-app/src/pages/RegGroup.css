@@ -1,0 +1,61 @@
+h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+  
+.rekisteröidy:first-child{
+    margin-top: 50px;
+}
+  
+.ryhmäsivu *{
+    margin: 1em;
+    padding: 0.5em;
+    min-width: 350px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.otsikko *{
+    margin: 0em;
+    padding: 0.5em;
+    min-width: 350px;
+    min-height: 25px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.ryhmännimi *{
+    margin: 0em;
+    padding: 0.5em;
+    min-width: 350px;
+    min-height: 2px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.kuvaus *{
+    margin: 0em;
+    padding: 0.5em;
+    min-width: 350px;
+    min-height: 220px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+
+.nappi *{
+    background-color: #293887;
+    color: white;
+    margin: 0em;
+    padding: 0.5em;
+    min-width: 350px;
+    min-height: 22px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
