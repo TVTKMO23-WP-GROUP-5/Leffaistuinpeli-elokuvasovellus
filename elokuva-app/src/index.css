@@ -23,6 +23,21 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+#root,
+.App {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  flex: 1;
+  overflow: auto;
+  padding-bottom: 60px;
+}
+
 input {
   border: 2px solid var(--dark-background-color);
   margin: 3px;
@@ -51,4 +66,5 @@ button:hover,
 .navButton:hover,
 .signButton:hover {
   transform: translate3d(-1px, 1px, 1px);
+  color: var(--light-background-color);
 }

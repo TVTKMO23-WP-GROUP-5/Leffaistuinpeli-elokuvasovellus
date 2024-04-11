@@ -1,41 +1,70 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link } from "react-router-dom";
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useUser } from '../context/UseUser'
 import axios from 'axios'
 import './AllGroups.css'
 import '../index.css'
-import { type } from '@testing-library/user-event/dist/type'
 
 export default function AllGroups() {
-  const [groups, setGroups] = useState([])
+  let navigate = useNavigate();
+  const { groups, setGroups } = useUser();
 
   useEffect(() => {
-    axios.get('http://localhost:3001/allgroups')
-      .then(response => {
-        setGroups(response.data)
-      })
-      .catch(error => {
-        console.error("Fetching failed", error)
-      })
+      axios.get('http://localhost:3001/allgroups')
+          .then(response => {
+              setGroups(response.data)
+          })
+          .catch(error => {
+              console.error("Fetching failed", error)
+          })
   }, []);
 
+  /*Seuraava otettu pois div class buttons:in jälkeen testiksi
+  <Link to='/reggroup'>
+          <button className='makegroup'>Luo ryhmä</button>
+        </Link>
+        <Link to='/grouppage'>
+          <button className='mygroups'>Omat ryhmät</button>
+        </Link>
+  */
   return (
     <div className='container_allgroups'>
       <div className='buttons'>
-        <button className='makegroup'>Luo ryhmä</button>
-        <button className='mygroups'>Omat ryhmät</button>
+        <Link to='/reggroup'>
+          <button className='makegroup'>Luo ryhmä</button>
+        </Link>
+        <Link to='/grouppage'>
+          <button className='mygroups'>Omat ryhmät</button>
+        </Link>
       </div>
       <div className='info'>
         <h2>Kaikki ryhmät</h2>
       </div>
-      <div className='grouplist'>
+      <div className='orderGroups'>
         <button className='alph_order'>A-Z ↑↓</button>
-        <p className='groupname'>Ryhmän nimi</p>
-        <p className='description'>Ryhmän kuvaus</p>
+      </div>
+      <div className='groupinfo'>
+        <div className='groupname'>
+          <p> <strong>Ryhmän nimi</strong></p>
+        </div>
+        <div className='group_description'>
+          <p><strong>Ryhmän kuvaus</strong></p>
+        </div>
       </div>
       <div className='groups'>
         <ul>
           {groups && groups.map((group, index) => 
             <li key={index}>
-              <strong>{group.name}:</strong> {group.description} (perustaja:{group.owner})
+              <div className='list_groupname'>
+                <p><strong>{group.name}</strong></p>
+              </div>
+              <div className='list_groupdescription'>
+                <em>{group.description}</em>
+              </div>
+            <div className='apply_button'>
+              <button>Liity ryhmään</button>
+            </div>
             </li>
           )}
         </ul>

@@ -19,9 +19,18 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/groupname", async (req, res) => {
-    const groups = await getGroupByName(req.query.groupname);
-    console.log(groups);
-    res.json(groups);
+    try {
+    const group = await getGroupByName(req.query.groupname);
+
+    const filteredGroup = group.map(group => ({
+        name: group.groupname,
+        description: group.description
+    }))
+    console.log(filteredGroup);
+    res.json(filteredGroup);
+    } catch (error) {
+        res.status(500).send('Server error');
+    }
 });
 
 module.exports = router;
