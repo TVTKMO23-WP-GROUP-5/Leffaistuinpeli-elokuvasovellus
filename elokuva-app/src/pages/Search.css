@@ -8,16 +8,42 @@
   margin: 0 auto;
 }
 
-.search {
+.search-type {
+  display:flex;
+  margin-bottom: 1em;
+}
+
+
+.name-search {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 30vw;
   height: 20vh;
-  margin: 50px auto;
+  margin: 10px auto;
 }
 
+.filtered-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 20vh;
+  margin: 20px auto;
+}
+
+
 input {
+  border: 2px solid var(--dark-background-color);
+  text-align: center;
+  font-size: 1.2em;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search-bars select {
   border: 2px solid var(--dark-background-color);
   text-align: center;
   font-size: 1.2em;

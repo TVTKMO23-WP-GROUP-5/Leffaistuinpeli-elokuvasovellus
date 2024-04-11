@@ -82,7 +82,7 @@ router.post("/handleapplication", async (req, res) => {
     console.log("käytiin")
     handleGroups(id, req, res)
 })
-module.exports = router;
+
 
 router.post("/insertapplication", async (req, res) => {
     try {
@@ -182,3 +182,5 @@ async function handleGroups(group_id, req, res) {
         res.status(500).send('Sever error');
     }
 }
+
+module.exports = router;
