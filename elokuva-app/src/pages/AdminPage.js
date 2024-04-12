@@ -79,7 +79,6 @@ export default function AdminPage() {
 
     return (
         <div className = "members">
-            <h1 style={{ color: 'var(--dark-background-color)' }}>Ryhmäsi jäsenet</h1>
             <div className = "admin">
                 <p>Ryhmien ylläpitäjä:</p> 
                 <p>{user}</p>

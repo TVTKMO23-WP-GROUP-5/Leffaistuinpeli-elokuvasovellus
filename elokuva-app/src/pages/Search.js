@@ -135,9 +135,9 @@ export default function Search() {
     <>
     <div className="searchpage-container">
       <div className = "search-type">
-        <input type = "radio" name = "searchType" value = "basic" onClick={handleSearchType}/>Haku
-        <input type = "radio" name = "searchType" value = "filtered" onClick={handleSearchType}/>Elokuvahaku
-        <input type = "radio" name = "searchType" value = "filtered-series" onClick={handleSearchType}/>Sarjahaku
+        <input type = "radio" name = "searchType" value = "basic" onClick={handleSearchType}/><span class="radio-label">Haku</span>
+        <input type = "radio" name = "searchType" value = "filtered" onClick={handleSearchType}/><span class="radio-label">Elokuvahaku</span>
+        <input type = "radio" name = "searchType" value = "filtered-series" onClick={handleSearchType}/><span class="radio-label">Sarjahaku</span>
       </div>
       <div className = "search-bars"> 
         {searchType === "basic" && (
@@ -149,11 +149,9 @@ export default function Search() {
             onChange={handleChange}
           />
           <select name="pages" onChange={handleChange}>
-            <option value="1">näytä 20 elokuvaa</option>
-            <option value="2">näytä 40 elokuvaa</option>
-            <option value="3">näytä 60 elokuvaa</option>
-            <option value="4">näytä 80 elokuvaa</option>
-            <option value="5">näytä 100 elokuvaa</option>
+            <option value="1">Pieni haku</option>
+            <option value="4">Keskimääräinen haku</option>
+            <option value="8">Suuri haku</option>
           </select>
           <button type="submit">Haku</button>
         </form>
@@ -161,7 +159,6 @@ export default function Search() {
 
         {searchType === "filtered" && (
         <form className="filtered-search" onSubmit={handleFilteredSearch}>
-          <div>
             <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
             <input name = "cast" placeholder= "näyttelijä" onChange={handleFilter}/>
             <select name="genre" onChange={handleFilter}>
@@ -186,8 +183,6 @@ export default function Search() {
               <option value="10752">Sota</option>
               <option value="37">Western</option>
             </select>
-          </div>
-          <div>
             <select name="sort" onChange={handleFilter}>
               <option value="title.asc">Nimi (nouseva)</option>
               <option value="title.desc">Nimi (laskeva)</option>
@@ -203,20 +198,16 @@ export default function Search() {
               <option value="se">Ruotsi</option>
             </select>
             <select name="pages" onChange={handleFilter}>
-              <option value="1">näytä 20 elokuvaa</option>
-              <option value="2">näytä 40 elokuvaa</option>
-              <option value="3">näytä 60 elokuvaa</option>
-              <option value="4">näytä 80 elokuvaa</option>
-              <option value="5">näytä 100 elokuvaa</option>
+            <option value="1">Pieni haku</option>
+            <option value="4">Keskimääräinen haku</option>
+            <option value="8">Suuri haku</option>
             </select>
             <button type="submit">Haku</button>
-          </div>
         </form>
         )}
 
         {searchType === "filtered-series" && (
         <form className="filtered-search" onSubmit={handleFilteredSeries}>
-          <div>
             <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
             <select name="genre" onChange={handleFilter}>
               <option value = "">Genre</option>
@@ -243,8 +234,6 @@ export default function Search() {
               <option value="fi">Suomi</option>
               <option value="se">Ruotsi</option>
             </select>
-          </div>
-          <div>
             <select name="sort" onChange={handleFilter}>
               <option value="name.asc">Nimi (123abc...)</option>
               <option value="name.desc">Nimi (öäå...)</option>
@@ -254,14 +243,11 @@ export default function Search() {
               <option value="first_air_date.desc">Ensiesiintyminen (vanhimmat)</option>
             </select>
             <select name="pages" onChange={handleFilter}>
-              <option value="1">näytä 20 sarjaa</option>
-              <option value="2">näytä 40 sarjaa</option>
-              <option value="3">näytä 60 sarjaa</option>
-              <option value="4">näytä 80 sarjaa</option>
-              <option value="5">näytä 100 sarjaa</option>
+            <option value="1">Pieni haku</option>
+            <option value="4">Keskimääräinen haku</option>
+            <option value="8">Suuri haku</option>
             </select>
             <button type="submit">Haku</button>
-          </div>
         </form>
         )}
       </div>
