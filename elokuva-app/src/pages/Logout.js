@@ -7,6 +7,7 @@ export default function Logout() {
   useEffect(() => {
     setUser(null);
     sessionStorage.setItem('username', null)
+    sessionStorage.setItem('token', null)
   }, [])
   
   return <p>You have logged out.</p>;

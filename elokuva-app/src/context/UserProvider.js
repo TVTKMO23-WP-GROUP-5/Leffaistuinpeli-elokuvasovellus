@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { UserContext } from "./UserContext"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -24,6 +24,25 @@ export default function UserProvider({children}) {
             })
             .catch(err => console.log(err.message))
     }
+
+    useEffect(() => {
+        const storedUser = sessionStorage.getItem("username");
+        if (storedUser == "null") {
+          setUser(null);
+        } else {
+          setUser(storedUser)
+        }
+      }, [setUser]);
+    
+    useEffect(() => {
+        const storedMoviePick = sessionStorage.getItem("moviePick");
+        if (Array.isArray(storedMoviePick)) {
+          setMoviePick((storedMoviePick));
+        } else {
+            setMoviePick([])
+        }
+      }, [setMoviePick]);
+    
 
     return (
         <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,moviePick,setMoviePick,groups,setGroups,login}}>

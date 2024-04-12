@@ -14,6 +14,8 @@ export default function Navbar() {
   const [menu, setMenu] = useState("Menu hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
 
+  console.log(user)
+
   useEffect(() => {
     axios
       .post("http://localhost:3001/getmembers/checkowner", { username: user })
