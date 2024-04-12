@@ -12,15 +12,32 @@ export default function AllGroups() {
   const [ isSortedAsc, setIsSortedAsc ] = useState(true)
 
   useEffect(() => {
-      axios.get('http://localhost:3001/groups/allgroups')
-          .then(response => {
-              const sortedGroups = response.data.sort((a, b ) => a.name.localeCompare(b.name))
-              setGroups(sortedGroups)
+    let isMounted = true; //tämä tarkistuksena, ettei async kutsut aseta statea jos komponentti on poistunut domista
+
+    const fetchGroups = axios.get('http://localhost:3001/groups/allgroups')
+    const username = sessionStorage.getItem('username')
+    const fetchUserGroups = user ? axios.get(`http://localhost:3001/groups/owngroups?username=${username}`) : Promise.resolve({ data: []})
+
+    Promise.all([fetchGroups, fetchUserGroups])
+          .then(([groupsResponse, userGroupsResponse]) => {
+            if (isMounted) {
+              const sortedGroups = groupsResponse.data.sort((a, b ) => a.name.localeCompare(b.name))
+              const userGroups = new Set(userGroupsResponse.data.map(group => group.name))
+              
+              const groupsWithMembership = sortedGroups.map(group => ({
+                ...group,
+                isMember: userGroups.has(group.name)
+              }))
+              
+              setGroups(groupsWithMembership)
+            }
           })
           .catch(error => {
               console.error("Fetching failed", error)
           })
-  }, [setGroups]);
+
+    return () => { isMounted = false; }
+  }, [user, setGroups]);
 
   const toggleSort = () => {
     const sortedGroups = [...groups].sort((a, b) => {
@@ -89,7 +106,7 @@ mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
               <div className='list_groupdescription'>
                 <em>{group.description}</em>
               </div>
-              {user && (
+              {user && !group.isMember && (
               <div className='apply_button'>
                 <button onClick={() => handleInvitation(index)}>Liity</button>
                 {activeGroup === index && (
