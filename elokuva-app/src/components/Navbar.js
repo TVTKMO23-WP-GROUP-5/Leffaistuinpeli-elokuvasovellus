@@ -9,6 +9,8 @@ export default function Navbar() {
   const { user } = useUser();
   const [isAdmin, setIsAdmin] = useState(false)
 
+  console.log(user)
+
   useEffect(() => {
     axios.post('http://localhost:3001/getmembers/checkowner', {username: user})
       .then(response => {
