@@ -1,4 +1,5 @@
 import "./App.css";
+import React from 'react';
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -15,16 +16,17 @@ import NotFound from "./pages/NotFound";
 import AdminPage from "./pages/AdminPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
+import Movie from "./pages/Movie";
 import { Route, Routes } from "react-router-dom";
 import UserProvider from "./context/UserProvider";
-import Movie from "./pages/Movie";
-
+import { useTheme } from './context/ThemeContext';
 
 function App() {
+  const { theme } = useTheme();
+
   return (
     <UserProvider>
-      <div className="site-container">
+      <div className="site-container" data-theme={theme}>
       <Navbar></Navbar>
       <div className="container">
         <Routes>

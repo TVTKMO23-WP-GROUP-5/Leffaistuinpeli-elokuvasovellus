@@ -27,7 +27,7 @@ export default function UserProvider({children}) {
 
     useEffect(() => {
         const storedUser = sessionStorage.getItem("username");
-        if (storedUser == "null") {
+        if (storedUser === "null") {
           setUser(null);
         } else {
           setUser(storedUser)
