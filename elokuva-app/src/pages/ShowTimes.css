@@ -76,9 +76,9 @@
   margin-top: 10px;
 }
 
-.st-details {
+.st-details, .st-time {
   font-size: 18px;
-  color: var(--dark-foreground-color);
+  color: var(--dark-color);
 }
 
 @media (max-width: 1100px) {
