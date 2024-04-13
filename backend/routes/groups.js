@@ -12,7 +12,7 @@ router.get("/allgroups", async (req, res) => {
             owner: group.owner
         }));
         console.log(filteredGroups);
-        res.json(filteredGroupMembers,filteredGroups);
+        res.json(filteredGroups);
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error');
@@ -21,14 +21,19 @@ router.get("/allgroups", async (req, res) => {
 
 router.get("/owngroups", async (req, res) => {
     try {
-    const owngroups = await getOwnGroups(req.query.username);
+        const username = req.query.username;
+        if (!username) {
+            return res.status(400).json({ msg: "Username is required" })
+        }
 
-    const filteredGroup = owngroups.map(group => ({
-        name: group.groupname,
-        description: group.description
-    }))
-    console.log(filteredGroup);
-    res.json(filteredGroup);
+        const owngroups = await getOwnGroups(username);
+
+        const filteredGroup = owngroups.map(group => ({
+            name: group.groupname,
+            description: group.description
+        }))
+        console.log(filteredGroup);
+        res.json(filteredGroup);
     } catch (error) {
         res.status(500).send('Server error');
     }
