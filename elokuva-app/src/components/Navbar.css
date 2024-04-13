@@ -43,6 +43,11 @@ nav {
   margin-right: 1.3vh;
 }
 
+.logo-container a {
+  display: inline-block;
+  cursor: pointer;
+}
+
 .logo-container img {
   width: 100%;
   height: auto;

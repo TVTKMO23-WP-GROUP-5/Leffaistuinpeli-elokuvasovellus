@@ -59,7 +59,7 @@ export default function Navbar() {
   return (
     <nav>
       <div className="logo-container">
-        <img src={logos} alt="Logo" />
+        <Link to="/"><img src={logos} alt="Logo" /></Link>
       </div>
 
       <div className={`burger-menu ${burger}`} onClick={updateMenu}>
