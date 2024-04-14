@@ -10,5 +10,5 @@ export default function Logout() {
     sessionStorage.setItem('token', null)
   }, [])
   
-  return <p>You have logged out.</p>;
+  return <p className="loggedOut">Olet onnistuneesti kirjautunut ulos.</p>;
 }

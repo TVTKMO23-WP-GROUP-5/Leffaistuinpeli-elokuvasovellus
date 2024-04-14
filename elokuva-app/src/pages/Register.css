@@ -22,7 +22,8 @@ form {
 }
   
 
-button {
-    background-color: #293887;
-    color: white;
-}
+.continue {
+    padding: 0.30em;
+    font-weight: 600;
+    font-size: 1.45em;
+  }
