@@ -29,6 +29,8 @@
 
 .please {
   text-align: center;
+  font-size: 18px;
+  color: var(--dark-color);
 }
 
 .st-list {

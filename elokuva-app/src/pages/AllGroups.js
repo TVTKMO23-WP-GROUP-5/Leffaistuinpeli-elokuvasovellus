@@ -73,7 +73,7 @@ mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
   return (
     <div className='container_allgroups'>
       {user && (
-      <div className='buttons'>
+      <div className='group_buttons'>
         <Link to='/reggroup'>
           <button className='makegroup'>Luo ryhmä</button>
         </Link>

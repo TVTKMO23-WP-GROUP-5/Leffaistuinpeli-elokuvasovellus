@@ -1,25 +1,40 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
-import dog1 from "../images/dog1.png";
-import dog2 from "../images/dog6.png";
-import dog3 from "../images/dog7.png";
+import axios from "axios";
 
 export default function Home() {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const getRandomPosters = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/random_movies')
+        setMovies(response.data)
+      } catch (error) {
+        console.error("Virhe satunnaisten postereiden haussa", error)
+      }
+    };
+    getRandomPosters();
+  }, []);
+
+  const renderCardGroup = (startIndex) => (
+    <div className="card-container">
+      {movies.slice(startIndex, startIndex + 3).map((movie, index) => (
+        <div key={index} className="homeposter" style={{ zIndex: 3 - index }}>
+          <img
+            src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+            alt={movie.title}
+          />
+        </div>
+      ))}
+    </div>
+  );
+
   return (
-    <div className="container">
-      <Link to="/Search" className="card">
-        <img src={dog3} alt="Elokuvia" />
-        <p>Hae ja arvostele elokuvia!</p>
-      </Link>
-      <Link to="/AllGroups" className="card">
-        <img src={dog2} alt="Ryhmiin liittyminen" />
-        <p>Liity ryhmiin ja keskustele!</p>
-      </Link>
-      <Link to="/Showtimes" className="card">
-        <img src={dog1} alt="Näytösaikojen selaaminen" />
-        <p>Selaa elokuvien näytösaikoja!</p>
-      </Link>
+<div className="home-container">
+      <div><p className="frontText">Hae ja arvostele elokuvia!</p>{renderCardGroup(0)}</div>
+      <div><p className="frontText">Selaa elokuvien näytösaikoja!</p>{renderCardGroup(3)}</div>
+      <div><p className="frontText">Liity ryhmiin ja keskustele!</p>{renderCardGroup(6)}</div>
     </div>
   );
 }

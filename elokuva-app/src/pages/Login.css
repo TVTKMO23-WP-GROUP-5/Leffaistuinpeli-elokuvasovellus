@@ -41,3 +41,9 @@
   width: calc(100%-15px);
   padding: 10px;
 }
+
+.loggedOut {
+  margin-top: 50px;
+  font-size: 32px;
+  color: var(--black-foreground-color);
+}

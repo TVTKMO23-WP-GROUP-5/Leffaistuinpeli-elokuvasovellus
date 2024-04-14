@@ -6,8 +6,20 @@ import { Link } from "react-router-dom";
 import { useUser } from "../context/UseUser";
 import { useTheme } from "../context/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from 'axios';
-import { faHouse, faMagnifyingGlass, faCalendarDays, faPeopleGroup, faSun, faMoon, faGear, faRightFromBracket, faStar, faUserGroup, faGroupArrowsRotate } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
+import {
+  faHouse,
+  faMagnifyingGlass,
+  faCalendarDays,
+  faPeopleGroup,
+  faSun,
+  faMoon,
+  faGear,
+  faRightFromBracket,
+  faStar,
+  faUserGroup,
+  faGroupArrowsRotate,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Navbar() {
   const { user } = useUser();
@@ -17,13 +29,12 @@ export default function Navbar() {
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const { theme, changeTheme } = useTheme();
 
-  const logos = theme === 'dark'? logo2 : logo1;
+  const logos = theme === "dark" ? logo1 : logo2;
 
   useEffect(() => {
     axios
       .post("http://localhost:3001/getmembers/checkowner", { username: user })
       .then((response) => {
-        console.log(response.data);
         setIsAdmin(response.data);
       })
       .catch((error) => {
@@ -59,7 +70,9 @@ export default function Navbar() {
   return (
     <nav>
       <div className="logo-container">
-        <Link to="/"><img src={logos} alt="Logo" /></Link>
+        <Link to="/">
+          <img src={logos} alt="Logo" />
+        </Link>
       </div>
 
       <div className={`burger-menu ${burger}`} onClick={updateMenu}>
@@ -70,46 +83,83 @@ export default function Navbar() {
       <div className={`menu ${menu}`}>
         <ul id="menu">
           <li>
-            <Link to="/"><FontAwesomeIcon icon={faHouse} className="fa-icon"/><span className="link-text">Etusivu</span></Link>
+            <Link to="/">
+              <FontAwesomeIcon icon={faHouse} className="fa-icon" />
+              <span className="link-text">Etusivu</span>
+            </Link>
           </li>
           <li>
-            <Link to="/search"><FontAwesomeIcon icon={faMagnifyingGlass} className="fa-icon"/><span className="link-text">Haku</span></Link>
+            <Link to="/search">
+              <FontAwesomeIcon icon={faMagnifyingGlass} className="fa-icon" />
+              <span className="link-text">Haku</span>
+            </Link>
           </li>
           <li>
             <Link to="/showtimes">
-              <FontAwesomeIcon icon={faCalendarDays} className="fa-icon"/>
+              <FontAwesomeIcon icon={faCalendarDays} className="fa-icon" />
               <span className="link-text">Näytösajat</span>
             </Link>
           </li>
           <li>
             <Link to="/allgroups">
-              <FontAwesomeIcon icon={faPeopleGroup} className="fa-icon"/>
+              <FontAwesomeIcon icon={faPeopleGroup} className="fa-icon" />
               <span className="link-text">Ryhmät</span>
             </Link>
           </li>
           <li>
-          <Link to="/owngroups"><FontAwesomeIcon icon={faUserGroup} className="fa-icon"/><span className="link-text">Omat ryhmät</span></Link>
+            <Link to="/owngroups">
+              <FontAwesomeIcon icon={faUserGroup} className="fa-icon" />
+              <span className="link-text">Omat ryhmät</span>
+            </Link>
           </li>
           {isAdmin && (
             <>
               <li>
-                <Link to="/adminpage"><FontAwesomeIcon icon={faGroupArrowsRotate} className="fa-icon"/><span className="link-text">Ryhmän ylläpito</span></Link>
+                <Link to="/adminpage">
+                  <FontAwesomeIcon
+                    icon={faGroupArrowsRotate}
+                    className="fa-icon"
+                  />
+                  <span className="link-text">Ryhmän ylläpito</span>
+                </Link>
               </li>
             </>
           )}
           <li>
-            <Link to="/search"><FontAwesomeIcon icon={faStar} className="fa-icon" /><span className="link-text">Arvostelut</span></Link>
+            <Link to="/search">
+              <FontAwesomeIcon icon={faStar} className="fa-icon" />
+              <span className="link-text">Arvostelut</span>
+            </Link>
           </li>
           {user && (
             <>
               <li>
-                <Link to="/userpage"><FontAwesomeIcon icon={faGear} className="fa-icon"/><span className="link-text">Omat tiedot</span></Link>
+                <Link to="/userpage">
+                  <FontAwesomeIcon icon={faGear} className="fa-icon" />
+                  <span className="link-text">Omat tiedot</span>
+                </Link>
               </li>
             </>
           )}
           <li>
-          {user === null && <Link to="/login"><FontAwesomeIcon icon={faRightFromBracket}  className="fa-icon"/><span className="link-text">Kirjaudu sisään</span></Link>}
-          {user && <Link to="/logout"><FontAwesomeIcon icon={faRightFromBracket} className="fa-icon"/><span className="link-text">Kirjaudu ulos</span></Link>}
+            {user === null && (
+              <Link to="/login">
+                <FontAwesomeIcon
+                  icon={faRightFromBracket}
+                  className="fa-icon"
+                />
+                <span className="link-text">Kirjaudu sisään</span>
+              </Link>
+            )}
+            {user && (
+              <Link to="/logout">
+                <FontAwesomeIcon
+                  icon={faRightFromBracket}
+                  className="fa-icon"
+                />
+                <span className="link-text">Kirjaudu ulos</span>
+              </Link>
+            )}
           </li>
           <li>
             <Link to="/search">Haku</Link>
@@ -124,49 +174,57 @@ export default function Navbar() {
         <ul className="buttons">
           <li>
             <Link to="/search" className="navButton">
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="fa-icon"/><span className="link-text">Haku</span>
+              <FontAwesomeIcon icon={faMagnifyingGlass} className="fa-icon" />
+              <span className="link-text">Haku</span>
             </Link>
           </li>
           <li>
             <Link to="/showtimes" className="navButton">
-            <FontAwesomeIcon icon={faCalendarDays} className="fa-icon"/>
+              <FontAwesomeIcon icon={faCalendarDays} className="fa-icon" />
               <span className="link-text">Näytösajat</span>
             </Link>
           </li>
           <li>
             <Link to="/allgroups" className="navButton">
-            <FontAwesomeIcon icon={faPeopleGroup} className="fa-icon"/>
+              <FontAwesomeIcon icon={faPeopleGroup} className="fa-icon" />
               <span className="link-text">Ryhmät</span>
             </Link>
           </li>
         </ul>
       </div>
 
-      <div className="search-container">
-        <input type="text" placeholder="Hae elokuvia tai sarjoja"></input>
+      <div className="theme" onClick={changeTheme}>
+        {theme === "dark" ? (
+          <FontAwesomeIcon
+            icon={faMoon}
+            size="3x"
+            className="theme-icon"
+          />
+        ) : (
+          <FontAwesomeIcon
+            icon={faSun}
+            size="3x"
+            className="theme-icon"
+          />
+        )}
       </div>
 
       <div className="sign-container">
-      {user === null && (
+        {user === null && (
           <Link to="/login" className="signButton">
-            <FontAwesomeIcon icon={faRightFromBracket} className="fa-icon"/><span className="login">Kirjaudu sisään</span>
+            <FontAwesomeIcon icon={faRightFromBracket} className="fa-icon" />
+            <span className="login">Kirjaudu sisään</span>
             <span className="login-small">Kirjaudu</span>
           </Link>
-        )}
+       )}
         {user && (
           <Link to="/logout" className="signButton">
-            <FontAwesomeIcon icon={faRightFromBracket} className="fa-icon"/><span className="login">Kirjaudu ulos</span>
+            <FontAwesomeIcon icon={faRightFromBracket} className="fa-icon" />
+            <span className="login">Kirjaudu ulos</span>
             <span className="login-small">Kirjaudu</span>
           </Link>
         )}
-        </div>
-        <div className="theme" onClick={changeTheme}>
-          {theme === "dark" ? (
-            <FontAwesomeIcon icon={faMoon} size="2x" className="theme-icon"/>
-          ) : (
-            <FontAwesomeIcon icon={faSun} size="2x" className="theme-icon"/>
-          )}
-        </div>
+      </div>
     </nav>
   );
 }
