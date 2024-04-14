@@ -17,7 +17,7 @@ app.use((cors())) // poistaa header-ongelmia. Jaakko
 app.use("/account", account);
 app.use("/groups", groups);
 app.use("/auth", auth); // Hieman muuttelin osoitteita. keskustellaan näistä. Jaakko
-app.use("/movies", movies);
+/*app.use("/movies", movies)*/
 app.use("/getmembers", getmembers)
 app.use("/random_movies", random)
 

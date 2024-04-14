@@ -1,21 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/UserContext"
+import { useLocation } from 'react-router-dom';
 import "./Home.css";
 import axios from "axios";
 
 export default function Home() {
-  const [movies, setMovies] = useState([]);
+  const { movies, setMovies, loading, setLoading } = useContext(UserContext)
+  const location = useLocation();
+  const [isHome, setIsHome] = useState(location.pathname === '/')
 
   useEffect(() => {
-    const getRandomPosters = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/random_movies')
-        setMovies(response.data)
-      } catch (error) {
-        console.error("Virhe satunnaisten postereiden haussa", error)
+    setIsHome(location.pathname === '/')
+  }, [location]);
+
+  useEffect(() => {
+    console.log('Effect running', { isHome, moviesLength: movies.length, loading });
+    
+    if (isHome && movies.length === 0 && !loading) {
+      setLoading(true)
+      axios.get("http://localhost:3001/random_movies/homepage")
+        .then(response => {
+          setMovies(response.data)
+          setLoading(false)
+        })
+        .catch(error => {
+          console.error("Virhe elokuvien haussa", error)
+          setLoading(false)
+        });
+    }
+  
+    const handleVisibilityChange = () => {
+      console.log("Dokumentin tila: ", document.visibilityState)
+      if (document.visibilityState === 'hidden' && isHome) {
+        console.log("Päivitetään kuvat taustalla...")
+        setLoading(true);
+        axios.get("http://localhost:3001/random_movies/homepage")
+          .then(response => {
+            setMovies(response.data)
+            setLoading(false);
+            console.log("Kuvat päivitetty taustalla")
+          })
+          .catch(error => {
+            console.error("Virhe elokuvien haussa", error)
+            setLoading(false);
+          });
       }
     };
-    getRandomPosters();
-  }, []);
+  
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+  
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    };
+  }, [isHome, movies.length, loading, setLoading, setMovies])
+
+
 
   const renderCardGroup = (startIndex) => (
     <div className="card-container">
@@ -31,10 +70,25 @@ export default function Home() {
   );
 
   return (
-<div className="home-container">
-      <div><p className="frontText">Hae ja arvostele elokuvia!</p>{renderCardGroup(0)}</div>
-      <div><p className="frontText">Selaa elokuvien näytösaikoja!</p>{renderCardGroup(3)}</div>
-      <div><p className="frontText">Liity ryhmiin ja keskustele!</p>{renderCardGroup(6)}</div>
+    <div className="home-container">
+      <div>
+        <div className="frontText one">
+          <p>Hae ja arvostele elokuvia!</p>
+        </div>
+        {renderCardGroup(0)}
+      </div>
+      <div>
+        <div className="frontText two">
+          <p>Selaa elokuvien näytösaikoja!</p>
+        </div>
+        {renderCardGroup(3)}
+      </div>
+      <div>
+        <div className="frontText three">
+          <p>Liity ryhmiin ja keskustele!</p>
+        </div>
+        {renderCardGroup(6)}
+      </div>
     </div>
   );
 }
