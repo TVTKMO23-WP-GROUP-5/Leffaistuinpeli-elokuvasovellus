@@ -13,7 +13,7 @@ const sql = {
   GET_GROUPID: "SELECT idgroup FROM groups WHERE groupname=$1",
   GET_OWNERID: "SELECT idaccount FROM account INNER JOIN groups on account.username=groups.owner WHERE groups.owner=$1",
   GET_OWNERSNAME: "SELECT owner FROM groups WHERE groupname=$1",
-  POST_NEWGROUP: "INSERT INTO group (groupname, description, owner) VALUES ($1, $2, $3)",
+  POST_NEWGROUP: "INSERT INTO groups (groupname, description, owner) VALUES ($1, $2, $3)",
   DELETE_GROUP: "DELETE FROM groups WHERE idgroup=$1"
 };
 
@@ -51,8 +51,11 @@ async function createGroup(groupname, description, owner) {
   
 }
 
+async function getGroupByName(groupname) {
+  let result = await pgPool.query(sql.GET_GROUPBNAME, [groupname]);
+  return result.rows[0];
+}
 
 
-module.exports = { getAllGroups, getGroupByName, getGroupsByUsername, getGroupId, getOwnerid, getOwnersName, deleteGroup, createGroup };
 
-module.exports = { getAllGroups, getOwnGroups, getGroupId, getOwnerid, getOwnersName, deleteGroup };
+module.exports = { getAllGroups, getOwnGroups, getGroupId, getOwnerid, getOwnersName, deleteGroup, createGroup, getGroupByName };
