@@ -1,10 +1,14 @@
+
 const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName, createGroup } = require("../database/groups_db");
+
+const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName, getOwnGroups } = require("../database/groups_db");
+
 const router = require("express").Router();
 
 
 router.get("/allgroups", async (req, res) => {
     try {
-        const groups = await getAllGroups(req.query.groupname);
+        const groups = await getAllGroups();
 
         const filteredGroups = groups.map(group => ({
             name: group.groupname,
@@ -15,20 +19,25 @@ router.get("/allgroups", async (req, res) => {
         res.json(filteredGroups);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Sever error');
+        res.status(500).send('Server error');
     }
 });
 
 router.get("/owngroups", async (req, res) => {
     try {
-    const owngroups = await getGroupsByUsername(req.query.username);
+        const username = req.query.username;
+        if (!username) {
+            return res.status(400).json({ msg: "Username is required" })
+        }
 
-    const filteredGroup = owngroups.map(group => ({
-        name: group.groupname,
-        description: group.description
-    }))
-    console.log(filteredGroup);
-    res.json(filteredGroup);
+        const owngroups = await getOwnGroups(username);
+
+        const filteredGroup = owngroups.map(group => ({
+            name: group.groupname,
+            description: group.description
+        }))
+        console.log(filteredGroup);
+        res.json(filteredGroup);
     } catch (error) {
         res.status(500).send('Server error');
     }

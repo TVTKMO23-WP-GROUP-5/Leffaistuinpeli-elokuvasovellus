@@ -66,13 +66,13 @@ return (
           <h2>Luo tunnus</h2>
             <form onSubmit = {handleSubmit}>
                 
-                <input type="text" name="fname" placeholder='etunimi' onChange={handleChange} />
-                <input type="text" name="lname" placeholder='sukunimi' onChange={handleChange} />
-                <input type="text" name="email" placeholder='sähköposti' onChange={handleChange} />
-                <input type="text" name="username" placeholder='käyttäjätunnus' onChange={handleChange} />
-                <input type="password" name="first_password" placeholder='salasana' onChange={handleChange} />
-                <input type="password" name="password" placeholder='salasana uudestaan' onChange={handleChange} />
-                <button type="submit">Jatka</button>
+                <input type="text" name="fname" placeholder='Etunimi' onChange={handleChange} />
+                <input type="text" name="lname" placeholder='Sukunimi' onChange={handleChange} />
+                <input type="text" name="email" placeholder='Sähköposti' onChange={handleChange} />
+                <input type="text" name="username" placeholder='Käyttäjätunnus' onChange={handleChange} />
+                <input type="password" name="first_password" placeholder='Salasana' onChange={handleChange} />
+                <input type="password" name="password" placeholder='Salasana uudestaan' onChange={handleChange} />
+                <button type="submit" className="continue">Jatka</button>
             </form>
         </div>
     </div>

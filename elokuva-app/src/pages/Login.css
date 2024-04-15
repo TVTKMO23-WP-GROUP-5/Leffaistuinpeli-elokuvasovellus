@@ -9,6 +9,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: var(--light-foreground-color);
+  color: var(--black-foreground-color);
 }
 
 #login-form h3 {
@@ -24,6 +25,7 @@
 .or-text,
 .loginButton {
   width: 100%;
+  color: var(--black-foreground-color);
   margin-bottom: 15px;
   text-align: center;
   padding: 2px;
@@ -38,4 +40,10 @@
 #input input {
   width: calc(100%-15px);
   padding: 10px;
+}
+
+.loggedOut {
+  margin-top: 50px;
+  font-size: 32px;
+  color: var(--black-foreground-color);
 }

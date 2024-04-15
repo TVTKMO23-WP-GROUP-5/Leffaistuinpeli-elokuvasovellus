@@ -7,7 +7,8 @@ export default function Logout() {
   useEffect(() => {
     setUser(null);
     sessionStorage.setItem('username', null)
+    sessionStorage.setItem('token', null)
   }, [])
   
-  return <p>You have logged out.</p>;
+  return <p className="loggedOut">Olet onnistuneesti kirjautunut ulos.</p>;
 }

@@ -13,6 +13,7 @@
   justify-content: center;
   margin: var(--general-margin) auto;
   background-color: var(--light-foreground-color);
+  color: var(--black-background-color);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   gap: 10px;
@@ -25,18 +26,20 @@
 
 h3 {
   font-size: 36px;
+  color: var(--black-background-color);
 }
 
 .overview {
     font-size: 20px;
+    color: var(--black-background-color);
 }
 
 .imdb {
   font-size: 24px;
   font-weight: 600;
+  color: var(--black-background-color);
 }
 
 .overview, .imdb {
-    flex-shrink: 1;
-  }
-
+  flex-shrink: 1;
+}

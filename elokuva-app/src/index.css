@@ -1,16 +1,42 @@
 :root {
   --background-image: linear-gradient(135deg, #f5fbff 0%, #9dafd1 100%);
-  --button-gradient: linear-gradient(247deg, #536068 0%, #0d174b 100%);
+  --button-gradient: linear-gradient(247deg, #f0f8ff 0%, #72a0c1 100%);
+  --theme-color: #002244;
+  --theme-stroke-color: #99b3c6;
   --dark-background-color: #00416a;
-  --light-background-color: #72a0c1;
-  --white-background-color: #f0f0f0;
+  --light-background-color: #5695c2;
+  --white-background-color: #ffffff;
+  --black-foreground-color: #000;
   --dark-foreground-color: #002244;
   --light-foreground-color: #f0f8ff;
+  --dark-color: #002244;
   --accent-color: #318ce7;
-  --grey-color: #b2adca;
+  --blue-color: #cbe5fb;
   --general-padding: 1em;
   --general-margin: 2vh;
   --base-size: 5vw;
+}
+
+[data-theme="dark"] {
+  --background-image: linear-gradient(135deg, #000 0%, #002244 100%);
+  --button-gradient: linear-gradient(247deg, rgb(83, 96, 104) 0%, rgb(13, 23, 75) 100%);
+  --theme-color: #002244;
+  --dark-background-color: #72a0c1;
+  --black-foreground-color: #f0f8ff;
+  --dark-foreground-color: #f0f8ff;
+  --light-foreground-color: #002244;
+  --light-background-color: #28394b;
+  --white-background-color: #000;
+  --dark-color: #f0f8ff;
+  --accent-color: #c0abff;
+  --blue-color: #1b2b64;
+}
+
+.theme-icon {
+  color: var(--theme-color);
+  display: inline-flex;
+  justify-content: center;   
+  align-items: center;   
 }
 
 * {
@@ -52,20 +78,20 @@ body,
 }
 
 input {
-  border: 2px solid var(--dark-background-color);
+  border: 2px solid var(--black-background-color);
   text-align: center;
-  font-size: 1em;
+  font-size: 2em;
   width: 100%;
   border-radius: 18px;
   background-color: var(--white-background-color);
-  color: var(--dark-foreground-color);
+  color: black;
 }
 
 input:focus {
   outline: none;
-  border: 2px solid var(--dark-background-color);
+  border: 3px solid var(--accent-color);
   background-color: var(--white-background-color);
-  color: var(--dark-foreground-color);
+  color: black;
 }
 
 button,
@@ -75,10 +101,10 @@ button,
 .loginButton {
   width: 100%;
   background-image: var(--button-gradient);
-  border: 2px solid var(--light-foreground-color);
+  border: 1.6px solid var(--dark-color);
   border-radius: 18px;
-  box-shadow: var(--dark-foreground-color) 3px 3px 0 0;
-  color: var(--light-foreground-color);
+  box-shadow: var(--dark-color) 1px 1px 0 0;
+  color: var(--dark-foreground-color);
   font-size: 1.2em;
   cursor: pointer;
   text-align: center;
@@ -91,6 +117,5 @@ button:hover,
 .navButton:hover,
 .signButton:hover,
 a:hover {
-  transform: translate3d(-1px, 1px, 1px);
-  color: var(--light-background-color);
+  color: var(--accent-color);
 }

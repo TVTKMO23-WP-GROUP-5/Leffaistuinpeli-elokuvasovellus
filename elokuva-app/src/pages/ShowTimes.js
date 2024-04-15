@@ -13,7 +13,7 @@ export default function Showtimes() {
   useEffect(() => {
     if (!filter || !date) {
       console.log(
-        "Teatteria tai päivämäärää ei ole valittu, ei suoriteta API-kutsua"
+        "showtimes"
       );
       return;
     }
@@ -131,7 +131,7 @@ export default function Showtimes() {
           ))}
         </ul>
       ) : (
-        filter && date && <p>Ei näytöksiä valitulle teatterille ja päivälle</p>
+        filter && date && <p className="please">Ei näytöksiä valitulle teatterille ja päivälle</p>
       )}
     </div>
   );

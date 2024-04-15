@@ -6,6 +6,7 @@ const groups = require("./routes/groups");
 const getmembers = require("./routes/groupmembers")
 const auth = require("./routes/authentication");
 const movies = require("./routes/movie_search");
+const random = require('./routes/random_movies')
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,18 +18,14 @@ app.use((cors())) // poistaa header-ongelmia. Jaakko
 app.use("/account", account);
 app.use("/groups", groups);
 app.use("/auth", auth); // Hieman muuttelin osoitteita. keskustellaan näistä. Jaakko
-app.use("/movies", movies);
+/*app.use("/movies", movies)*/
 app.use("/getmembers", getmembers)
+app.use("/random_movies", random)
 
 
 app.listen(PORT, () => {
   console.log("Server running:" + PORT);
 });
-
-app.get("/", (req, res) => {
-  res.send("moro");
-});
-
 
 //Tämä toistaiseksi testinä -Taneli
 function authenticateToken(req, res, next) {
