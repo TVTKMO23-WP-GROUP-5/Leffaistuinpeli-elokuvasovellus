@@ -1,8 +1,10 @@
+// UserPage.js
+
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../context/UseUser';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Lisätty axios-kirjasto
-import './UserPage.css';
+import './UserPage.css'; // Tuodaan CSS-tiedosto
 
 export default function UserPage() {
   const { user, setUser } = useUser();
@@ -17,19 +19,18 @@ export default function UserPage() {
 
   const handleDeleteUser = () => {
     if (confirmDelete) {
-      const username = sessionStorage.getItem("username"); // Hae käyttäjänimi sessionStoragesta
-      axios.delete('http://localhost:3001/auth/delete', { data: { username } }) // Lähetä käyttäjänimi DELETE-pyynnön rungossa
+      const username = sessionStorage.getItem("username");
+      axios.delete('http://localhost:3001/auth/delete', { data: { username } })
         .then(response => {
           setUser(null);
           alert('Käyttäjätili poistettu onnistuneesti.');
         })
         .catch(error => {
-          console.error('Error deleting user:', error);
+          console.error('Virhe käyttäjätilin poistamisessa:', error);
           alert('Virhe käyttäjätilin poistamisessa.');
         });
     }
   };
-  
 
   const handleCheckboxChange = (e) => {
     setConfirmDelete(e.target.checked);
@@ -44,17 +45,19 @@ export default function UserPage() {
           <p>Sukunimi: {user.lname}</p>
           <p>Sähköposti: {user.email}</p>
           <div>
-            <input
-              type="checkbox"
-              id="confirmDeleteCheckbox"
-              checked={confirmDelete}
-              onChange={handleCheckboxChange}
-            />
-            <label htmlFor="confirmDeleteCheckbox">Vahvistan poiston</label>
+            <label htmlFor="confirmDeleteCheckbox">
+              <input
+                type="checkbox"
+                id="confirmDeleteCheckbox"
+                checked={confirmDelete}
+                onChange={handleCheckboxChange}
+              />
+              Oletko varma, että haluat poistaa käyttätilin?
+            </label>
+            <button className="button" onClick={handleDeleteUser} disabled={!confirmDelete}>
+              Poista käyttäjätili
+            </button>
           </div>
-          <button className="button" onClick={handleDeleteUser} disabled={!confirmDelete}>
-            Poista käyttäjätili
-          </button>
         </div>
       )}
     </div>
