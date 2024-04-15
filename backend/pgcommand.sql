@@ -24,7 +24,7 @@ CREATE TABLE groupmembers(
     idMember INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idGroup INT NOT NULL REFERENCES groups(idGroup),
     idAccount INT NOT NULL REFERENCES account(idAccount),
-    isMember BOOLEAN DEFAULT FALSE
+    isMember BOOLEAN DEFAULT FALSE,
     CONSTRAINT unique_group_member UNIQUE (idGroup, idAccount) --määrittelee,että idGroupin ja idAccountin samoja yhdistelmiä voi olla vain yksi.  
 );
 

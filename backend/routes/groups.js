@@ -1,4 +1,6 @@
-const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName, getOwnGroups, getGroupId } = require("../database/groups_db");
+
+const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName, createGroup, getOwnGroups, getGroupId } = require("../database/groups_db");
+
 
 const router = require("express").Router();
 
@@ -83,22 +85,17 @@ router.post("/delete", async (req, res) =>{
     }
 });
 
-router.post('/create', async (req, res) => {
-    try {
-      const { groupname, description, owner } = req.body;
-      await createGroup(groupname, description, owner);
-      res.json({ success: true, message: 'Ryhmä luotu onnistuneesti' });
-    } catch (error) {
-      console.error('Error creating group:', error);
-      res.status(500).json({ success: false, message: 'Ryhmän luonti epäonnistui' });
-    }
-  });
-
-
 
   router.post('/register', async (req, res) => {
-    try {
+    
       const { groupname, description, owner } = req.body;
+      console.log(owner)
+      if (!owner){
+        return res.status(400).json({ message: 'Käyttäjä nimeä ei löydy' });
+      }
+      try{
+
+      await createGroup(groupname, description, owner);
   
       if (!groupname || !description) {
         return res.status(400).json({ success: false, message: 'Ryhmän nimi ja kuvaus vaaditaan' });
@@ -106,7 +103,7 @@ router.post('/create', async (req, res) => {
   
     
       const responseMessage = 'Ryhmä luotu onnistuneesti';
-      res.json({ success: true, message: responseMessage });
+      res.json({ success: true, message:'success'  });
     } catch (error) {
       console.error('Error creating group:', error);
       res.status(500).json({ success: false, message: 'Ryhmän luonti epäonnistui' });

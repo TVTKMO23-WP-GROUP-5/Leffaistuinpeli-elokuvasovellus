@@ -5,47 +5,50 @@ import { useNavigate } from 'react-router-dom';
 import './RegGroup.css';
 
 export default function Register() {
-  const { registerData, setRegisterData } = useUser({
+  const { user } = useUser()
+  const [ groupRegisterData, setGroupRegisterData ] = useState({
     groupname: '',
     description: '',
-    owner: '',
+    owner : user ? user.username : '',
   });
 
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setRegisterData((prevRegisterData) => ({
-      ...prevRegisterData,
+    setGroupRegisterData((prevGroupRegisterData) => ({
+      ...prevGroupRegisterData,
       [e.target.name]: e.target.value,
     }));
   };
 
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
+    if (!groupRegisterData.groupname.trim() || !groupRegisterData.description.trim()) {
+      setError('Ryhmän nimi ja kuvaus vaaditaan');
+      return;
+    }
+  
     try {
-      if (!registerData.fname.trim() || !registerData.kuvaus.trim()) {
-        setError('Ryhmän nimi ja kuvaus vaaditaan');
-        return;
-      }
-
-      const response = await axios.post('http://localhost:3001/register', registerData);
-      console.log('Server response:', response.data);
-
-      if (response.data && response.data.success) {
+      const response = await axios.post('http://localhost:3001/groups/register', groupRegisterData);
+      
+      if (response.data.message === "success") {
         console.log('Group registered successfully:', response.data);
-        alert('Ryhmän luonti onnistui');
-        navigate('/userpage');
+        alert("Ryhmän luonti onnistui");
+        navigate('/allgroups');
       } else {
-        throw new Error('Ryhmän luonti epäonnistui');
+        console.log('Something went wrong:', response.data);
+        alert("Ryhmän luonti epäonnistui...");
       }
     } catch (error) {
-      console.error('Error registering group:', error);
-      alert('Virhe ryhmän luomisessa: ' + error.message);
+      console.error('Error registering group:', error.response.data);
+      alert("Virhe ryhmän luomisessa...");
     }
   };
-
+  
+  
   return (
     <div className="main">
       <div className="ryhmäsivu">
@@ -56,16 +59,18 @@ export default function Register() {
           <div className="ryhmännimi">
             <input
               type="text"
-              name="fname"
+              name="groupname"
               placeholder="Ryhmän nimi"
+              value={groupRegisterData.groupname}
               onChange={handleChange}
             />
           </div>
           <div className="kuvaus">
             <input
               type="text"
-              name="kuvaus"
+              name="description"
               placeholder="Kuvaus"
+              value={groupRegisterData.description}
               onChange={handleChange}
             />
           </div>
