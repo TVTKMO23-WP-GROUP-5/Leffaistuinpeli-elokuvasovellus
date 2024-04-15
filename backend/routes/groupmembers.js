@@ -113,7 +113,7 @@ router.post("/checkowner", async (req, res) => {
     try{
         const admin = req.body.username
         const isOwner = await checkUserOwner(admin)
-        console.log(admin, isOwner)
+        console.log("tämä", admin, isOwner)
         res.send(isOwner)
     } catch(error) {
         console.error(error);

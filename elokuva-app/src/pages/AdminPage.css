@@ -1,29 +1,78 @@
 .members {
     display:flex;
     flex-direction: column;
+    width: 95vw;
+    
+}
+
+p, h1, h2, h3, h4 {
+    color: var(--dark-foreground-color);
+}
+
+.groups{
+    display: flex;
+    justify-content: space-around;
+    width: 95vw;
+    flex-wrap: wrap;
+}
+
+.applications {
+    display: flex;
+    justify-content: space-around;
+    width: 95vw;
+    flex-wrap: wrap;
+}
+
+.groupmembers-list {
+    border: 2px solid black;
+    border-radius: 8px;
+    width: 48%;
+    min-width: 600px;
+    margin: 0.5em;
+    background-color: var(--dark-background-color);
 }
 
 .group-title {
-    margin-bottom: 0.5em;
-    margin-top: 1.0em;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5em;
+    padding: 0.5em;
+    background-color: var(--light-background-color);
+    border-radius: 8px;
+    border: 5px solid black;    
+}
+
+.gr-title-descripe {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.group-title button{
+    width: 200px;
+    max-height: 50px;
+    padding: 0.5em;
 }
 
 .group-descripe {
     margin-top: 0.1em;
-    margin-bottom: 0.5em;
+    margin: 0.5em;
+    
 }
 
 .members-list{
     font-weight: bold;
     display: flex;
     justify-content: space-between;
-    border-bottom: 3px solid black;
-    border-left: 3px solid black;
+    border-radius: 8px;
+    margin: 0.5em;
     padding: 0.5em;
+    background-color: var(--light-background-color);
 }
 
 .members-list button{
-    width: 100px;
+    width: 200px;
     padding: 0.5em;
 }
 
@@ -42,4 +91,15 @@
     flex-direction: column;
 
     font-weight: bold;
+}
+
+.emptygroup {
+    margin: 0.5em;
+}
+
+@media only screen and (max-width: 800px){
+    .groupmembers-list {
+        width: 90vw;
+        min-width: 300px;
+    }
 }
