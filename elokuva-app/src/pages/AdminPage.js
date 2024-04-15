@@ -85,54 +85,69 @@ export default function AdminPage() {
             </div>
 {/*------------------Tästä alkaa koodisilmukat adminin hallitsemiin ryhmiin --------------------------- */}
             <h3 style={{ color: 'var(--dark-background-color)' }}>RYHMÄT</h3>
-            {groupMembers.members && groupMembers.members.length > 0 ? (
-                groupMembers.members.map((member, index) => (
-                    <div className ="groupmembers-list">
-                        <div  className = "group-title">
-                            <h2>{groupMembers.name[index]}</h2>
-                            <button name={groupMembers.name[index]} onClick={() => handleGroupDelete(user, groupMembers.ID[index])}>Poista ryhmä</button>
+            <div className = "groups">
+                
+                {groupMembers.members && groupMembers.members.length > 0 ? (
+                    groupMembers.members.map((member, index) => (
+                        <div className ="groupmembers-list">
+                            <div  className = "group-title">
+                                <div className = "gr-title-descripe">
+                                    <h1>{groupMembers.name[index]}</h1>
+                                    <h4 className =  "group-descripe">{groupMembers.kuvaus[index]}</h4>
+                                </div>
+                                <button name={groupMembers.name[index]} onClick={() => handleGroupDelete(user, groupMembers.ID[index])}>Poista ryhmä</button>
+                            </div>
+
+                                {member.map((groupmember, innerIndex) => (
+                                    <div className="members-list" key={innerIndex}>
+                                        <p>{groupmember.username}</p>
+                                        <button name={groupmember.username} onClick={() => handleSubmit(groupmember.username, user, groupMembers.ID[index])}>Poista jäsen</button>
+                                    </div>
+                                ))}
                         </div>
 
-                        <h4 className =  "group-descripe">{groupMembers.kuvaus[index]}</h4>
-                            {member.map((groupmember, innerIndex) => (
-                                <div className="members-list" key={innerIndex}>
-                                    <p>{groupmember.username}</p>
-                                    <button name={groupmember.username} onClick={() => handleSubmit(groupmember.username, user, groupMembers.ID[index])}>Poista jäsen</button>
-                                </div>
-                            ))}
-                    </div>
-
-                ))
-            ) : (
-                    <div> Ryhmässäsi ei ole vielä yhtään jäsentä.</div>
-            )}
+                    ))
+                ) : (
+                        <div className = "emptygroup">
+                            <p> Ei jäseniä ryhmässä</p>
+                        </div>
+                )}
+            </div>
 {/*------------------Tästä alkaa koodisilmukat ryhmähakemuksiin --------------------------- */}
-            <h3 style={{ color: 'var(--dark-background-color)' }}>Hakemukset ryhmän jäseniksi</h3>
-            {groupMembers.application && groupMembers.application.length > 0 ? (
-                groupMembers.application.map((memberApplication, index) => (
-                    <div className ="groupmembers-list">
-                        <div  className = "group-title">
-                            <h2>{groupMembers.applicationGroupName[index]}</h2>
+<h3 style={{ color: 'var(--dark-background-color)' }}>Hakemukset ryhmän jäseniksi</h3>            
+            <div className = "applications">
+
+                {groupMembers.application && groupMembers.application.length > 0 ? (
+                    groupMembers.application.map((memberApplication, index) => (
+                        <div className ="groupmembers-list">
+                            <div  className = "group-title">
+                                <h2>{groupMembers.applicationGroupName[index]}</h2>
+                            </div>
+
+                            <h4 className =  "group-descripe">Hakemukset ryhmään pääsystä: </h4>
+                            {memberApplication && memberApplication.length > 0 ? (
+                                memberApplication.map((apply, innerIndex) => (
+                                    <div className="members-list" key={innerIndex}>
+                                        <p>{apply.username}</p>
+                                        <button name={apply.username} onClick={() => handleApplication(apply.username, groupMembers.ID[index], user)}>Hyväksy</button>
+                                        <button name={apply.username} onClick={() => handleSubmit(apply.username, user, groupMembers.ID[index])}>Hylkää</button>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className = "emptygroup">
+                                <p> Ei yhtään hakemusta ryhmiisi</p>
+                            </div>
+                            )}
                         </div>
 
-                        <h4 className =  "group-descripe">Hakemukset ryhmään pääsystä: </h4>
-                        {memberApplication && memberApplication.length > 0 ? (
-                            memberApplication.map((apply, innerIndex) => (
-                                <div className="members-list" key={innerIndex}>
-                                    <p>{apply.username}</p>
-                                    <button name={apply.username} onClick={() => handleApplication(apply.username, groupMembers.ID[index], user)}>Hyväksy</button>
-                                    <button name={apply.username} onClick={() => handleSubmit(apply.username, user, groupMembers.ID[index])}>Hylkää</button>
-                                </div>
-                            ))
-                        ) : (
-                            <p>Ei yhtään avointa hakemusta</p>
-                        )}
-                    </div>
-
-                ))
-            ) : (
-                    <div> Ei yhtään hakemusta ryhmiisi</div>
-            )}            
+                    ))
+                ) : (
+                        <div className = "emptygroup">
+                            <p> Ei yhtään hakemusta ryhmiisi</p>
+                        </div>
+                )}
+            </div>            
         </div>
     )
 }
+
