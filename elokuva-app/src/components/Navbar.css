@@ -54,6 +54,10 @@ nav {
   flex-shrink: 0;
 }
 
+.logo-container:hover {
+  color: var(--accent-color);
+}
+
 .logo-container a {
   display: inline-block;
   cursor: pointer;
@@ -130,7 +134,7 @@ nav {
   font-weight: 600;
   width: 100%;
   min-width: 100%; /*200px on aika hyvä tässä*/
-  background-color: var(--blue-color);
+  background-color: var(--white-background-color);
   text-decoration: none;
   border-radius: 5px;
   border: 0.3px solid var(--dark-foreground-color);
@@ -139,7 +143,7 @@ nav {
 
 #menu a:hover,
 #menu a:focus {
-  background-color: var(--white-background-color);
+  background-color: var(--blue-color);
   color: var(--dark-foreground-color);
   box-shadow: 0 8px 16px rgba(0,0,0,0.2);
   transform: scale(1.05);
@@ -182,7 +186,7 @@ nav {
   transition: cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s;
 }
 
-.button-container {
+.navibutton-container {
   display: flex !important;
   order: 3;
   flex: 1 0 43%;
@@ -279,10 +283,6 @@ nav {
 }
 
 @media (max-width: 1200px) {
-  .navButton {
-    border-radius: 4%;
-  }
-  
   #menu {
     width: auto;
   }

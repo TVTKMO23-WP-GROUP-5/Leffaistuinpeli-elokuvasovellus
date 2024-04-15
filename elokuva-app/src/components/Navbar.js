@@ -170,7 +170,7 @@ export default function Navbar() {
         </ul>
       </div>
 
-      <div className="button-container">
+      <div className="navibutton-container">
         <ul className="buttons">
           <li>
             <Link to="/search" className="navButton">
