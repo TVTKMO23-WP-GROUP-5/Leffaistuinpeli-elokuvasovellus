@@ -89,7 +89,7 @@ router.post("/delete", async (req, res) =>{
   router.post('/register', async (req, res) => {
     
       const { groupname, description, owner } = req.body;
-
+      console.log(owner)
       if (!owner){
         return res.status(400).json({ message: 'Käyttäjä nimeä ei löydy' });
       }
