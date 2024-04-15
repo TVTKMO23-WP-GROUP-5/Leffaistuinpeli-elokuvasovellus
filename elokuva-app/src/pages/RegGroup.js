@@ -6,8 +6,9 @@ import './RegGroup.css';
 
 export default function Register() {
   const { registerData, setRegisterData } = useUser({
-    fname: '',
-    kuvaus: '',
+    groupname: '',
+    description: '',
+    owner: '',
   });
 
   const [error, setError] = useState('');
@@ -29,7 +30,7 @@ export default function Register() {
         return;
       }
 
-      const response = await axios.post('http://localhost:3001/reggroup/register', registerData);
+      const response = await axios.post('http://localhost:3001/register', registerData);
       console.log('Server response:', response.data);
 
       if (response.data && response.data.success) {
