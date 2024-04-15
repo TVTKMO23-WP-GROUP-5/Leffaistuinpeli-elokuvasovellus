@@ -1,4 +1,4 @@
-const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName } = require("../database/groups_db");
+const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName, createGroup } = require("../database/groups_db");
 const router = require("express").Router();
 
 
@@ -76,6 +76,39 @@ router.post("/delete", async (req, res) =>{
         res.status(500).json({ success: false, message: "Error deleting group" });
     }
 });
+
+router.post('/create', async (req, res) => {
+    try {
+      const { groupname, description, owner } = req.body;
+      await createGroup(groupname, description, owner);
+      res.json({ success: true, message: 'Ryhmä luotu onnistuneesti' });
+    } catch (error) {
+      console.error('Error creating group:', error);
+      res.status(500).json({ success: false, message: 'Ryhmän luonti epäonnistui' });
+    }
+  });
+
+
+
+  router.post('/register', async (req, res) => {
+    try {
+      const { groupname, description, owner } = req.body;
+  
+      if (!groupname || !description) {
+        return res.status(400).json({ success: false, message: 'Ryhmän nimi ja kuvaus vaaditaan' });
+      }
+  
+    
+      const responseMessage = 'Ryhmä luotu onnistuneesti';
+      res.json({ success: true, message: responseMessage });
+    } catch (error) {
+      console.error('Error creating group:', error);
+      res.status(500).json({ success: false, message: 'Ryhmän luonti epäonnistui' });
+    }
+  });
+  
+  
+  
 
 
 module.exports = router;
