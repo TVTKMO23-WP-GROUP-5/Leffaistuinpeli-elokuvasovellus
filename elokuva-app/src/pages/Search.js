@@ -161,7 +161,8 @@ export default function Search() {
         <form className="filtered-search" onSubmit={handleFilteredSearch}>
             <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
             <input name = "cast" placeholder= "näyttelijä" onChange={handleFilter}/>
-            <select name="genre" onChange={handleFilter}>
+            <button type="submit">Haku</button>
+            <select name="genre" onChange={(e) => { handleFilter(e); handleFilteredSearch(e); }}>
               <option value = "">Genre</option>
               <option value="28">Toiminta</option>
               <option value="12">Seikkailu</option>
@@ -183,7 +184,7 @@ export default function Search() {
               <option value="10752">Sota</option>
               <option value="37">Western</option>
             </select>
-            <select name="sort" onChange={handleFilter}>
+            <select name="sort" onChange={(e) => { handleFilter(e); handleFilteredSearch(e); }}>
               <option value="title.asc">Nimi (nouseva)</option>
               <option value="title.desc">Nimi (laskeva)</option>
               <option value="popularity.asc">Suosio (nouseva)</option>
@@ -191,25 +192,25 @@ export default function Search() {
               <option value="primary_release_date.asc">Julkaisuvuosi (nouseva)</option>
               <option value="primary_release_date.desc">Julkaisuvuosi (laskeva)</option>
             </select>
-            <select name="language" onChange={handleFilter}>
+            <select name="language" onChange={(e) => { handleFilter(e); handleFilteredSearch(e); }}>
               <option value="">Kaikki kielet</option>
               <option value="en">Englanti</option>
               <option value="fi">Suomi</option>
-              <option value="se">Ruotsi</option>
+              <option value="sv">Ruotsi</option>
             </select>
-            <select name="pages" onChange={handleFilter}>
-            <option value="1">Pieni haku</option>
-            <option value="4">Keskimääräinen haku</option>
-            <option value="8">Suuri haku</option>
+            <select name="pages" onChange={(e) => { handleFilter(e); handleFilteredSearch(e); }}>
+              <option value="1">Pieni haku</option>
+              <option value="4">Keskimääräinen haku</option>
+              <option value="8">Suuri haku</option>
             </select>
-            <button type="submit">Haku</button>
         </form>
         )}
 
         {searchType === "filtered-series" && (
         <form className="filtered-search" onSubmit={handleFilteredSeries}>
             <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
-            <select name="genre" onChange={handleFilter}>
+            <button type="submit">Haku</button>
+            <select name="genre" onChange={(e) => { handleFilter(e); handleFilteredSeries(e); }}>
               <option value = "">Genre</option>
               <option value="10759">Toiminta ja seikkailu</option>
               <option value="16">Animaatio</option>
@@ -228,13 +229,13 @@ export default function Search() {
               <option value="10768">Sota ja politiikka</option>
               <option value="37">Western</option>
             </select>
-            <select name="language" onChange={handleFilter}>
+            <select name="language" onChange={(e) => { handleFilter(e); handleFilteredSeries(e); }}>
               <option value="">Kaikki kielet</option>
               <option value="en">Englanti</option>
               <option value="fi">Suomi</option>
               <option value="se">Ruotsi</option>
             </select>
-            <select name="sort" onChange={handleFilter}>
+            <select name="sort" onChange={(e) => { handleFilter(e); handleFilteredSeries(e); }}>
               <option value="name.asc">Nimi (123abc...)</option>
               <option value="name.desc">Nimi (öäå...)</option>
               <option value="popularity.desc">Suosio (suosituin ensin)</option>
@@ -242,12 +243,11 @@ export default function Search() {
               <option value="first_air_date.asc">Ensiesiintyminen (uusimmat)</option>
               <option value="first_air_date.desc">Ensiesiintyminen (vanhimmat)</option>
             </select>
-            <select name="pages" onChange={handleFilter}>
-            <option value="1">Pieni haku</option>
-            <option value="4">Keskimääräinen haku</option>
-            <option value="8">Suuri haku</option>
+            <select name="pages" onChange={(e) => { handleFilter(e); handleFilteredSeries(e); }}>
+              <option value="1">Pieni haku</option>
+              <option value="4">Keskimääräinen haku</option>
+              <option value="8">Suuri haku</option>
             </select>
-            <button type="submit">Haku</button>
         </form>
         )}
       </div>

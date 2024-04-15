@@ -109,9 +109,5 @@ router.post("/delete", async (req, res) =>{
       res.status(500).json({ success: false, message: 'Ryhmän luonti epäonnistui' });
     }
   });
-  
-  
-  
-
 
 module.exports = router;
