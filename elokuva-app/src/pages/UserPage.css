@@ -1,0 +1,47 @@
+/* UserPage.css */
+
+.user-info {
+    margin-bottom: 20px;
+}
+
+.delete-user-section {
+    display: flex;
+    align-items: center;
+}
+
+.confirm-delete-checkbox {
+    margin-right: 20px;
+}
+
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.button {
+    background-color: var(--button-gradient);
+    color: var(--dark-foreground-color);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 1.65vw;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.button:hover {
+    background-color: var(--accent-color);
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+    display: inline-block;
+}
+
+label {
+    font-weight: normal;
+    display: inline-block;
+}

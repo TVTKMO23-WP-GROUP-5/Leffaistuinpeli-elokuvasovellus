@@ -1,5 +1,6 @@
 
-const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName, createGroup } = require("../database/groups_db");
+const { getAllGroups, getGroupByName, getGroupsByIdAccount, deleteGroup, getGroupsByUsername, getOwnersName, createGroup, getOwnGroups, getGroupId } = require("../database/groups_db");
+
 
 const router = require("express").Router();
 

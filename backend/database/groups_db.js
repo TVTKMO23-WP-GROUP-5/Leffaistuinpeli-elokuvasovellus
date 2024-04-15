@@ -48,7 +48,6 @@ async function deleteGroup(idgroup) {
 }
 async function createGroup(groupname, description, owner) {
   let result = await pgPool.query(sql.POST_NEWGROUP, [groupname, description, owner]);
-  
 }
 
 async function getGroupByName(groupname) {
