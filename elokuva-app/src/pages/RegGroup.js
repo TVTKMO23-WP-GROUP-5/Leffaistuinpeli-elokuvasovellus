@@ -9,7 +9,7 @@ export default function Register() {
   const [ groupRegisterData, setGroupRegisterData ] = useState({
     groupname: '',
     description: '',
-    owner: user
+    owner: user 
   });
 
   const [error, setError] = useState('');
