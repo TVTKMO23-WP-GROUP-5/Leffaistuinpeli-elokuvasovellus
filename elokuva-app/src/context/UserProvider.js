@@ -10,6 +10,9 @@ export default function UserProvider({children}) {
     const [movieData, setMovieData] = useState()
     const [moviePick, setMoviePick] = useState([])
     const [groups, setGroups] = useState([])
+    const [isHome, setIsHome] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [movies, setMovies] = useState([])
     const navigate = useNavigate()
     
     const login = async(uname,password) => {
@@ -45,7 +48,8 @@ export default function UserProvider({children}) {
     
 
     return (
-        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,moviePick,setMoviePick,groups,setGroups,login}}>
+        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,moviePick,setMoviePick, isHome, setIsHome,
+        loading,setLoading,movies,setMovies,groups,setGroups,login}}>
             { children }
         </UserContext.Provider>
     )

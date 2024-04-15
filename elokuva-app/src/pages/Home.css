@@ -2,6 +2,7 @@
   overflow-x: hidden;
   overflow-y: hidden;
   display: flex;
+  flex-direction: row;
   flex: 1;
   min-height: 100vh;
   width: 100%;
@@ -13,23 +14,52 @@
   padding-bottom: 34px;
 }
 
+.home-container, .home-container * {
+  font-family: 'Madimi One', sans-serif !important;
+}
+
 .card-container {
   position: relative;
   width: 350px;
-  height: 370px;
+  height: 350px;
   margin: 30px;
+  margin-bottom: 30px;
 }
 
 .frontText {
+  position: absolute;
   text-align: center;
-  color: var(--dark-background-color);
-  font-size: 27px;
-  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  color: var(--dark-foreground-color);
+  font-size: 1.80rem;
+  overflow: visible;
+  letter-spacing: 1.2px;
+  z-index: 10;
+  -webkit-text-stroke: 0.1px rgb(0, 0, 0);
+  text-align: justify;
+}
+
+.frontText.one {
+  margin-left: 20px;
+}
+
+.frontText.two {
+    margin-right: 10px;
+}
+
+.frontText.three {
+  margin-left: 10px;
+}
+
+.card-container, .frontText {
+  animation: pulse 2s infinite;
 }
 
 .homeposter {
   position: absolute;
-  top: 0;
+  top: 19%;
   left: 50%;
   width: 100%;
   height: auto;
@@ -37,17 +67,36 @@
   transform-origin: center bottom;
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: translateX(0%) translateY(0%) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translateX(0%) translateY(0%) rotate(0deg) scale(1.03);
+  }
+}
+
 .homeposter:first-child {
   transform: translateX(-40%) translateY(10%) rotate(-10deg);
-  z-index: 4;
+  z-index: 3;
 }
 
 .homeposter:nth-child(2) {
   transform: translateX(-40%) translateY(10%) rotate(10deg);
-  z-index: 3;
+  z-index: 2;
 }
 
 .homeposter:last-child {
   transform: translateX(-40%) translateY(17%) rotate(30deg);
-  z-index: 2;
+  z-index: 1;
+}
+
+@media (max-width: 800px) {
+  .home-container {
+    padding-bottom: 100px;
+  }
+
+  .card-container {
+    margin-bottom: 100px;
+  }
 }

@@ -13,7 +13,7 @@ export default function Showtimes() {
   useEffect(() => {
     if (!filter || !date) {
       console.log(
-        "Teatteria tai päivämäärää ei ole valittu, ei suoriteta API-kutsua"
+        "showtimes"
       );
       return;
     }
