@@ -23,24 +23,13 @@ import {
 
 export default function Navbar() {
   const { user } = useUser();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const { isAdmin, setIsAdmin} = useUser()
   const [burger, setBurger] = useState("Burger unclicked");
   const [menu, setMenu] = useState("Menu hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
   const { theme, changeTheme } = useTheme();
 
   const logos = theme === "dark" ? logo1 : logo2;
-
-  useEffect(() => {
-    axios
-      .post("http://localhost:3001/getmembers/checkowner", { username: user })
-      .then((response) => {
-        setIsAdmin(response.data);
-      })
-      .catch((error) => {
-        console.error("Fetching failed", error);
-      });
-  }, [user]);
 
   const updateMenu = (event) => {
     event.stopPropagation();
