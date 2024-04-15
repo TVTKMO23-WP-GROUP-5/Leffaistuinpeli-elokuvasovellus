@@ -31,8 +31,8 @@ CREATE TABLE groupmembers(
 
 CREATE TABLE ratings(
     idRating INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    moviename TEXT NOT NULL,
-    idAccount INT NOT NULL REFERENCES account(idAccount),
+    idMovie INT NOT NULL,
+    username INT NOT NULL REFERENCES account(username),
     stars INT NOT NULL,
     description TEXT
 );

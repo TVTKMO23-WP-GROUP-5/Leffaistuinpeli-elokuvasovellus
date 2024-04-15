@@ -1,8 +1,10 @@
 require('dotenv').config()
+const { sql } = require("../database/auth_db");
 const jwt = require('jsonwebtoken')
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const { register, getPw } = require("../database/auth_db");
+const { register, getPw, deleteAccount } = require("../database/auth_db");
+const pgPool = require("../database/pg_connection");
 
 router.post("/register", async (req, res) => {
   try {  
@@ -39,5 +41,38 @@ router.post("/login", async (req, res) => {
     res.status(404).json({ error: "User not found" });
   }
 });
+
+router.delete("/delete", async (req, res) => {
+  const username = req.body.username;
+  
+  try {
+    const result = await deleteAccount(username);
+    if (result.rowCount > 0) {
+      res.status(200).json({ message: "User deleted successfully" });
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/user/:username", async (req, res) => {
+  const username = req.params.username;
+  
+  try {
+    const userData = await getUserData(username);
+    res.status(200).json(userData);
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+async function getUserData(username) {
+  const result = await pgPool.query(sql.GET_USER_DATA, [username]);
+  return result.rowCount > 0 ? result.rows[0] : null;
+}
 
 module.exports = router;

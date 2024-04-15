@@ -46,7 +46,8 @@ async function deleteGroup(idgroup) {
   let result = await pgPool.query(sql.DELETE_GROUP, [idgroup]);
   return result.rows[0]
 }
-
-
+async function createGroup(groupname, description, owner) {
+  let result = await pgPool.query(sql.POST_NEWGROUP, [groupname, description, owner]);
+}
 
 module.exports = { getAllGroups, getOwnGroups, getGroupId, getOwnerid, getOwnersName, deleteGroup };

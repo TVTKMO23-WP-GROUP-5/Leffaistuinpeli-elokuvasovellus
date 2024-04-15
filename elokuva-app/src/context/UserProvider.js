@@ -19,7 +19,7 @@ export default function UserProvider({children}) {
         axios.post('http://localhost:3001/auth/login',
             {username: uname, password: password})
             .then(resp => {
-                setUser(uname)
+                setUser({ username: uname })
                 jwtToken.value = resp.data.jwtToken
                 sessionStorage.setItem('username', uname) 
                 navigate('/userpage')
@@ -48,8 +48,9 @@ export default function UserProvider({children}) {
     
 
     return (
-        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,movieData,setMovieData,moviePick,setMoviePick, isHome, setIsHome,
-        loading,setLoading,movies,setMovies,groups,setGroups,login}}>
+        <UserContext.Provider value={{user,setUser,registerData,setRegisterData,
+          movieData,setMovieData,moviePick,setMoviePick, isHome, setIsHome,
+          loading,setLoading,movies,setMovies,groups,setGroups,login}}>
             { children }
         </UserContext.Provider>
     )
