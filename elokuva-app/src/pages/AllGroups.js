@@ -85,25 +85,27 @@ mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
       <div className='info'>
         <h2>Kaikki ryhmät</h2>
       </div>
-      <div className='orderGroups'>
-        <button className='alph_order' onClick={toggleSort}>A-Z ↑↓</button>
-      </div>
-      <div className='groupinfo'>
-        <div className='groupname'>
-          <p><strong>Ryhmän nimi</strong></p>
+      <div className='content_allgroups'>
+        <div className='orderGroups'>
+          <button className='alph_order' onClick={toggleSort}>A-Z ↑↓</button>
         </div>
-        <div className='group_description'>
-          <p><strong>Ryhmän kuvaus</strong></p>
+        <div className='groupinfo_allgroups'>
+          <div className='groupname_allgroups'>
+            <p><strong>Ryhmän nimi</strong></p>
+          </div>
+          <div className='group_description_allgroups'>
+            <p><strong>Ryhmän kuvaus</strong></p>
+          </div>
         </div>
       </div>
-      <div className='groups'>
+      <div className='groups_allgroups'>
         <ul>
           {groups && groups.map((group, index) => (
             <li key={index}>
-              <div className='list_groupname'>
+              <div className='list_groupname_allgroups'>
                 <p><strong>{group.name}</strong></p>
               </div>
-              <div className='list_groupdescription'>
+              <div className='list_groupdescription_allgroups'>
                 <em>{group.description}</em>
               </div>
               {user && !group.isMember && (
