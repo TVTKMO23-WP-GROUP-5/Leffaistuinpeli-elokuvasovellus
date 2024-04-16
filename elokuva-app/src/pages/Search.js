@@ -82,6 +82,7 @@ export default function Search() {
         if (response.data.length === 0){
           alert("Ei yhtään hakutulosta. Suorita uusi haku.")
         }
+        console.log(JSON.stringify(response.data[8]), JSON.stringify(response.data[9]), JSON.stringify(response.data[10]) )
         setMoviePick(response.data);
         sessionStorage.setItem('moviePick', JSON.stringify(response.data))
         if (resultsRef.current) {
@@ -152,9 +153,9 @@ export default function Search() {
     <>
     <div className="searchpage-container">
       <div className = "search-type">
-        <input type = "radio" name = "searchType" value = "basic" onClick={handleSearchType}/><span class="radio-label">Haku</span>
-        <input type = "radio" name = "searchType" value = "filtered" onClick={handleSearchType}/><span class="radio-label">Elokuvahaku</span>
-        <input type = "radio" name = "searchType" value = "filtered-series" onClick={handleSearchType}/><span class="radio-label">Sarjahaku</span>
+        <input type = "radio" name = "searchType" value = "basic" onClick={handleSearchType}/><span class="radio-label">Nimihaku</span>
+        <input type = "radio" name = "searchType" value = "filtered" onClick={handleSearchType}/><span class="radio-label">Tarkempi elokuvahaku</span>
+        <input type = "radio" name = "searchType" value = "filtered-series" onClick={handleSearchType}/><span class="radio-label">Tarkempi sarjahaku</span>
       </div>
       <div className = "search-bars"> 
         {searchType === "basic" && (
@@ -170,17 +171,12 @@ export default function Search() {
             <option value="4">Laajempi</option>
             <option value="8">Laajin</option>
           </select>
-          <button type="submit">Haku</button>
+          <button type="submit" className = "searchButton">Haku</button>
         </form>
         )}
 
         {searchType === "filtered" && (
         <form className="filtered-search" onSubmit={handleFilteredSearch}>
-          <div> 
-            <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
-            <input name = "cast" placeholder= "näyttelijä" onChange={handleFilter}/>
-            <button type="submit">Haku</button>
-          </div> 
           <div>
             
             <select name="genre" onChange={(e) => { handleFilter(e); handleFilteredSearch(e,e.target.name,e.target.value); }}>
@@ -205,23 +201,29 @@ export default function Search() {
               <option value="10752">Sota</option>
               <option value="37">Western</option>
             </select>
-            <select name="sort" onChange={(e) => { handleFilter(e); handleFilteredSearch(e,e.target.name,e.target.value); }}>
-              <option value="" disabled selected>Valitse järjestys</option>
-              <option value="title.asc">Nimen perusteella aakkoset</option>
-              <option value="title.desc">Nimen perusteella toisinpäin</option>
-              <option value="popularity.asc">Vähiten suosittu</option>
-              <option value="popularity.desc">Suosituin ensin</option>
-              <option value="primary_release_date.asc">Vanhin ensin</option>
-              <option value="primary_release_date.desc">Uusin ensin</option>
-            </select>
-          </div>
-          <div>
-
             <select name="language" onChange={(e) => { handleFilter(e); handleFilteredSearch(e,e.target.name,e.target.value); }}>
               <option value="">Kaikki kielet</option>
               <option value="en">Englanti</option>
               <option value="fi">Suomi</option>
               <option value="sv">Ruotsi</option>
+            </select>
+          </div>
+          <div> 
+            <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
+            <input name = "cast" placeholder= "näyttelijä" onChange={handleFilter}/>
+            <button type="submit" className = "searchButton" >Haku</button>
+          </div> 
+          <div>
+          <select name="sort" onChange={(e) => { handleFilter(e); handleFilteredSearch(e,e.target.name,e.target.value); }}>
+              <option value="" disabled selected>Valitse järjestys</option>
+              <option value="popularity.desc">Suosituin ensin</option>
+              <option value="popularity.asc">Vähiten suosittu</option>
+              <option value="title.asc">Nimen perusteella aakkoset</option>
+              <option value="title.desc">Nimen perusteella toisinpäin</option>
+              <option value="primary_release_date.asc">Vanhin ensin</option>
+              <option value="primary_release_date.desc">Uusin ensin</option>
+              <option value="revenue.desc">Suurin liikevaihto</option>
+
             </select>
             <select name="pages" onChange={(e) => { handleFilter(e); handleFilteredSearch(e,e.target.name,e.target.value); }}>
               <option value="1">Normaali</option>
@@ -234,10 +236,6 @@ export default function Search() {
 
         {searchType === "filtered-series" && (
         <form className="filtered-search" onSubmit={handleFilteredSeries}>
-            <div>
-              <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
-              <button type="submit">Haku</button>
-            </div>
             <div>
             <select name="genre" onChange={(e) => { handleFilter(e); handleFilteredSeries(e,e.target.name,e.target.value); }}>
               <option value = "">Genre</option>
@@ -266,12 +264,16 @@ export default function Search() {
             </select>
             </div>
             <div>
+              <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
+              <button className = "searchButton" type="submit">Haku</button>
+            </div>
+            <div>
             <select name="sort" onChange={(e) => { handleFilter(e); handleFilteredSeries(e,e.target.name,e.target.value); }}>
               <option value="" disabled selected>Valitse järjestys</option>
+              <option value="popularity.desc">Suosituin ensin</option>
+              <option value="popularity.asc">Vähiten suosittu</option>              
               <option value="name.asc">Nimen perusteella aakkoset</option>
               <option value="name.desc">Nimen perusteella toisinpäin</option>
-              <option value="popularity.desc">Suosituin ensin</option>
-              <option value="popularity.asc">Vähiten suosittu</option>
               <option value="first_air_date.asc">Vanhin ensin</option>
               <option value="first_air_date.desc">Uusin ensin</option>
             </select>
@@ -286,10 +288,12 @@ export default function Search() {
       </div>
       <div className="movieList" ref={resultsRef}>
         {moviePick &&
-          moviePick.map((movie, index) => (
+          moviePick
+            .filter(movie => movie.poster_path !== null)
+            .map((movie, index) => (
             <div className="poster" key={index}>
               {/*<h2>{movie.title}</h2>*/}
-              {movie.poster_path ? (
+              {movie.poster_path && (
                 <Link to={`/movie/?id=${movie.id}`}>
                   {/*<Link to={`/movie/${(movie.title)}?poster=${(movie.poster_path)}/${(movie.id)}`}>*/}
                   <img
@@ -297,7 +301,7 @@ export default function Search() {
                     alt="Movie poster"
                   />
                 </Link>
-              ) : null}
+              )}
             </div>
           ))}
       </div>

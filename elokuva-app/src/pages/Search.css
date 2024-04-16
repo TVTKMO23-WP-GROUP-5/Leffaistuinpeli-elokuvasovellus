@@ -46,8 +46,15 @@
   margin: 20px auto;
 }
 
+.filtered-search > :nth-child(2) {
+  border-bottom: 3px solid black;
+}
+
 .filtered-search div {
+  width: 33%;
   margin: 0.5em;
+  margin-left: 0em;
+  margin-right: 0em;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -76,6 +83,18 @@ input {
   padding: 10px;
   width: 100%;
   margin-bottom: 10px;
+  border-radius: 18px;
+}
+
+.search-bars button {
+  border: 2px solid var(--dark-background-color);
+  text-align: center;
+  font-size: 1.2em;
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 10px;
+  border-radius: 18px;
 }
 
 .movieList img {
@@ -123,16 +142,18 @@ input:-webkit-autofill:focus {
     margin: 0.5em;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     height: 200px;
   }
+
 }
 
 @media only screen and (max-width: 800px){
   .poster {
     width: 29vw;
   }
+
 }
 
 @media only screen and (max-width: 600px){
