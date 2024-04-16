@@ -8,6 +8,7 @@ const auth = require("./routes/authentication");
 const movies = require("./routes/movie_search");
 const random = require('./routes/random_movies')
 const rating = require('./routes/rating')
+const favorite = require('./routes/favorite')
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,6 +24,7 @@ app.use("/movies", movies)
 app.use("/getmembers", getmembers)
 app.use("/random_movies", random)
 app.use("/rating", rating)
+app.use("/favorite", favorite)
 
 
 app.listen(PORT, () => {
