@@ -131,12 +131,6 @@ input:-webkit-autofill:focus {
   .poster {
     width: 18vw;
   }
-}
-
-@media only screen and (max-width: 1000px){
-  .poster {
-    width: 22vw;
-  }
 
   .filtered-search div {
     margin: 0.5em;
@@ -145,6 +139,12 @@ input:-webkit-autofill:focus {
     justify-content: space-evenly;
     align-items: center;
     height: 200px;
+  }
+}
+
+@media only screen and (max-width: 1000px){
+  .poster {
+    width: 22vw;
   }
 
 }
@@ -159,5 +159,11 @@ input:-webkit-autofill:focus {
 @media only screen and (max-width: 600px){
   .poster {
     width: 45vw;
+  }
+}
+
+@media only screen and (max-width: 400px){
+  .poster {
+    width: 80vw;
   }
 }

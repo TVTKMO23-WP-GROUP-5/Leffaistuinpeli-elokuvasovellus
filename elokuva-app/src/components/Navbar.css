@@ -234,8 +234,12 @@ nav {
   align-items: center;
 }
 
+/*Kokeilin laittaa tähän position absolute ja aina oikealle kiinni. Ei vielä täydellinen. -Jaakko*/
 .signButton {
+  max-width: 16vw;
   min-width: 14vw;
+  position: absolute;
+  right: 3vw;
 }
 
 .signButton .fa-icon {
