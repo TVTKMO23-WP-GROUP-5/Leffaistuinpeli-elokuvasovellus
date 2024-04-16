@@ -11,6 +11,7 @@ export default function UserProvider({children}) {
     const [movieData, setMovieData] = useState()
     const [moviePick, setMoviePick] = useState([])
     const [groups, setGroups] = useState([])
+    const [userGroups, setUserGroups] = useState([])
     const [isHome, setIsHome] = useState(false)
     const [loading, setLoading] = useState(false)
     const [movies, setMovies] = useState([])
@@ -46,7 +47,7 @@ export default function UserProvider({children}) {
         }
       }, [setMoviePick]);
 
-      useEffect(() => {
+    useEffect(() => {
         axios
           .post("http://localhost:3001/getmembers/checkowner", { username: user })
           .then((response) => {
@@ -57,11 +58,26 @@ export default function UserProvider({children}) {
           });
       }, [user]);
 
+    useEffect(() => {
+      if (user) {
+        const username = sessionStorage.getItem('username')
+        axios
+          .get(`http://localhost:3001/groups/owngroups?username=${username}`)
+          .then((response) => {
+            setUserGroups(response.data);
+            console.log(userGroups)
+          })
+          .catch((error) => {
+            console.error("Fetching failed", error);
+          });
+        }
+      }, [user]);
+
 
     return (
         <UserContext.Provider value={{user,setUser,registerData,setRegisterData,
           movieData,setMovieData,moviePick,setMoviePick, isHome, setIsHome,
-          loading,setLoading,movies,setMovies,groups,setGroups,login,
+          loading,setLoading,movies,setMovies,groups,setGroups,userGroups,setUserGroups,login,
           isAdmin, setIsAdmin}}>
             { children }
         </UserContext.Provider>
