@@ -41,16 +41,24 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   width: 90vw;
-  height: 100px;
   margin: 20px auto;
 }
 
-.filtered-search >* {
+.filtered-search div {
   margin: 0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch; 
+  flex-grow: 1;
 }
 
+.filtered-search div > * {
+  margin: 0.5em;
+  width: 100%; 
+}
 
 input {
   border: 2px solid var(--dark-background-color);
@@ -71,11 +79,10 @@ input {
 }
 
 .movieList img {
-  max-width: 13vw;
-  max-height: auto;
-  min-width: 13vw;
-  min-height: auto;
   border-radius: 6px;
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
 }
 
 .movieList {
@@ -86,6 +93,11 @@ input {
   gap: 8px;
 }
 
+.poster {
+  width: 15vw;
+}
+
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus {
@@ -94,4 +106,37 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px var(--white-background-color) inset;
   box-shadow: 0 0 0px 1000px var(--white-background-color) inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+@media only screen and (max-width: 1200px){
+  .poster {
+    width: 18vw;
+  }
+}
+
+@media only screen and (max-width: 1000px){
+  .poster {
+    width: 22vw;
+  }
+
+  .filtered-search div {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  }
+}
+
+@media only screen and (max-width: 800px){
+  .poster {
+    width: 29vw;
+  }
+}
+
+@media only screen and (max-width: 600px){
+  .poster {
+    width: 45vw;
+  }
 }

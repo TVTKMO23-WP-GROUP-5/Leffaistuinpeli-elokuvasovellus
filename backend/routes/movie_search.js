@@ -55,10 +55,9 @@ router.post("/filtered", async (req, res) => {
     "&with_genres=" + genre +
     "&with_original_language=" + language +
     "&page=" + i +
+    "&language=fi-FI" +
     "&api_key=" + process.env.MOVIEDB_API_KEY)
   }
-
-  console.log(urls)
 
   // tässä kutsutaan funktiota.
   movieResponse(urls, req, res, pages)
