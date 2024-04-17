@@ -109,7 +109,7 @@ export default function Navbar() {
                     icon={faGroupArrowsRotate}
                     className="fa-icon"
                   />
-                  <span className="link-text">Ryhmän ylläpito</span>
+                  <span className="link-text">Ylläpitosivut</span>
                 </Link>
               </li>
             </>

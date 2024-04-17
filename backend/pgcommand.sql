@@ -48,8 +48,8 @@ CREATE TABLE favorites(
 CREATE OR REPLACE FUNCTION add_owner_to_groupmembers()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO groupmembers(idGroup, idAccount)
-    SELECT NEW.idGroup, account.idAccount
+    INSERT INTO groupmembers(idGroup, idAccount, isMember)
+    SELECT NEW.idGroup, account.idAccount, true
     FROM account
     WHERE account.username = NEW.owner;
     RETURN NEW;

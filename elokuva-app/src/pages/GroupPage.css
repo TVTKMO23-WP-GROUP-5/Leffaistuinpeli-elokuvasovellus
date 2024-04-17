@@ -32,3 +32,8 @@
     min-height: 200px;
     margin-top: 4em;
 }
+
+.buttonToAdminPage button {
+    margin: 1em;
+    padding: 0.5em;
+}

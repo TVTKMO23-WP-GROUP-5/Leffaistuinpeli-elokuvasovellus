@@ -97,6 +97,10 @@
     flex-shrink: 0;
 }
 
+.apply_button p{
+    color: red;
+}
+
 .apply_button button {
     width: 60px;
     padding: 0.3em;
