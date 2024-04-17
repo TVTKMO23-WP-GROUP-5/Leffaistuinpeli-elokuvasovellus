@@ -119,7 +119,7 @@ export default function Movie() {
       const updatedGroupFavoriteData = {
         ...groupFavoriteData,
         idmovie: pickedObject ? pickedObject.id : "",
-        groupname: selectedGroup ? selectedGroup.name : ""
+        groupname: selectedGroup
       };
 
       setGroupFavoriteData(updatedGroupFavoriteData)
