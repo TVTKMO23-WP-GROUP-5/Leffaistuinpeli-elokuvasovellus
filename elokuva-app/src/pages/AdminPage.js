@@ -124,7 +124,7 @@ export default function AdminPage() {
                                 <h2>{groupMembers.applicationGroupName[index]}</h2>
                             </div>
 
-                            <h4 className =  "group-descripe">Hakemukset ryhmään pääsystä: </h4>
+                            <h5 className =  "group-descripe">Hakemukset ryhmään pääsystä: </h5>
                             {memberApplication && memberApplication.length > 0 ? (
                                 memberApplication.map((apply, innerIndex) => (
                                     <div className="members-list" key={innerIndex}>
