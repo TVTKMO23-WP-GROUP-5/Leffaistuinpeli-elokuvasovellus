@@ -15,6 +15,7 @@ export default function UserProvider({children}) {
     const [isHome, setIsHome] = useState(false)
     const [loading, setLoading] = useState(false)
     const [movies, setMovies] = useState([])
+    const [groupMembers, setGroupMembers] = useState({})
     const navigate = useNavigate()
 
     const login = async(uname,password) => {
@@ -29,6 +30,21 @@ export default function UserProvider({children}) {
             })
             .catch(err => console.log(err.message))
     }
+
+    // Asettaa groupMemberseihin,jos käyttäjä on adminina niin tietoa. 
+    useEffect(() => {
+      if (user !== null) {
+          axios.post('http://localhost:3001/getmembers', {username: user})
+              .then(response => {
+                  setGroupMembers(response.data)
+                  console.log(response.data.application)
+              })
+              .catch(error => {
+                  console.error("Fetching failed", error)
+              })
+      }
+    }, [user]);
+
     useEffect(() => {
         const storedUser = sessionStorage.getItem("username");
         if (storedUser === "null") {
@@ -78,7 +94,7 @@ export default function UserProvider({children}) {
         <UserContext.Provider value={{user,setUser,registerData,setRegisterData,
           movieData,setMovieData,moviePick,setMoviePick, isHome, setIsHome,
           loading,setLoading,movies,setMovies,groups,setGroups,userGroups,setUserGroups,login,
-          isAdmin, setIsAdmin}}>
+          isAdmin, setIsAdmin, groupMembers, setGroupMembers}}>
             { children }
         </UserContext.Provider>
     )

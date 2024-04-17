@@ -8,8 +8,11 @@ import '../index.css'
 export default function AllGroups() {
   const { user } = useUser();
   const { groups, setGroups } = useUser();
+  const { groupMembers, setGroupMembers } = useUser()
   const [ activeGroup, setActiveGroup ] = useState(null);
   const [ isSortedAsc, setIsSortedAsc ] = useState(true)
+
+  console.log(groupMembers)
 
   useEffect(() => {
     let isMounted = true; //tämä tarkistuksena, ettei async kutsut aseta statea jos komponentti on poistunut domista

@@ -5,21 +5,8 @@ import './AdminPage.css'
 
 export default function AdminPage() {
     const { user } = useUser()
-    const [groupMembers, setGroupMembers] = useState({})
+    const { groupMembers, setGroupMembers } = useUser({})
     
-    useEffect(() => {
-        if (user !== null) {
-            axios.post('http://localhost:3001/getmembers', {username: user})
-                .then(response => {
-                    setGroupMembers(response.data)
-                    console.log(response.data.application)
-                })
-                .catch(error => {
-                    console.error("Fetching failed", error)
-                })
-        }
-    }, [user]);
-
     const handleSubmit = (name, admin, id) => {        
         const confirmed = window.confirm("Haluatko varmasti suorittaa toiminnon?")
         if (confirmed){
@@ -114,8 +101,8 @@ export default function AdminPage() {
                 )}
             </div>
 {/*------------------Tästä alkaa koodisilmukat ryhmähakemuksiin --------------------------- */}
-<h3 style={{ color: 'var(--dark-background-color)' }}>Hakemukset ryhmän jäseniksi</h3>            
-            <div className = "applications">
+            <h3 style={{ color: 'var(--dark-background-color)' }}>Hakemukset ryhmän jäseniksi</h3>            
+                <div className = "applications">
 
                 {groupMembers.application && groupMembers.application.length > 0 ? (
                     groupMembers.application.map((memberApplication, index) => (
