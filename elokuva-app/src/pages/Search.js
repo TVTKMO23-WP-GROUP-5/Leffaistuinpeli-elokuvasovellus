@@ -17,6 +17,7 @@ export default function Search() {
     language: "", 
     pages: "1"
   })
+  
   const { moviePick, setMoviePick } = useUser();
   const [searchType, setSearchType] = useState("basic")
   const resultsRef = useRef(null);
