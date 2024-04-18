@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './GroupPage.css'
 import axios from 'axios'
+import { useUser } from '../context/UseUser';
+import { Link } from "react-router-dom";
 
 export default function GroupPage() {
   let { groupName } = useParams();
   const [owner, setOwner] = useState("");
+  const { isAdmin, user } = useUser()
 
   groupName = decodeURIComponent(groupName)
 
@@ -48,7 +51,10 @@ export default function GroupPage() {
           <p>Tähän tulee ryhmän jäsenten lisäämät sarjat</p>
         </div>
       </div>
-
+      <div className = "buttonToAdminPage">
+        {isAdmin && user === owner && (<Link to='/adminpage'><button>Ryhmän ylläpitosivuille</button></Link> )}
+      </div>
+      
 
     </div>
   )

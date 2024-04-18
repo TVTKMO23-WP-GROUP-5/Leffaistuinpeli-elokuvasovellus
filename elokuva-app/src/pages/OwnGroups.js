@@ -8,6 +8,9 @@ import '../index.css'
 export default function OwnGroups() {
   const [ group, setGroup ] = useState([]);
   const [ isSortedAsc, setIsSortedAsc ] = useState(true)
+  const { user, isAdmin } = useUser()
+
+  console.log("tämä:", group)
 
   useEffect(() => {
     const username = sessionStorage.getItem('username')
@@ -58,16 +61,16 @@ export default function OwnGroups() {
             {group &&
               group.map((group, index) => (
                 <li key={group.name || index}>
-                  <Link to={`/grouppage/${group.name}`}>
-                    <div className="list_groupname">
-                      <p>
-                        <strong>{group.name}</strong>
-                      </p>
-                    </div>
-                    <div className="list_groupdescription">
-                      <em>{group.description}</em>
-                    </div>
-                  </Link>
+                    <Link to={`/grouppage/${group.name}`}>
+                      <div className="list_groupname">
+                        <p>
+                          <strong>{group.name}{isAdmin && group.owner === user && (<p>(ylläpitäjänä)</p>)}</strong>
+                        </p>
+                      </div>
+                      <div className="list_groupdescription">
+                        <em>{group.description}</em>
+                      </div>
+                    </Link>
                 </li>
               ))}
           </ul>

@@ -8,8 +8,12 @@ import '../index.css'
 export default function AllGroups() {
   const { user } = useUser();
   const { groups, setGroups } = useUser();
+  const { isAdmin } = useUser()
   const [ activeGroup, setActiveGroup ] = useState(null);
   const [ isSortedAsc, setIsSortedAsc ] = useState(true)
+  const [applicationStatus, setApplicationStatus] = useState([])
+
+  console.log(isAdmin)
 
   useEffect(() => {
     let isMounted = true; //tämä tarkistuksena, ettei async kutsut aseta statea jos komponentti on poistunut domista
@@ -50,6 +54,8 @@ export default function AllGroups() {
   const handleInvitation = (index) => {
     setActiveGroup(index)
   }
+
+
 /*Jaakko muokkasi, asettaa kirjautuneen käyttäjän pyytämäänsä ryhmään, 
 mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
   const handleUserResponse = (userChoise, groupOwner, groupName, username) => {
@@ -59,6 +65,16 @@ mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
         .then(response => {
           console.log(response.data)
           alert("Liittymispyyntö lähetetty")
+          
+    //-------Haetaan uudestaan statukset, että onko liittymispyyntö vetämässä----- 
+          axios.post("http://localhost:3001/getmembers/groupstatus", { username: user })
+          .then(response => {
+            setApplicationStatus(response.data);
+          })
+          .catch(error => {
+            console.error('Error getting user status:', error.response.data);
+          });
+
         })
         .catch(error => {
             console.error('Error deleting user:', error.response.data);
@@ -68,7 +84,19 @@ mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
     } else {
       alert("Tapahtuma keskeytetty")
     }
+
   }
+
+  // kerää statuksen, että onko käyttäjä missä ryhmissä käyttäjä on ja mihin on laittanut hakemuksen
+  useEffect (() => {
+    axios.post("http://localhost:3001/getmembers/groupstatus", {username: user})
+      .then(response => {
+        setApplicationStatus(response.data)
+      })
+      .catch(error => {
+        console.error('Error gettin userstatus user:', error.response.data);
+      })
+  },[user])
 
   return (
     <div className='container_allgroups'>
@@ -77,6 +105,11 @@ mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
         <Link to='/reggroup'>
           <button className='makegroup'>Luo ryhmä</button>
         </Link>
+        {isAdmin && 
+        (<Link to='/adminpage'>
+          <button>Ryhmieni ylläpitosivut</button>
+        </Link>
+        )}
         <Link to='/owngroups'>
           <button className='mygroups'>Omat ryhmät</button>
         </Link>
@@ -100,27 +133,32 @@ mutta tila on FALSE, niin ei ole jäsen vasta kun hyväksytään */
       </div>
       <div className='groups_allgroups'>
         <ul>
-          {groups && groups.map((group, index) => (
-            <li key={index}>
-              <div className='list_groupname_allgroups'>
-                <p><strong>{group.name}</strong></p>
-              </div>
-              <div className='list_groupdescription_allgroups'>
-                <em>{group.description}</em>
-              </div>
-              {user && !group.isMember && (
+        {groups && groups.map((group, index) => (
+          <li key={index}>
+            <div className='list_groupname_allgroups'>
+              <p><strong>{group.name}</strong></p>
+            </div>
+            <div className='list_groupdescription_allgroups'>
+              <em>{group.description}</em>
+            </div>
+            {user && !group.isMember && (
               <div className='apply_button'>
-                <button onClick={() => handleInvitation(index)}>Liity</button>
+                {applicationStatus && applicationStatus.some(apply => apply.groupname === group.name && !apply.isMember) ? (
+                  <p>Liittymispyyntö lähetetty</p>
+                ) : (
+                  <button onClick={() => handleInvitation(index)}>Liity</button>
+                )}
                 {activeGroup === index && (
                   <div className='confirm_apply'>
-                    <p>Haluatko lähettää <br></br> liittymispyynnön <br></br> tähän ryhmään?</p>
+                    <p>Haluatko lähettää <br /> liittymispyynnön <br /> tähän ryhmään?</p>
                     <button className='confirm_button' onClick={() => handleUserResponse(true, group.owner, group.name, user, index)}>Kyllä</button>
                     <button className='confirm_button' onClick={() => handleUserResponse(false, group.owner, group.name, user, index)}>Ei</button>
                   </div>
                 )}
-              </div> )}
-            </li>
-            ))}
+              </div>
+            )}
+          </li>
+        ))}
         </ul>
       </div>
     </div>

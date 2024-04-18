@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './RegGroup.css';
 
 export default function Register() {
-  const { user } = useUser()
+  const { user, setIsAdmin, setGroupMembers } = useUser()
   const [ groupRegisterData, setGroupRegisterData ] = useState({
     groupname: '',
     description: '',
@@ -36,7 +36,20 @@ export default function Register() {
       
       if (response.data.message === "success") {
         console.log('Group registered successfully:', response.data);
-        alert("Ryhmän luonti onnistui");
+        alert("Ryhmän luonti onnistui");   
+// ----- värkkäsin tänne, että ryhmähallinta toimii paremmin kirjatuessa, -jaakko        
+        setIsAdmin(true)
+        if (user !== null) {
+          axios.post('http://localhost:3001/getmembers', {username: user})
+              .then(response => {
+                  setGroupMembers(response.data)
+                  console.log(response.data.application)
+              })
+              .catch(error => {
+                  console.error("Fetching failed", error)
+              })
+        }
+// --------------------------------------------------------------
         navigate('/allgroups');
       } else {
         console.log('Something went wrong:', response.data);
