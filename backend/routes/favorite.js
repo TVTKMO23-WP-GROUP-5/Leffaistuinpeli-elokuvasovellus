@@ -9,12 +9,13 @@ router.post("/addfavorite", async (req, res) => {
     try {  
       const idmovie = req.body.idmovie;
       const username = req.body.username;
+      const media_type = req.body.media_type;
       const isDublicate = await checkOwnFavorites(idmovie,username);
 
       if (isDublicate) {
         res.json({message:"duplicate"});
       } else {
-            await addFavorite(idmovie, username);
+            await addFavorite(idmovie, username, media_type);
             res.json({message: "success"})
             res.end();
         }
@@ -27,12 +28,13 @@ router.post("/addgroupfavorite", async (req, res) => {
     try {  
       const idmovie = req.body.idmovie;
       const groupname = req.body.groupname;
+      const media_type = req.body.media_type;
       const isDublicate = await checkGroupFavorites(idmovie,groupname);
 
       if (isDublicate) {
         res.json({message:"duplicate"});
       } else {
-            await addGroupFavorite(idmovie, groupname);
+            await addGroupFavorite(idmovie, groupname, media_type);
             res.json({message: "success"})
             res.end();
         }
@@ -50,23 +52,23 @@ router.get("/getownfavorites", async (req, res) => {
   }
 
   try {
-    const movieIds = await getOwnFavorites(username)
-    if (movieIds.length === 0) {
+    const favorites = await getOwnFavorites(username)
+    if (favorites.length === 0) {
       return res.status(404).json({ error: "No favorites found" })
     }
 
-    console.log(movieIds)
+    const fetchDetails = async (favorite) => {
+      const url = `https://api.themoviedb.org/3/${favorite.media_type ? favorite.media_type : 'movie'}/${favorite.idmovie}?api_key=${apiKey}`;
+      console.log(url)
+      const response = await fetch(url)
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`)
+      const data = await response.json();
+      return {...data, media_type: favorite.media_type ? favorite.media_type : 'movie'};
+    }
 
-    const movies = await Promise.all(movieIds.map(async (idObj) => {
-      const castUrl = `https://api.themoviedb.org/3/movie/${idObj.idmovie}?api_key=${apiKey}`
-      const response = await fetch(castUrl);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    }));
-
-    res.json(movies);
+    const results = await Promise.all(favorites.map(fetchDetails))
+    console.log(results)
+    res.json(results)
 
   } catch (error) {
     console.error('Error fetching movie details:', error);

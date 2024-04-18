@@ -17,7 +17,8 @@ CREATE TABLE groups(
 CREATE TABLE groupmovies(
     idGroupmovie INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idMovie INT NOT NULL,
-    groupname VARCHAR(50) NOT NULL REFERENCES groups(groupname)
+    groupname VARCHAR(50) NOT NULL REFERENCES groups(groupname),
+    media_type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE groupmembers(
@@ -40,7 +41,8 @@ CREATE TABLE ratings(
 CREATE TABLE favorites(
     idFavorite INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idMovie INT NOT NULL,
-    username VARCHAR(50) NOT NULL REFERENCES account(username)
+    username VARCHAR(50) NOT NULL REFERENCES account(username),
+    media_type VARCHAR(50) NOT NULL
 );
 
 *** TÄLLÄ VARMISTETAAN ETTÄ RYHMÄN LUOJASTA TULEE MYÖS RYHMÄN JÄSEN -TANELI ***

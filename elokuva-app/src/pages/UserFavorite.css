@@ -8,18 +8,39 @@
     align-items: center;
     text-align: center;
     width: 80%;
-    margin: 2em auto;
+    margin: 2em auto 5em;
+}
+
+.userfavorite_info {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .container_userfavorite .poster {
     width: fit-content;
-    height: auto;
     margin: 2em;
     padding: 0.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+.container_poster {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: auto;
+    margin: 0 -0.5em;
+    padding-bottom: 1em;
+    position: relative;
+}
+
+.container_userfavorite .poster.active {
+    opacity: 1;
 }
 
 .container_userfavorite .poster div {
@@ -48,7 +69,8 @@
 }
 
 .container_userfavorite p {
-    font-size: 16px;
+    font-size: 24px;
+    margin: 0;
     line-height: 1.5;
     font-weight: 500;
     color: var(--dark-color);
@@ -63,4 +85,24 @@
 .container_userfavorite a {
     text-decoration: none;
     color: inherit;
+}
+
+.container_userfavorite
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: var(--dark-color);
+    z-index: 1;
+}
+
+.container_userfavorite .prev {
+    left: 0;
+}
+
+.container_userfavorite .next {
+    right: 0;
 }
