@@ -13,8 +13,7 @@ export default function AllGroups() {
   const [ isSortedAsc, setIsSortedAsc ] = useState(true)
   const [applicationStatus, setApplicationStatus] = useState([])
 
-  console.log("ryhmät:", groups)
-  console.log("statukset:", applicationStatus)
+  console.log(isAdmin)
 
   useEffect(() => {
     let isMounted = true; //tämä tarkistuksena, ettei async kutsut aseta statea jos komponentti on poistunut domista

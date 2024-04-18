@@ -168,9 +168,10 @@ export default function Search() {
             onChange={handleChange}
           />
           <select name="pages" onChange={handleChange}>
-            <option value="1">Normaali</option>
-            <option value="4">Laajempi</option>
-            <option value="8">Laajin</option>
+              <option value="" disabled selected>Hakutulosten laajuus</option>
+              <option value="1">Normaali</option>
+              <option value="4">Laajempi</option>
+              <option value="8">Laajin</option>
           </select>
           <button type="submit" className = "searchButton">Haku</button>
         </form>
@@ -227,6 +228,7 @@ export default function Search() {
 
             </select>
             <select name="pages" onChange={(e) => { handleFilter(e); handleFilteredSearch(e,e.target.name,e.target.value); }}>
+              <option value="" disabled selected>Hakutulosten laajuus</option>
               <option value="1">Normaali</option>
               <option value="4">Laajempi</option>
               <option value="8">Laajin</option>
@@ -279,6 +281,7 @@ export default function Search() {
               <option value="first_air_date.desc">Uusin ensin</option>
             </select>
             <select name="pages" onChange={(e) => { handleFilter(e); handleFilteredSeries(e,e.target.name,e.target.value); }}>
+              <option value="" disabled selected>Hakutulosten laajuus</option>
               <option value="1">Normaali</option>
               <option value="4">Laajempi</option>
               <option value="8">Laajin</option>
