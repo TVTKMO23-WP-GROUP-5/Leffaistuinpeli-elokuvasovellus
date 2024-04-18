@@ -16,11 +16,13 @@ export default function Movie() {
   });
   const [favoriteData, setFavoriteData] = useState({
     idmovie: "",
-    username: user ? user.username : ""
+    username: user ? user.username : "",
+    media_type: ""
   })
   const [groupFavoriteData, setGroupFavoriteData] = useState({
     idmovie: "",
-    groupname: ""
+    groupname: "",
+    media_type: ""
   })
   const [pickedObject, setPickedObject] = useState(null);
   const [hoverRating, setHoverRating] = useState(0);
@@ -40,6 +42,7 @@ export default function Movie() {
         );
         if (foundMovie) {
           setPickedObject(foundMovie);
+          console.log(moviePick)
           setRatingData((prev) => ({
             ...prev,
             idmovie: foundMovie.id,
@@ -86,6 +89,7 @@ export default function Movie() {
         ...favoriteData,
         idmovie: pickedObject ? pickedObject.id : "",
         username: user ? user : uname,
+        media_type: pickedObject ? pickedObject.type : ""
       };
 
     console.log(updatedFavoriteData)
@@ -119,7 +123,8 @@ export default function Movie() {
       const updatedGroupFavoriteData = {
         ...groupFavoriteData,
         idmovie: pickedObject ? pickedObject.id : "",
-        groupname: selectedGroup
+        groupname: selectedGroup,
+        media_type: pickedObject ? pickedObject.type : ""
       };
 
       setGroupFavoriteData(updatedGroupFavoriteData)
