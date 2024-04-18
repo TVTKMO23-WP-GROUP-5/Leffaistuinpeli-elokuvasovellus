@@ -1,0 +1,20 @@
+.movieRatings {
+    border-top: 3px solid var(--dark-foreground-color);
+    border-left: 3px solid var(--dark-foreground-color);
+    border-right: 3px solid var(--dark-foreground-color);
+    width: 75vw;
+    display: flex;
+}
+
+.movieRatings img{
+    width: 100px;
+    margin: 1px;
+    border: 2px solid black;
+}
+
+.movieDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 1em;
+}
