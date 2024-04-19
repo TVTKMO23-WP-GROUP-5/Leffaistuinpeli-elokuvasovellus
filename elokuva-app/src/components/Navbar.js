@@ -115,7 +115,7 @@ export default function Navbar() {
             </>
           )}
           <li>
-            <Link to="/search">
+            <Link to="/ratings">
               <FontAwesomeIcon icon={faStar} className="fa-icon" />
               <span className="link-text">Arvostelut</span>
             </Link>

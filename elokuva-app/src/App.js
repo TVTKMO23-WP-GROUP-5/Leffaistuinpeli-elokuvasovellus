@@ -20,6 +20,7 @@ import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
 import UserProvider from "./context/UserProvider";
 import { useTheme } from './context/ThemeContext';
+import Ratings from "./pages/Ratings";
 
 function App() {
   const { theme } = useTheme();
@@ -44,6 +45,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/showtimes" element={<ShowTimes />} />
           <Route path="/adminpage" element = {<AdminPage />} />
+          <Route path="/ratings" element ={<Ratings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

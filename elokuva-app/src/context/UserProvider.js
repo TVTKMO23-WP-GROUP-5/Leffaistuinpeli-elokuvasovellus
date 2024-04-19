@@ -16,6 +16,7 @@ export default function UserProvider({children}) {
     const [loading, setLoading] = useState(false)
     const [movies, setMovies] = useState([])
     const [groupMembers, setGroupMembers] = useState({})
+    const [ratingsList, setRatingsList] = useState([])
     const navigate = useNavigate()
 
     const login = async(uname,password) => {
@@ -44,6 +45,18 @@ export default function UserProvider({children}) {
               })
       }
     }, [user]);
+
+    // Asettaa kaikki arvostelut ratingsListaan
+    useEffect(() => {
+      axios.get("http://localhost:3001/rating/getrating")
+          .then((response) => {
+            setRatingsList(response.data)
+          })
+          .catch((error) => {
+            console.error("Error adding favorite:", error.response.data);
+            alert("Virhe arvostelujen lataamisessa.");
+          })
+  })
 
     useEffect(() => {
         const storedUser = sessionStorage.getItem("username");
@@ -94,7 +107,7 @@ export default function UserProvider({children}) {
         <UserContext.Provider value={{user,setUser,registerData,setRegisterData,
           movieData,setMovieData,moviePick,setMoviePick, isHome, setIsHome,
           loading,setLoading,movies,setMovies,groups,setGroups,userGroups,setUserGroups,login,
-          isAdmin, setIsAdmin, groupMembers, setGroupMembers}}>
+          isAdmin, setIsAdmin, groupMembers, setGroupMembers, ratingsList, setRatingsList}}>
             { children }
         </UserContext.Provider>
     )
