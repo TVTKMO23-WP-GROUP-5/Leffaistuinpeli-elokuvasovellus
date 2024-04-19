@@ -55,10 +55,9 @@ router.post("/filtered", async (req, res) => {
     "&with_genres=" + genre +
     "&with_original_language=" + language +
     "&page=" + i +
+    "&language=fi-FI" +
     "&api_key=" + process.env.MOVIEDB_API_KEY)
   }
-
-  console.log(urls)
 
   // tässä kutsutaan funktiota.
   movieResponse(urls, req, res, pages)
@@ -112,12 +111,23 @@ async function movieResponse(urls, req, res, sivut) {
       poster_path: movie.poster_path,
       popularity: movie.popularity,
       vote_average: movie.vote_average,
-      id: movie.id
+      id: movie.id,
+      type: determineMediaType(movie)
     }));
 
     res.json(movies);
   } catch (err) {
     console.error("error:", err);
     res.status(500).send("Internal Server Error");
+  }
+}
+
+determineMediaType = (movie) => {
+  if (movie.title) {
+    return "movie";
+  } else if (movie.name) {
+    return "tv";
+  } else {
+    return "unknown";
   }
 }

@@ -17,7 +17,8 @@ CREATE TABLE groups(
 CREATE TABLE groupmovies(
     idGroupmovie INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idMovie INT NOT NULL,
-    groupname VARCHAR(50) NOT NULL REFERENCES groups(groupname)
+    groupname VARCHAR(50) NOT NULL REFERENCES groups(groupname),
+    media_type VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE groupmembers(
@@ -32,6 +33,7 @@ CREATE TABLE groupmembers(
 CREATE TABLE ratings(
     idRating INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idMovie INT NOT NULL,
+    media_type VARCHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL REFERENCES account(username),
     stars INT NOT NULL,
     description TEXT
@@ -40,7 +42,8 @@ CREATE TABLE ratings(
 CREATE TABLE favorites(
     idFavorite INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idMovie INT NOT NULL,
-    username VARCHAR(50) NOT NULL REFERENCES account(username)
+    username VARCHAR(50) NOT NULL REFERENCES account(username),
+    media_type VARCHAR(50) NOT NULL
 );
 
 *** TÄLLÄ VARMISTETAAN ETTÄ RYHMÄN LUOJASTA TULEE MYÖS RYHMÄN JÄSEN -TANELI ***
@@ -48,8 +51,8 @@ CREATE TABLE favorites(
 CREATE OR REPLACE FUNCTION add_owner_to_groupmembers()
 RETURNS TRIGGER AS $$
 BEGIN
-    INSERT INTO groupmembers(idGroup, idAccount)
-    SELECT NEW.idGroup, account.idAccount
+    INSERT INTO groupmembers(idGroup, idAccount, isMember)
+    SELECT NEW.idGroup, account.idAccount, true
     FROM account
     WHERE account.username = NEW.owner;
     RETURN NEW;

@@ -9,22 +9,25 @@ export default function Movie() {
   const [selectedGroup, setSelectedGroup] = useState('')
   const [ratingData, setRatingData] = useState({
     idmovie: "",
+    media_type: "",                 //  Jaakko lisäsi, jos sekoaa, poista tämä!
     username: user ? user.username : "",
     stars: 0,
     description: "",
   });
   const [favoriteData, setFavoriteData] = useState({
     idmovie: "",
-    username: user ? user.username : ""
+    username: user ? user.username : "",
+    media_type: ""
   })
   const [groupFavoriteData, setGroupFavoriteData] = useState({
     idmovie: "",
-    groupname: ""
+    groupname: "",
+    media_type: ""
   })
   const [pickedObject, setPickedObject] = useState(null);
   const [hoverRating, setHoverRating] = useState(0);
   const [stars, setStars] = useState(0);
-
+  console.log("Jaakon", pickedObject)
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -39,9 +42,11 @@ export default function Movie() {
         );
         if (foundMovie) {
           setPickedObject(foundMovie);
+          console.log("Jaakon2",moviePick)
           setRatingData((prev) => ({
             ...prev,
             idmovie: foundMovie.id,
+            media_type: foundMovie.type,   //  Jaakko lisäsi, jos sekoaa, poista tämä!
             username: user ? user.username : "",
           }));
         }
@@ -58,6 +63,7 @@ export default function Movie() {
             setRatingData((prev) => ({
               ...prev,
               idmovie: foundMovie.id,
+              media_type: foundMovie.type,   //  Jaakko lisäsi, jos sekoaa, poista tämä!
               username: user ? user.username : "",
             }));
           }
@@ -87,6 +93,7 @@ export default function Movie() {
         ...favoriteData,
         idmovie: pickedObject ? pickedObject.id : "",
         username: user ? user : uname,
+        media_type: pickedObject ? pickedObject.type : ""
       };
 
     console.log(updatedFavoriteData)
@@ -120,7 +127,8 @@ export default function Movie() {
       const updatedGroupFavoriteData = {
         ...groupFavoriteData,
         idmovie: pickedObject ? pickedObject.id : "",
-        groupname: selectedGroup ? selectedGroup.name : ""
+        groupname: selectedGroup,
+        media_type: pickedObject ? pickedObject.type : ""
       };
 
       setGroupFavoriteData(updatedGroupFavoriteData)
@@ -205,6 +213,7 @@ export default function Movie() {
   const resetReviewForm = () => {
     setRatingData({
       idmovie: ratingData.idmovie,
+      media_type: "",               //  Jaakko lisäsi, jos sekoaa, poista tämä!
       username: ratingData.username,
       stars: 0,
       description: "",

@@ -33,7 +33,8 @@ router.get("/owngroups", async (req, res) => {
 
         const filteredGroup = owngroups.map(group => ({
             name: group.groupname,
-            description: group.description
+            description: group.description,
+            owner: group.owner
         }))
         console.log(filteredGroup);
         res.json(filteredGroup);
@@ -109,9 +110,5 @@ router.post("/delete", async (req, res) =>{
       res.status(500).json({ success: false, message: 'Ryhmän luonti epäonnistui' });
     }
   });
-  
-  
-  
-
 
 module.exports = router;

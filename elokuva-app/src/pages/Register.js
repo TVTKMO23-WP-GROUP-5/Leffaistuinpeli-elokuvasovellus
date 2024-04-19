@@ -68,7 +68,7 @@ return (
                 
                 <input type="text" name="fname" placeholder='Etunimi' onChange={handleChange} />
                 <input type="text" name="lname" placeholder='Sukunimi' onChange={handleChange} />
-                <input type="text" name="email" placeholder='Sähköposti' onChange={handleChange} />
+                <input type="email" name="email" placeholder='Sähköposti' onChange={handleChange} />
                 <input type="text" name="username" placeholder='Käyttäjätunnus' onChange={handleChange} />
                 <input type="password" name="first_password" placeholder='Salasana' onChange={handleChange} />
                 <input type="password" name="password" placeholder='Salasana uudestaan' onChange={handleChange} />

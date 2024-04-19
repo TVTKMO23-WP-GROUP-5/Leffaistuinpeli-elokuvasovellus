@@ -6,6 +6,12 @@ import io from "socket.io-client";
 import { UserContext } from "../context/UserContext";
 
 const socket = io("http://localhost:3001");
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import './GroupPage.css'
+import axios from 'axios'
+import { useUser } from '../context/UseUser';
+import { Link } from "react-router-dom";
 
 export default function GroupPage() {
   let { groupName } = useParams();
@@ -13,6 +19,7 @@ export default function GroupPage() {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
   const { user } = useContext(UserContext);
+  const { isAdmin, user } = useUser()
 
   groupName = decodeURIComponent(groupName);
 
@@ -92,6 +99,9 @@ export default function GroupPage() {
             <button type="submit">Lähetä</button>
           </form>
         </div>
+      </div>
+      <div className = "buttonToAdminPage">
+        {isAdmin && user === owner && (<Link to='/adminpage'><button>Ryhmän ylläpitosivuille</button></Link> )}
       </div>
     </div>
   );

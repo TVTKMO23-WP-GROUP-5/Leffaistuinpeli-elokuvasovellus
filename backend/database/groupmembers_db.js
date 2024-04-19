@@ -11,9 +11,15 @@ const sql = {
     DELETE_ALLMEMBERS: "DELETE FROM groupmembers WHERE idgroup = $1",
     DELETE_GROUP: "DELETE FROM groups WHERE idgroup = $1 AND owner = $2",
     INSERT_APPLICATION: "INSERT INTO groupmembers (idgroup, idaccount) VALUES ($1, $2)",
-    CHECK_USER_OWNER: "SELECT EXISTS (SELECT 1 FROM groups WHERE owner = $1)"
+    CHECK_USER_OWNER: "SELECT EXISTS (SELECT 1 FROM groups WHERE owner = $1)",
+    GET_GROUPSTATUS: "SELECT gm.*, g.groupname FROM groupmembers gm INNER JOIN groups g ON gm.idgroup = g.idgroup WHERE gm.idaccount = $1"
   };
 
+async function getUserGroupStatus(idaccount) {
+  let result = await pgPool.query(sql.GET_GROUPSTATUS, [idaccount])
+  return result.rows
+}
+  
 async function getGroupMember(idgroup) {
     let result = await pgPool.query(sql.GET_MEMBERSINGROUP, [idgroup]);
     return result.rows;
@@ -69,6 +75,7 @@ module.exports = {
   updateGroupMembership,
   deleteAllMembers,
   groupApplication, 
-  checkUserOwner 
+  checkUserOwner,
+  getUserGroupStatus 
 }
   

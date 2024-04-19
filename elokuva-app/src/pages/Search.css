@@ -41,16 +41,31 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   width: 90vw;
-  height: 100px;
   margin: 20px auto;
 }
 
-.filtered-search >* {
-  margin: 0.5em;
+.filtered-search > :nth-child(2) {
+  border-bottom: 3px solid black;
 }
 
+.filtered-search div {
+  width: 33%;
+  margin: 0.5em;
+  margin-left: 0em;
+  margin-right: 0em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch; 
+  flex-grow: 1;
+}
+
+.filtered-search div > * {
+  margin: 0.5em;
+  width: 100%; 
+}
 
 input {
   border: 2px solid var(--dark-background-color);
@@ -68,14 +83,25 @@ input {
   padding: 10px;
   width: 100%;
   margin-bottom: 10px;
+  border-radius: 18px;
+}
+
+.search-bars button {
+  border: 2px solid var(--dark-background-color);
+  text-align: center;
+  font-size: 1.2em;
+  padding: 10px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 10px;
+  border-radius: 18px;
 }
 
 .movieList img {
-  max-width: 13vw;
-  max-height: auto;
-  min-width: 13vw;
-  min-height: auto;
   border-radius: 6px;
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
 }
 
 .movieList {
@@ -86,6 +112,11 @@ input {
   gap: 8px;
 }
 
+.poster {
+  width: 15vw;
+}
+
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus {
@@ -94,4 +125,45 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px var(--white-background-color) inset;
   box-shadow: 0 0 0px 1000px var(--white-background-color) inset;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+@media only screen and (max-width: 1200px){
+  .poster {
+    width: 18vw;
+  }
+
+  .filtered-search div {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 200px;
+  }
+}
+
+@media only screen and (max-width: 1000px){
+  .poster {
+    width: 22vw;
+  }
+
+}
+
+@media only screen and (max-width: 800px){
+  .poster {
+    width: 29vw;
+  }
+
+}
+
+@media only screen and (max-width: 600px){
+  .poster {
+    width: 45vw;
+  }
+}
+
+@media only screen and (max-width: 400px){
+  .poster {
+    width: 80vw;
+  }
 }

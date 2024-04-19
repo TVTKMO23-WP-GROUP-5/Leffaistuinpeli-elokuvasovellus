@@ -1,0 +1,141 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.container_userfavorite {
+    position: relative;
+    width: 90vw;
+    margin: auto;
+}
+
+.info_favorite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    margin: 2em auto 5em;
+}
+
+.container_userfavorite .movieList {
+    border: 1px solid var(--dark-color);
+    position: relative;
+    min-width: 90vw;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin: 0 auto;
+    margin-bottom: 4em;
+    padding: 0 40px;
+}
+
+.userfavorite_info {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container_poster {
+    width: fit-content;
+    max-width: 100%;
+    display: flex;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 -0.5em;
+    margin-bottom: 3em;
+    position: relative;
+    scrollbar-width: none;
+}
+
+.content_poster {
+    background-color: var(--dark-background-color);
+    border-radius: 8px;
+    border: 2px solid var(--dark-color);
+    margin: 0.5em;
+    padding: 2em 2em 4em;
+    display: inline-flex;
+    flex-direction: column;
+    text-align: center;
+    vertical-align: baseline;
+}
+
+.img_poster img {
+    width: 200px !important;
+    height: 300px !important;
+    object-fit: cover;
+    margin-bottom: 0.5em;
+}
+
+.year_imdbrating {
+    display: flex;
+    flex-direction: row;
+}
+
+.release_year {
+    width: 50%;
+}
+
+.imdb_rating {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+}
+
+.imdb_rating span {
+    color: goldenrod;
+    font-size: 23px;
+    margin: 0 0.2em;
+}
+
+.movie_title {
+    max-width: 200px;
+    min-height: 150px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    padding: 4px;
+    hyphens: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+.container_userfavorite p {
+    font-size: 24px;
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 500;
+    color:white;
+}
+
+.container_userfavorite a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    background: local;
+    background-color: var(--theme-stroke-color);
+    transform: translateY(-50%);
+    width: 40px;
+    height: 60px;
+    font-size: 2em;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}

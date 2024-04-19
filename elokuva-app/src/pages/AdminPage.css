@@ -97,6 +97,14 @@ p, h1, h2, h3, h4 {
     margin: 0.5em;
 }
 
+.emptygroup p{
+    color: var(--light-foreground-color);
+}
+
+h5{
+    color: var(--light-foreground-color);
+}
+
 @media only screen and (max-width: 800px){
     .groupmembers-list {
         width: 90vw;

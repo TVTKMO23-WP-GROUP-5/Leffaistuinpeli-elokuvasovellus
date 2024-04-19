@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import UserPage from "./pages/UserPage";
+import UserFavorite from "./pages/UserFavorite";
 import GroupPage from "./pages/GroupPage";
 import MoviePage from "./pages/Movie";
 import RegGroup from "./pages/RegGroup";
@@ -16,10 +17,10 @@ import NotFound from "./pages/NotFound";
 import AdminPage from "./pages/AdminPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Movie from "./pages/Movie";
 import { Route, Routes } from "react-router-dom";
 import UserProvider from "./context/UserProvider";
 import { useTheme } from './context/ThemeContext';
+import Ratings from "./pages/Ratings";
 
 function App() {
   const { theme } = useTheme();
@@ -35,6 +36,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/userpage" element={<UserPage />} />
+          <Route path="/:username/favorites" element={<UserFavorite />} />
           <Route path="/grouppage/:groupName" element={<GroupPage />} />
           <Route path="/movie" element={<MoviePage />} />
           <Route path="/reggroup" element={<RegGroup />} />
@@ -43,6 +45,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/showtimes" element={<ShowTimes />} />
           <Route path="/adminpage" element = {<AdminPage />} />
+          <Route path="/ratings" element ={<Ratings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
