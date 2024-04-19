@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import "./Movie.css";
 import axios from "axios";
 import { useUser } from "../context/UseUser";
-
 export default function Movie() {
   const { user, moviePick, setMoviePick, userGroups } = useUser();
   const [showGroupDropdown, setShowGroupDropdown] = useState(false)
@@ -72,6 +71,8 @@ export default function Movie() {
       active = false;
     };
   }, [id, moviePick, setMoviePick, user]);
+
+  console.log("Movie ID from query:", id);
 
   useEffect(() => { //Tämä vain testinä, voi poistella jossain kohtaa -Taneli
     console.log(userGroups)
@@ -218,6 +219,14 @@ export default function Movie() {
       setRatingData((prev) => ({ ...prev, username: storedUsername }));
     }
   }, []);
+
+  function MovieLink({ movie, imageSize }) {
+    return (
+      <Link to={`/movie/?id=${movie.id}`}>
+        <img src={`https://image.tmdb.org/t/p/${imageSize}/${movie.poster_path}`} alt={movie.title} />
+      </Link>
+    );
+  }
 
   return (
     <>

@@ -12,6 +12,7 @@
   background-image: var(--background-image);
   padding: 20px;
   padding-bottom: 34px;
+  margin-top: 40px;
 }
 
 .home-container, .home-container * {
@@ -23,7 +24,10 @@
   width: 350px;
   height: 350px;
   margin: 30px;
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 100px;
+  margin-left: 70px;
+  z-index: 1;
 }
 
 .frontText {
@@ -31,65 +35,99 @@
   text-align: center;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 10px;
   color: var(--dark-foreground-color);
   font-size: 1.80rem;
   overflow: visible;
   letter-spacing: 1.2px;
-  z-index: 10;
+  z-index: 5;
   -webkit-text-stroke: 0.1px rgb(0, 0, 0);
   text-align: justify;
+  animation: pulse 20s infinite, colorPulse 3s infinite alternate;
 }
 
 .frontText.one {
-  margin-left: 20px;
+  margin-left: 40px;
+  animation-delay: 5s;
+}
+
+.frontText.one:hover {
+  color: var(--light-foreground-color);
 }
 
 .frontText.two {
-    margin-right: 10px;
+    margin-left: 20px;
+    animation-delay: 10s;
+}
+
+.frontText.one:hover {
+  color: var(--light-foreground-color);
 }
 
 .frontText.three {
-  margin-left: 10px;
+  margin-left: 30px;
+  animation-delay: 15s;
 }
 
-.card-container, .frontText {
-  animation: pulse 2s infinite;
+.frontText.one:hover {
+  color: var(--light-foreground-color);
+}
+
+.card-container:hover, .frontText:hover {
+  animation-play-state: paused;
 }
 
 .homeposter {
   position: absolute;
   top: 19%;
   left: 50%;
-  width: 100%;
+  width: 60%;
   height: auto;
   transition: transform 0.3s ease-in-out;
   transform-origin: center bottom;
 }
 
-@keyframes pulse {
+@keyframes colorPulse {
   0%, 100% {
-    transform: translateX(0%) translateY(0%) rotate(0deg) scale(1);
+    color: var(--dark-foreground-color)
   }
   50% {
-    transform: translateX(0%) translateY(0%) rotate(0deg) scale(1.03);
+    color: var(--light-foreground-color)
   }
+}
+
+.homeposter:hover {
+  z-index: 1001 !important;
 }
 
 .homeposter:first-child {
-  transform: translateX(-40%) translateY(10%) rotate(-10deg);
-  z-index: 3;
+  transform: translateX(-50%) translateY(0.3%) rotate(0deg);
+  z-index: 4;
+}
+
+.homeposter:first-child:hover {
+  transform: translateX(-50%) translateY(0.3%) rotate(0deg) scale(1.05);
 }
 
 .homeposter:nth-child(2) {
-  transform: translateX(-40%) translateY(10%) rotate(10deg);
-  z-index: 2;
+  transform: translateX(-15%) translateY(0%) rotate(5deg);
+  z-index: 3;
+}
+
+.homeposter:nth-child(2):hover {
+  transform: translateX(-15%) translateY(0%) rotate(5deg) scale(1.05);
+
 }
 
 .homeposter:last-child {
-  transform: translateX(-40%) translateY(17%) rotate(30deg);
-  z-index: 1;
+  transform: translateX(-100%) translateY(0.5%) rotate(-5deg);
+  z-index: 2;
 }
+
+.homeposter:last-child:hover {
+  transform: translateX(-100%) translateY(0.5%) rotate(-5deg) scale(1.05);
+}
+
 
 @media (max-width: 800px) {
   .home-container {
