@@ -1,0 +1,110 @@
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--light-background-color);
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--dark-background-color);
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: var(--light-background-color);
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px var(--light-foreground-color);
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+.arrow-up,
+.arrow-down {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--light-foreground-color);
+  transition: .4s;
+}
+
+.arrow-up {
+    left: 9px;
+    top: 16px;
+}
+  
+.arrow-down {
+    right: 9px;
+    top: 18px;
+}
+
+.choises {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+.choises select {
+    border: 2px solid var(--dark-background-color);
+    text-align: center;
+    font-size: 1.2em;
+    padding: 10px;
+    max-width: 100%;
+    margin-bottom: 10px;
+    border-radius: 18px;
+  }
+
+.movieRatings {
+    border-top: 3px solid var(--dark-foreground-color);
+    border-left: 3px solid var(--dark-foreground-color);
+    border-right: 3px solid var(--dark-foreground-color);
+    width: 75vw;
+    display: flex;
+}
+
+.movieRatings img{
+    width: 100px;
+    margin: 1px;
+    border: 2px solid black;
+}
+
+.movieDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 1em;
+}
+
+.ratingstars {
+    color: rgb(131, 112, 4);
+}

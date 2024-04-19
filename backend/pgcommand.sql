@@ -33,6 +33,7 @@ CREATE TABLE groupmembers(
 CREATE TABLE ratings(
     idRating INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idMovie INT NOT NULL,
+    media_type VARCHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL REFERENCES account(username),
     stars INT NOT NULL,
     description TEXT

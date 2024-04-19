@@ -10,6 +10,7 @@ export default function Movie() {
   const [selectedGroup, setSelectedGroup] = useState('')
   const [ratingData, setRatingData] = useState({
     idmovie: "",
+    media_type: "",                 //  Jaakko lisäsi, jos sekoaa, poista tämä!
     username: user ? user.username : "",
     stars: 0,
     description: "",
@@ -27,7 +28,7 @@ export default function Movie() {
   const [pickedObject, setPickedObject] = useState(null);
   const [hoverRating, setHoverRating] = useState(0);
   const [stars, setStars] = useState(0);
-
+  console.log("Jaakon", pickedObject)
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -42,10 +43,11 @@ export default function Movie() {
         );
         if (foundMovie) {
           setPickedObject(foundMovie);
-          console.log(moviePick)
+          console.log("Jaakon2",moviePick)
           setRatingData((prev) => ({
             ...prev,
             idmovie: foundMovie.id,
+            media_type: foundMovie.type,   //  Jaakko lisäsi, jos sekoaa, poista tämä!
             username: user ? user.username : "",
           }));
         }
@@ -62,6 +64,7 @@ export default function Movie() {
             setRatingData((prev) => ({
               ...prev,
               idmovie: foundMovie.id,
+              media_type: foundMovie.type,   //  Jaakko lisäsi, jos sekoaa, poista tämä!
               username: user ? user.username : "",
             }));
           }
@@ -209,6 +212,7 @@ export default function Movie() {
   const resetReviewForm = () => {
     setRatingData({
       idmovie: ratingData.idmovie,
+      media_type: "",               //  Jaakko lisäsi, jos sekoaa, poista tämä!
       username: ratingData.username,
       stars: 0,
       description: "",
