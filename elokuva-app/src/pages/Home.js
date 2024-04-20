@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext"
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import "./Home.css";
 import axios from "axios";
 
@@ -54,17 +54,12 @@ export default function Home() {
     };
   }, [isHome, movies.length, loading, setLoading, setMovies])
 
-
-
   const renderCardGroup = (startIndex) => (
     <div className="card-container">
       {movies.slice(startIndex, startIndex + 3).map((movie, index) => (
-        <div key={index} className="homeposter" style={{ zIndex: 3 - index }}>
-          <img
-            src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-            alt={movie.title}
-          />
-        </div>
+        <Link to={`/movie/?id=${movie.id}`} key={index} className="homeposter">
+          <img src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`} alt={movie.title} />
+        </Link>
       ))}
     </div>
   );

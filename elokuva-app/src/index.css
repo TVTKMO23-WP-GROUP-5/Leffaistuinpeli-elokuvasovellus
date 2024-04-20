@@ -58,7 +58,7 @@ body,
 .App {
   height: 100%;
   min-height: 100vh;
-  background-color: var(--grey-color);
+  background-image: var(--background-image);
   display: flex;
   flex-direction: column;
 }
@@ -73,8 +73,9 @@ body,
   justify-content: space-around;
   align-items: flex-start;
   background-image: var(--background-image);
-  padding: 20px;
-  padding-bottom: 34px;
+
+
+
 }
 
 input {
