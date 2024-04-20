@@ -6,6 +6,7 @@ const sql = {
     GET_APPLICATION: "SELECT a.username FROM account a INNER JOIN groupmembers gm ON a.idaccount = gm.idaccount WHERE gm.idgroup = $1 AND gm.ismember = FALSE",
     UPDATE_ISMEMBER: "UPDATE groupmembers SET ismember = TRUE WHERE idgroup = $1 AND idaccount = $2",
     GET_GROUPID: "SELECT idgroup, groupname, description FROM groups WHERE owner = $1",
+    GET_ID_BY_GROUPNAME: "SELECT idgroup FROM groups WHERE groupname=$1",
     GET_IDACCOUNT: "SELECT idaccount FROM account WHERE username = $1",
     DELETE_MEMBERFROMGROUP: "DELETE FROM groupmembers WHERE idgroup = $1 AND idaccount = $2",
     DELETE_ALLMEMBERS: "DELETE FROM groupmembers WHERE idgroup = $1",
@@ -39,9 +40,14 @@ async function getGroupId(owner) {
     return result.rows
 }
 
+async function getGroupIdByGroupname(groupname) {
+  let result = await pgPool.query(sql.GET_ID_BY_GROUPNAME, [groupname]);
+  return result.rows[0].idgroup
+}
+
 async function getAccountId(uname) {
     let result = await pgPool.query(sql.GET_IDACCOUNT, [uname]);
-    return result.rows[0]
+    return result.rows
 }
 
 async function deleteMemberFromGroup(idgroup, idaccount) {
@@ -76,6 +82,7 @@ module.exports = {
   deleteAllMembers,
   groupApplication, 
   checkUserOwner,
-  getUserGroupStatus 
+  getUserGroupStatus,
+  getGroupIdByGroupname
 }
   

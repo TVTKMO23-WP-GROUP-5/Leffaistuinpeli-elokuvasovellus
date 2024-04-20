@@ -39,7 +39,7 @@ router.post("/addgroupfavorite", async (req, res) => {
             res.end();
         }
     } catch (error) {
-      res.json({message: error})
+      res.json({message: "tämmöinen virhe riviltä 42 favorite.js", error})
     }
 });
 
@@ -59,7 +59,6 @@ router.get("/getownfavorites", async (req, res) => {
 
     const fetchDetails = async (favorite) => {
       const url = `https://api.themoviedb.org/3/${favorite.media_type ? favorite.media_type : 'movie'}/${favorite.idmovie}?api_key=${apiKey}`;
-      console.log(url)
       const response = await fetch(url)
       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`)
       const data = await response.json();
@@ -68,6 +67,37 @@ router.get("/getownfavorites", async (req, res) => {
 
     const results = await Promise.all(favorites.map(fetchDetails))
     console.log(results)
+    res.json(results)
+
+  } catch (error) {
+    console.error('Error fetching movie details:', error);
+    res.status(500).json({ error: "Failed to fetch movie details" });
+  }
+})
+
+router.get("/getgroupfavorites", async (req, res) => {
+  const apiKey = process.env.MOVIEDB_API_KEY;
+  const groupname = req.query.groupname;
+
+  if (!groupname) {
+    return res.status(400).json({ error: "Group is required" });
+  }
+
+  try {
+    const favorites = await getGroupFavorites(groupname)
+    if (favorites.length === 0) {
+      return res.status(404).json({ error: "No favorites found" })
+    }
+
+    const fetchDetails = async (favorite) => {
+      const url = `https://api.themoviedb.org/3/${favorite.media_type ? favorite.media_type : 'movie'}/${favorite.idmovie}?api_key=${apiKey}`;
+      const response = await fetch(url)
+      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`)
+      const data = await response.json();
+      return {...data, media_type: favorite.media_type ? favorite.media_type : 'movie'};
+    }
+
+    const results = await Promise.all(favorites.map(fetchDetails))
     res.json(results)
 
   } catch (error) {

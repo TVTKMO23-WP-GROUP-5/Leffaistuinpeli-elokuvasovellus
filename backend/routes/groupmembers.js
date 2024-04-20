@@ -9,7 +9,8 @@ const {
     deleteAllMembers,
     groupApplication,
     checkUserOwner,
-    getUserGroupStatus 
+    getUserGroupStatus, 
+    getGroupIdByGroupname
 } = require('../database/groupmembers_db')
 const router = require("express").Router();
 
@@ -136,6 +137,23 @@ router.post("/groupstatus", async (req,res) => {
 
     
 })
+
+router.get("/membersingroup", async (req,res) => {
+    try {
+        const groupname = req.query.groupname
+        console.log(groupname)
+        const id = await getGroupIdByGroupname(groupname)
+        console.log(id)
+        const groupmembers = await getGroupMember(id)
+        console.log("HEEEEEEEEEEEEI", groupmembers)
+        res.json(groupmembers)
+    }catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
+        console.error(error);
+        res.status(500).send('Sever error');
+    }  
+})
+
+
 
 // funktio, jolla haetaan aina päivitetty ryhmätilanne adminille
 async function handleGroups(group_id, req, res) {

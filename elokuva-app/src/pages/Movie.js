@@ -27,7 +27,7 @@ export default function Movie() {
   const [pickedObject, setPickedObject] = useState(null);
   const [hoverRating, setHoverRating] = useState(0);
   const [stars, setStars] = useState(0);
-  console.log("Jaakon", pickedObject)
+  //console.log("Jaakon", pickedObject)
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
@@ -42,7 +42,7 @@ export default function Movie() {
         );
         if (foundMovie) {
           setPickedObject(foundMovie);
-          console.log("Jaakon2",moviePick)
+          //console.log("Jaakon2",moviePick)
           setRatingData((prev) => ({
             ...prev,
             idmovie: foundMovie.id,
@@ -76,9 +76,9 @@ export default function Movie() {
     return () => {
       active = false;
     };
-  }, [id, moviePick, setMoviePick, user]);
+  }, [id, user]);
 
-  console.log("Movie ID from query:", id);
+  //console.log("Movie ID from query:", id);
 
   useEffect(() => { //Tämä vain testinä, voi poistella jossain kohtaa -Taneli
     console.log(userGroups)
