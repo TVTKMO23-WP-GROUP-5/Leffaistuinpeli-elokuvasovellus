@@ -27,7 +27,7 @@ export default function Movie() {
   const [pickedObject, setPickedObject] = useState(null);
   const [hoverRating, setHoverRating] = useState(0);
   const [stars, setStars] = useState(0);
-  //console.log("Jaakon", pickedObject)
+  
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
