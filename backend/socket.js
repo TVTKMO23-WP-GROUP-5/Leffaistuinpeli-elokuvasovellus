@@ -22,6 +22,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3001, () => {
+server.listen(process.env.PG_PORT || 3001, () => {
   console.log('WebSocket server listening on port 3001');
 });

@@ -14,7 +14,6 @@ router.get("/allgroups", async (req, res) => {
             description: group.description,
             owner: group.owner
         }));
-        console.log(filteredGroups);
         res.json(filteredGroups);
     } catch (error) {
         console.error(error);
@@ -36,7 +35,6 @@ router.get("/owngroups", async (req, res) => {
             description: group.description,
             owner: group.owner
         }))
-        console.log(filteredGroup);
         res.json(filteredGroup);
     } catch (error) {
         res.status(500).send('Server error');
@@ -56,7 +54,6 @@ router.get("/groupname", async (req, res) => {
         description: group.description
     };
 
-    console.log(filteredGroup);
     res.json(filteredGroup);
     } catch (error) {
         res.status(500).send('Server error');
@@ -66,8 +63,6 @@ router.get("/groupname", async (req, res) => {
 router.get("/owner", async (req, res) => {
     try {
         const owner = await getOwnersName(req.query.groupname);
-
-        console.log(owner);
         res.json(owner.owner);
     } catch (error) {
         console.error(error);

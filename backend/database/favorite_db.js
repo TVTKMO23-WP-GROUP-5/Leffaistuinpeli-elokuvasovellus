@@ -2,7 +2,7 @@ const pgPool = require("./pg_connection");
 
 const sql = {
     POST_FAVORITE: "INSERT INTO favorites (idmovie, username, media_type) VALUES ($1, $2, $3)",
-    POST_GROUP_FAVORITE: "INSERT INTO groupmovies (idmovie, groupname, media_type) VALUES ($1, $2)",
+    POST_GROUP_FAVORITE: "INSERT INTO groupmovies (idmovie, groupname, media_type) VALUES ($1, $2, $3)",
     GET_OWN_FAVORITES: "SELECT idmovie, media_type FROM favorites WHERE username=$1",
     GET_GROUP_FAVORITES: "SELECT idmovie, media_type FROM groupmovies WHERE groupname=$1",
     CHECK_OWN_FAVORITES: "SELECT EXISTS ( SELECT 1 FROM favorites WHERE idmovie=$1 AND username=$2 )",
