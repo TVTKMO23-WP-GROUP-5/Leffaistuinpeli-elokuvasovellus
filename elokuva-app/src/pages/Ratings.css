@@ -72,6 +72,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 1em;
 }
   
 .choises select {
@@ -84,18 +85,40 @@
     border-radius: 18px;
   }
 
+  .choises input {
+    border: 2px solid var(--dark-background-color);
+    text-align: center;
+    font-size: 1.2em;
+    padding: 10px;
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 18px;
+    box-sizing: border-box;
+  }
+
+.ratingslist{
+    border-bottom: 3px solid var(--dark-foreground-color);
+}  
+
 .movieRatings {
     border-top: 3px solid var(--dark-foreground-color);
     border-left: 3px solid var(--dark-foreground-color);
     border-right: 3px solid var(--dark-foreground-color);
     width: 75vw;
     display: flex;
+    
 }
 
 .movieRatings img{
     width: 100px;
     margin: 1px;
     border: 2px solid black;
+    transition: transform 0.8s ease;
+}
+
+.movieRatings img:hover{
+    transform: scale(1.03);
+    cursor: pointer;
 }
 
 .movieDetails {
@@ -105,6 +128,90 @@
     margin: 1em;
 }
 
+.movieDetails div>*{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.movieDetails div>*>*{
+    margin-right: 1em;
+    margin-left: 0.5em;
+}
+
+.raterName {
+    transition: transform 0.8s ease;
+}
+
+.raterName:hover{
+    transform: scale(1.2);
+    color: var(--light-background-color);
+    cursor: pointer;
+}
+
 .ratingstars {
     color: rgb(131, 112, 4);
+    font-size: 30px;
+}
+
+.average{
+    margin-left: 2em;
+    font-size: 12px;
+}
+
+.changePage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1em;
+}
+
+.changePage button {
+    width: 100px;
+}
+
+.page-number {
+    flex-grow: 1; 
+    text-align: center;
+}
+
+@media only screen and (max-width: 800px){
+    .movieRatings {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 0.5em;
+      border-bottom: 3px solid var(--dark-foreground-color);
+    }
+
+    .movieRatings img {
+        width: 100%;
+        margin-top: 0;
+        border: 0;
+        border-bottom: 3px solid var(--dark-foreground-color);
+    }
+
+    .ratingslist{
+        border-bottom: 0;
+    }  
+
+    .movieDetails > :nth-child(3){
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .movieDetails > *{
+        margin-bottom: 1em;
+    }
+
+    .ratingstars {
+        font-size: 20px;
+    }
+    
+    .average{
+        margin-left: 1.5em;
+        font-size: 10px;
+    }
+
 }
