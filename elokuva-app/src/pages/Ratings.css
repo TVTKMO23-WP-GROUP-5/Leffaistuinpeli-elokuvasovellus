@@ -72,6 +72,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 1em;
     margin-bottom: 1em;
 }
   
@@ -164,6 +165,7 @@
     flex-direction: row;
     justify-content: space-between;
     margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 .changePage button {

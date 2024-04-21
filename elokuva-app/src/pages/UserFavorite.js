@@ -11,6 +11,7 @@ export default function UserFavorite() {
   const [showArrowsTV, setShowArrowsTV] = useState(false);
   const scrollMoviesRef = useRef(null);
   const scrollTVRef = useRef(null);
+  
 
   // ----- Suosikkien haku -----
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function UserFavorite() {
       console.error("Jokin meni pieleen", error);
     }
   }, [user, setMoviePick]);
+
 
   // ----- Nuolinäppäimet piiloon, mikäli ei scrollattavaa -----
   useEffect(() => {
@@ -59,6 +61,7 @@ export default function UserFavorite() {
       });
     };
   }, [moviePick]);
+
 
   // ----- Nuolinäppäimille funktiot -----
   const scrollRight = (ref) => () => {
@@ -144,7 +147,7 @@ export default function UserFavorite() {
             <h3>Elokuvat</h3>
           </div>
           <div className="container_poster" ref={scrollMoviesRef}>
-            {moviePick
+            {moviePick && moviePick.length > 0 && moviePick
               .filter((movie) => movie.media_type === "movie")
               .map((movie, index) => (
                 <div className="content_poster" key={index}>
@@ -204,7 +207,7 @@ export default function UserFavorite() {
             <h3>Sarjat</h3>
           </div>
           <div className="container_poster" ref={scrollTVRef}>
-            {moviePick
+            {moviePick && moviePick.length > 0 && moviePick
               .filter((movie) => movie.media_type === "tv")
               .map((movie, index) => (
                 <div className="content_poster" key={index}>

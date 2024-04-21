@@ -15,6 +15,7 @@ router.get('/homepage', async (req, res) => {
     });
 
     const movies = response.data.results.slice(0, 9).map(movie => ({
+      id: movie.id,
       title: movie.title,
       poster_path: `https://image.tmdb.org/t/p/w200${movie.poster_path}`
     }));
