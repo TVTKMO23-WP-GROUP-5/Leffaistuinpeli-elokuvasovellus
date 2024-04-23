@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { useUser } from '../context/UseUser'
+import { useTheme } from '../context/ThemeContext';
 import axios from 'axios'
 import './OwnGroups.css'
 import '../index.css'
 
 export default function OwnGroups() {
+  const { theme } = useTheme();
   const [ group, setGroup ] = useState([]);
   const [ isSortedAsc, setIsSortedAsc ] = useState(true)
   const { user, isAdmin } = useUser()
@@ -33,6 +35,7 @@ export default function OwnGroups() {
   }
 
   return (
+  <div className={theme === 'dark' ? 'dark-theme' : ''}>
     <div className="container_owngroups">
       <div className="info">
         <h2>Omat ryhmät</h2>
@@ -77,5 +80,6 @@ export default function OwnGroups() {
         </div>
       </div>
     </div>
+  </div>
   );
 }

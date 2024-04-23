@@ -3,8 +3,10 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./Search.css";
 import { useUser } from "../context/UseUser";
+import { useTheme } from '../context/ThemeContext';
 
 export default function Search() {
+  const { theme } = useTheme();
   const [movieData, setMovieData] = useState({ 
     search: "",
     pages: "1" 
@@ -26,7 +28,6 @@ export default function Search() {
     setMoviePick(null);
   }, [setMoviePick]);
 
-// tämä useEffect päivittää movieDatan aina kun movieData vaihtuu. 
   useEffect(() => {
     console.log(movieData);
   }, [movieData]);
@@ -55,7 +56,6 @@ export default function Search() {
     console.log(searchType)
   }
 
-// tämä useEffect päivittää filteredSearch aina kun filteredSearch vaihtuu. 
   useEffect(() => {
     console.log(filteredSearch)
   }, [filteredSearch]);
@@ -67,7 +67,6 @@ export default function Search() {
     }))
   }
 
-// ---------- YLEISHAKU --------------------//
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -97,7 +96,7 @@ export default function Search() {
         alert("Haku epäonnistui jostain syystä");
       });
   };
-// ---------- TARKENNETTU LEFFAHAKU --------------------//
+
   const handleFilteredSearch = (event,name, value) => {
     event.preventDefault();
     console.log("tämä on value: ",name, value)
@@ -122,7 +121,6 @@ export default function Search() {
     })  
   };
 
-// ---------- TARKENNETTU SARJAHAKU --------------------//
   const handleFilteredSeries = (event,name,value) => {
     event.preventDefault();
     console.log("tämä on value: ",name, value)
@@ -152,7 +150,7 @@ export default function Search() {
 
   return (
     <>
-    <div className="searchpage-container">
+    <div className={`searchpage-container ${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
       <div className = "search-type">
         <input type = "radio" name = "searchType" value = "basic" onClick={handleSearchType}/><span class="radio-label">Nimihaku</span>
         <input type = "radio" name = "searchType" value = "filtered" onClick={handleSearchType}/><span class="radio-label">Tarkempi elokuvahaku</span>
