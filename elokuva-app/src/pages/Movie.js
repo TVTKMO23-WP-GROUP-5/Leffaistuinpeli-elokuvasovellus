@@ -314,6 +314,7 @@ export default function Movie() {
                 return (
                   <button
                     type="button"
+                    id="movieButton"
                     key={index}
                     className={index <= hoverRating ? "on" : "off"}
                     onClick={() => handleRating(index)}

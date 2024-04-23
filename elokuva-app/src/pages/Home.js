@@ -32,13 +32,11 @@ export default function Home() {
     const handleVisibilityChange = () => {
       console.log("Dokumentin tila: ", document.visibilityState)
       if (document.visibilityState === 'hidden' && isHome) {
-        console.log("Päivitetään kuvat taustalla...")
         setLoading(true);
         axios.get("http://localhost:3001/random_movies/homepage")
           .then(response => {
             setMovies(response.data)
             setLoading(false);
-            console.log("Kuvat päivitetty taustalla")
           })
           .catch(error => {
             console.error("Virhe elokuvien haussa", error)
@@ -57,12 +55,15 @@ export default function Home() {
   const renderCardGroup = (startIndex) => (
     <div className="card-container">
       {movies.slice(startIndex, startIndex + 3).map((movie, index) => (
-        <Link to={`/movie/?id=${movie.id}`} key={index} className="homeposter">
-          <img src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`} alt={movie.title} />
-        </Link>
+        <div key={index} className="homeposter" style={{ zIndex: 3 - index }}>
+          <img
+            src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+            alt={movie.title}
+          />
+        </div>
       ))}
     </div>
-  );
+  )
 
   return (
     <div className="home-container">
@@ -70,19 +71,19 @@ export default function Home() {
         <div className="frontText one">
           <p>Hae ja arvostele elokuvia!</p>
         </div>
-        {renderCardGroup(0)}
+        <Link to="/Search">{renderCardGroup(0)}</Link>
       </div>
       <div>
         <div className="frontText two">
           <p>Selaa elokuvien näytösaikoja!</p>
         </div>
-        {renderCardGroup(3)}
+        <Link to="/Showtimes">{renderCardGroup(3)}</Link>
       </div>
       <div>
         <div className="frontText three">
-          <p>Liity ryhmiin ja keskustele!</p>
+          <p>Luo ryhmiä ja liity ryhmiin!</p>
         </div>
-        {renderCardGroup(6)}
+        <Link to="/AllGroups">{renderCardGroup(6)}</Link>
       </div>
     </div>
   );
