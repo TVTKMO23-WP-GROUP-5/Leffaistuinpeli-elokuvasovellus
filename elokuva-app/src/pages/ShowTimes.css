@@ -40,6 +40,26 @@
   gap: 20px;
 }
 
+.st-list p {
+  margin-top: 1em;
+}
+
+.st-list li select {
+  width: 90%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid var(--grey-color);
+  font-size: 18px;
+  cursor: pointer;
+  max-width: 300px;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.st-list .submit_button {
+  width: 60%;
+}
+
 .st-item:nth-child(3n+1) {
   margin-left: 0;
 }

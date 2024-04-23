@@ -19,7 +19,6 @@ body, html {
 }
 
 .container_userfavorite .movieList {
-    border: 2px solid var(--dark-color);
     position: relative;
     min-width: 90vw;
     justify-content: center;

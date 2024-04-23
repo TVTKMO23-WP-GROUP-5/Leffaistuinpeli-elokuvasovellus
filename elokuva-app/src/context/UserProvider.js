@@ -29,7 +29,7 @@ export default function UserProvider({ children }) {
         navigate('/userpage')
         alert("Kirjautuminen onnistui!")
       })
-      .catch(err => console.log(err.message))
+      .catch(err => console.log(err.message, alert("Väärä käyttäjätunnus tai salasana!")))
   }
 
   // Asettaa groupMemberseihin,jos käyttäjä on adminina niin tietoa. 
@@ -51,6 +51,7 @@ export default function UserProvider({ children }) {
     axios.get("http://localhost:3001/rating/getrating")
       .then((response) => {
         setRatingsList(response.data)
+        console.log("Tänne arvostelut", response.data)
       })
       .catch((error) => {
         console.error("Error adding favorite:", error.response.data);
@@ -94,7 +95,6 @@ export default function UserProvider({ children }) {
         .get(`http://localhost:3001/groups/owngroups?username=${username}`)
         .then((response) => {
           setUserGroups(response.data);
-          console.log(userGroups)
         })
         .catch((error) => {
           console.error("Fetching failed", error);

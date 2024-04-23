@@ -21,6 +21,17 @@ CREATE TABLE groupmovies(
     media_type VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE groupshowtimes(
+    idGS INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    groupname VARCHAR(50) NOT NULL REFERENCES groups(groupname),
+    theatreID INT NOT NULL,
+    showdate DATE NOT NULL,
+    movieID INT NOT NULL,
+    movieTitle VARCHAR(255) NOT NULL,
+    showStartTime TIME NOT NULL,
+    img TEXT NOT NULL
+);
+
 CREATE TABLE groupmembers(
     idMember INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idGroup INT NOT NULL REFERENCES groups(idGroup),

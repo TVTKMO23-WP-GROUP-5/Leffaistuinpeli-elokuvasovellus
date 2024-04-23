@@ -2,13 +2,27 @@ import React, { useState, useEffect, useRef } from "react";
 import "./ShowTimes.css";
 import axios from "axios";
 import xml2js from "xml-js";
+import { useUser } from "../context/UseUser";
 
 export default function Showtimes() {
+  const { user, userGroups } = useUser();
   const [showtimes, setShowtimes] = useState(null);
+  const [selectedShowtime, setSelectedShowtime] = useState(null)
   const [filter, setFilter] = useState("");
   const [date, setDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState('')
+  const [activeIndex, setActiveIndex] = useState(null)
   const resultsRef = useRef(null);
+  const [showtimeData, setShowtimeData] = useState({
+    groupname: "",
+    theatreid: "",
+    showdate: "",
+    movieid: "",
+    movietitle: "",
+    showstarttime: "",
+    img: ""
+  })
 
   useEffect(() => {
     if (!filter || !date) {
@@ -91,6 +105,42 @@ export default function Showtimes() {
     return `${day}.${month}.${year}`;
   }
 
+
+  // ----- Ryhmän sivulle lisääminen -----
+  const handleGroupSelect = (index) => (e) => {
+    const newSelectedGroups = {...selectedGroup, [index]: e.target.value}
+    setSelectedGroup(newSelectedGroups);
+    setActiveIndex(index)
+  }
+
+  const addShowtime = () => {
+    if (activeIndex === null || !filteredShows || !filteredShows[activeIndex]) {
+      console.error("Invalid showtime or index");
+      return;
+    }
+    const selectedShow = filteredShows[activeIndex];
+    const newShowtimeData = {
+      groupname: selectedGroup[activeIndex],
+      theatreid: selectedShow.TheatreID?._text,
+      showdate: selectedShow.dttmShowStart?._text.substr(0, 10),
+      movieid: selectedShow.EventID?._text,
+      movietitle: selectedShow.Title?._text,
+      showstarttime: selectedShow.dttmShowStart?._text.substr(11, 19),
+      img: selectedShow.Images.EventMediumImagePortrait?._text,
+    };
+    setShowtimeData(newShowtimeData)
+
+      axios
+        .post(`http://localhost:3001/groupST/addshowtime`, newShowtimeData)
+        .then((response) => {
+          console.log("Server response :", response)
+        })
+        .catch((error) => {
+          console.error("Lisäys epäonnistui: ", error);
+        }) 
+  };
+
+  
   return (
     <div className="showtimes-container" ref={resultsRef}>
       <div className="filter-container">
@@ -118,7 +168,7 @@ export default function Showtimes() {
       ) : filteredShows && filteredShows.length > 0 ? (
         <ul className="st-list">
           {filteredShows.map((show, index) => (
-            <li className="st-item" key={index}>
+            <li className="st-item" key={index} onClick={() => setActiveIndex(index)}>
               <p className="st-time">{formatDate(show.dttmShowStart?._text)}</p>
               <h1 className="st-title">{show.Title?._text}</h1>
               <p className="st-details">Teatteri: {show.Theatre?._text}</p>
@@ -127,11 +177,34 @@ export default function Showtimes() {
                 src={show.Images.EventMediumImagePortrait?._text}
                 alt="show"
               />
+              {user && (
+                <>
+                  <p>Lisää ryhmän sivulle</p>
+                  <select onChange={handleGroupSelect(index)} value={selectedGroup[index] || ''}>
+                    <option value="">Valitse ryhmä</option>
+                    {userGroups.map((group, index) => (
+                      <option key={index} value={group.name}>
+                        {group.name}
+                      </option>
+                    ))}
+                  </select>
+                  {selectedGroup[index] && (
+                    <div className="submit_button">
+                      <button type="submit" onClick={addShowtime}>Lisää</button>
+                    </div>
+                  )}
+                </>
+              )}
             </li>
           ))}
         </ul>
       ) : (
-        filter && date && <p className="please">Ei näytöksiä valitulle teatterille ja päivälle</p>
+        filter &&
+        date && (
+          <p className="please">
+            Ei näytöksiä valitulle teatterille ja päivälle
+          </p>
+        )
       )}
     </div>
   );

@@ -3,6 +3,7 @@ const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const account = require("./routes/account");
 const groups = require("./routes/groups");
+const groupST = require("./routes/groupST");
 const getmembers = require("./routes/groupmembers")
 const auth = require("./routes/authentication");
 const movies = require("./routes/movie_search");
@@ -19,6 +20,7 @@ app.use(express.json()) // Ottaa vastaaan jsonia. Jaakko
 app.use((cors())) // poistaa header-ongelmia. Jaakko
 app.use("/account", account);
 app.use("/groups", groups);
+app.use("/groupST", groupST);
 app.use("/auth", auth); // Hieman muuttelin osoitteita. keskustellaan näistä. Jaakko
 app.use("/movies", movies)
 app.use("/getmembers", getmembers)
