@@ -38,6 +38,15 @@ form {
     border-radius: 8px;
     box-sizing: border-box;
 }
+.light .ryhmännimi *{
+    background-color: #fff; 
+    color: black; 
+  }
+  
+  .dark .ryhmännimi *{
+    background-color: white; 
+    color: black; 
+  }
 
 .kuvaus *{
     margin: 0em;
@@ -46,8 +55,18 @@ form {
     min-height: 220px;
     border-radius: 8px;
     box-sizing: border-box;
+    
 }
-
+.light .kuvaus *{
+    background-color: #fff; 
+    color: black; 
+  }
+  
+  .dark .kuvaus *{
+    background-color: white; 
+    color: black; 
+  }
+  
 
 .nappi *{
     background-color: #293887;

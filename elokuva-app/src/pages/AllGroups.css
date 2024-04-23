@@ -50,6 +50,7 @@
     margin-bottom: 1em;
 }
 
+
 .groupname_allgroups {
     display: block;
     width: 34%;
@@ -76,9 +77,28 @@
     border-radius: 8px;
 }
 
+
+.light .groups_allgroups li {
+    border: 1px solid black; 
+  }
+  
+  .dark .groups_allgroups li {
+    border: 1px solid white; 
+  }
+
 .groups_allgroups li div {
     display: block;
+    color: inherit; 
 }
+
+
+.light .groups_allgroups li div {
+    color: black; 
+  }
+  
+  .dark .groups_allgroups li div {
+    color: white; 
+  }
 
 .list_groupname_allgroups {
     display: block;

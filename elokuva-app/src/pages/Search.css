@@ -18,10 +18,18 @@
   margin-right: 5px;
 }
 
-.search-type span{
+.light-theme .search-type span {
   margin: 1em;
   margin-left: 0;
+  color: black; /* Tekstin väri vaaleassa teemassa */
 }
+
+.dark-theme .search-type span {
+  margin: 1em;
+  margin-left: 0;
+  color: white; /* Tekstin väri tummassa teemassa */
+}
+
 
 .name-search {
   display: flex;
@@ -74,6 +82,7 @@ input {
   padding: 10px;
   width: 100%;
   margin-bottom: 10px;
+  background-color: white;
 }
 
 .search-bars select {
@@ -167,3 +176,4 @@ input:-webkit-autofill:focus {
     width: 80vw;
   }
 }
+

@@ -3,10 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../context/UseUser';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTheme } from '../context/ThemeContext';
 import axios from 'axios'; // Lisätty axios-kirjasto
 import './UserPage.css'; // Tuodaan CSS-tiedosto
 
 export default function UserPage() {
+  const { theme } = useTheme();
   const { user, setUser } = useUser();
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -37,6 +39,7 @@ export default function UserPage() {
   };
 
   return (
+  <div className={theme === 'dark' ? 'dark-theme' : ''}>
     <>
       <div>
         <h2>Käyttäjätiedot</h2>
@@ -74,5 +77,6 @@ export default function UserPage() {
         )}
       </div>
     </>
+  </div>
   ); 
 }

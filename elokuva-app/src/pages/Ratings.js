@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './Ratings.css'
 import axios from 'axios'
 import { useUser } from '../context/UseUser'
+import { useTheme } from '../context/ThemeContext';
 
 export default function Ratings() {
+    const { theme } = useTheme();
     const { ratingsList, setRatingsList, user } = useUser()
     const [showRatings, setShowRatings] = useState([])
     const [sort, setSort] = useState([])
@@ -121,7 +123,7 @@ export default function Ratings() {
     }
     const averages = topFiveList()
     return (
-        <div>
+        <div className={theme === 'dark' ? 'dark-theme' : ''}>
             <div className="choises">
                 <select name="sort" onChange={(e) => {
                     setSortType(e.target.value)
@@ -201,5 +203,5 @@ export default function Ratings() {
                 {isButton && endIndex < sort.length && <button onClick={handleClickNext}>Seuraava</button>}
             </div>
         </div>
-    )
+    ) 
 }

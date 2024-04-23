@@ -28,6 +28,10 @@
     border-radius: 8px;
 }
 
+.dark-theme .container_owngroups li {
+    border-color: white;
+}
+
 .groups_owngroups ul {
     height: auto;
 }
