@@ -47,7 +47,7 @@ async function getGroupIdByGroupname(groupname) {
 
 async function getAccountId(uname) {
     let result = await pgPool.query(sql.GET_IDACCOUNT, [uname]);
-    return result.rows
+    return result.rows[0]
 }
 
 async function deleteMemberFromGroup(idgroup, idaccount) {

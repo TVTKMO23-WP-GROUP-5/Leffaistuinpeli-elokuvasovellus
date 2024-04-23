@@ -349,6 +349,9 @@ export default function GroupPage() {
             </button>
           )}
         </div>
+        <div className="group_showtimes">
+          <h3>Ryhmän sarjat</h3>
+        </div>
         <div className="group_chat">
           <h2>Chat</h2>
           {chat.map((msg, index) => (

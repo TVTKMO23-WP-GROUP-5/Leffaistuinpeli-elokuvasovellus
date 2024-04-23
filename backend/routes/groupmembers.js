@@ -145,7 +145,6 @@ router.get("/membersingroup", async (req,res) => {
         const id = await getGroupIdByGroupname(groupname)
         console.log(id)
         const groupmembers = await getGroupMember(id)
-        console.log("HEEEEEEEEEEEEI", groupmembers)
         res.json(groupmembers)
     }catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
         console.error(error);

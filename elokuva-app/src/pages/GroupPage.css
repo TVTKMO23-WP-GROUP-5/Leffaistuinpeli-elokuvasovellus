@@ -16,6 +16,7 @@
     width: 40%;
     margin-top: 50px;
     margin-bottom: 2em;
+    padding-bottom: 2em;
     text-align: center;
 }
 
@@ -26,7 +27,7 @@
 .group_info .group_name {
     width: 100%;
     margin: auto;
-    margin-bottom: 0.5em;
+    margin: 2em 0;
     justify-content: center;
 }
 
@@ -39,7 +40,7 @@
 }
 
 .group_info .group_owner {
-    margin-bottom: 1em;
+    margin: 1em 0;
     text-align: center;
 }
 
@@ -77,6 +78,18 @@
 .buttonToAdminPage button {
     margin: 1em;
     padding: 0.5em;
+}
+
+.group_showtimes {
+    width: 100%;
+    border: 2px solid var(--dark-color);
+    border-radius: 8px;
+    min-height: 200px;
+}
+
+.container_grouppage h3 {
+    text-align: center;
+    margin: 1em;
 }
 
 a {
