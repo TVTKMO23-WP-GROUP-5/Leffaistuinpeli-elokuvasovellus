@@ -14,12 +14,15 @@ export default function GroupPage() {
   const [owner, setOwner] = useState("");
   const [members, setMembers] = useState([]);
   const [message, setMessage] = useState("");
+  const [groupShowtimes, setGroupShowtimes] = useState([]);
   const [chat, setChat] = useState([]);
   const { isAdmin, user } = useUser();
   const [showArrowsMovies, setShowArrowsMovies] = useState(false);
   const [showArrowsTV, setShowArrowsTV] = useState(false);
+  const [showArrowsST, setShowArrowsST] = useState(false);
   const scrollMoviesRef = useRef(null);
   const scrollTVRef = useRef(null);
+  const scrollSTref = useRef(null);
 
   groupName = decodeURIComponent(groupName);
 
@@ -98,6 +101,21 @@ export default function GroupPage() {
   }, [setMoviePick, groupName]);
 
 
+  // ----- Ryhmän näytösaikojen haku -----
+  useEffect(() => {
+      axios
+      .get(`http://localhost:3001/groupST/getgrouptimes?groupname=${groupName}`)
+      .then((response) => {
+        setGroupShowtimes(response.data);
+        console.log("Tänne ryhmän ajat: ", response.data);
+      })
+      .catch((error) => {
+        console.error("Fetching showtimes failed", error);
+      });
+  }, [groupName]);
+
+
+
   // ----- Nuolinäppäimet piiloon, mikäli ei scrollattavaa -----
   useEffect(() => {
     const checkOverflow = (ref, setShowArrows) => {
@@ -122,7 +140,7 @@ export default function GroupPage() {
         checkOverflow(scrollTVRef, setShowArrowsTV);
       });
     };
-  }, [moviePick, showArrowsMovies, showArrowsTV]);
+  }, [moviePick, showArrowsMovies, showArrowsTV, showArrowsST]);
 
 
   // ----- Nuolinäppäimille funktiot -----
@@ -194,6 +212,27 @@ export default function GroupPage() {
   };
 
 
+  // ----- Id ja sitä vastaava kaupunki -----
+  const theatreToCity = {
+    "1056": "Espoo",
+    "1039": "Pori",
+    "1038": "Helsinki",
+    "1058": "Helsinki",
+    "1034": "Helsinki",
+    "1047": "Helsinki",
+    "1043": "Vantaa",
+    "1044": "Jyväskylä",
+    "1049": "Kuopio",
+    "1042": "Lahti",
+    "1052": "Lappeenranta",
+    "1036": "Oulu",
+    "1037": "Tampere",
+    "1040": "Tampere",
+    "1059'": "Turku",
+    "1035": "Turku"
+  };
+
+
   return (
     <div className="container_grouppage">
       <div className="group_info">
@@ -214,12 +253,14 @@ export default function GroupPage() {
               </p>
             </div>
             <div className="other_members_list">
-              {members && members.map((member,index) => (
-                member.username !== owner ? (
-                <div key={index}>
-                  <p>{member.username}</p>
-                </div> ) : null
-              ))} 
+              {members &&
+                members.map((member, index) =>
+                  member.username !== owner ? (
+                    <div key={index}>
+                      <p>{member.username}</p>
+                    </div>
+                  ) : null
+                )}
             </div>
           </div>
         </div>
@@ -348,6 +389,34 @@ export default function GroupPage() {
               {">"}
             </button>
           )}
+        </div>
+          <div className="list_showtimes">
+            <div className="info_showtimes">
+              <h3>Tallennetut näytösajat</h3>
+            </div>
+            <div className="container_groupshowtimes">
+              {groupShowtimes &&
+                groupShowtimes
+                .filter(showtime => {
+                  //Tarkistetaan, onko näytöksen päivämäärä jo mennyt
+                  const showtimeDate = new Date(showtime.showdate);
+                  const currentDate = new Date();
+                  return showtimeDate >= currentDate;
+                })
+                .map((showtime, index) => 
+                  <div className="content_showtimes" key={index}>
+                    <div className="img_showtime">
+                      <img src={showtime.img} alt="" />
+                    </div>
+                    <div className="showtime_data">
+                      <p>{showtime.movietitle}</p>
+                      <p>{theatreToCity[showtime.theatreid]}</p>
+                      <p>{showtime.showdate.substr(0, 10)}</p>
+                      <p>{showtime.showstarttime.substr(0, 5)}</p>
+                    </div>
+                  </div>
+                )}
+            </div>
         </div>
         <div className="group_chat">
           <h2>Chat</h2>
