@@ -1,14 +1,11 @@
 .user-info {
     margin-bottom: 20px;
+    font-size: 1.2em;
 }
 
 .delete-user-section {
     display: flex;
     align-items: center;
-}
-
-.confirm-delete-checkbox {
-    margin-right: 20px;
 }
 
 input[type="checkbox"] {
@@ -22,5 +19,31 @@ label {
 }
 
 .dark-theme label {
-    color:white;
+    color: white;
+}
+
+.user_favorites_button,
+.user_own_groups_button,
+.user-delete-button {
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+
+  .userpagebutton {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    width: 700px;
+}
+
+  .button {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    width: 700px;
+}
+
+.user-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
