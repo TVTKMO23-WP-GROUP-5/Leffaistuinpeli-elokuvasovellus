@@ -39,7 +39,8 @@ export default function UserPage() {
   };
 
   return (
-  <div className={theme === 'dark' ? 'dark-theme' : ''}>
+  <div className="marginiaYlos">
+    <div className={theme === 'dark' ? 'dark-theme' : ''}>
     <>
       <div>
         <h2>Käyttäjätiedot</h2>
@@ -47,7 +48,7 @@ export default function UserPage() {
           <div className="content">
             <div className="user_favorites_button">
               <Link to={`/${user}/favorites`}>
-                <button>Omat suosikit</button>
+                <button className="userpagebutton">Omat suosikit</button>
               </Link>
             </div>
             <div>
@@ -77,6 +78,7 @@ export default function UserPage() {
         )}
       </div>
     </>
+  </div>
   </div>
   ); 
 }
