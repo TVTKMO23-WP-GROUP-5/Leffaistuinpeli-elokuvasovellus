@@ -396,7 +396,7 @@ export default function GroupPage() {
               {msg.sender}: {msg.text}
             </p>
           ))}
-          <form onSubmit={sendMessage}>
+          <form onSubmit={}>
             <input
               type="text"
               value={message}
