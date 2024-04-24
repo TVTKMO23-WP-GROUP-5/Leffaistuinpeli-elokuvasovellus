@@ -14,7 +14,7 @@ router.get("/allgroups", async (req, res) => {
             description: group.description,
             owner: group.owner
         }));
-        res.json(filteredGroups);
+        res.status(200).json(filteredGroups);
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error');
