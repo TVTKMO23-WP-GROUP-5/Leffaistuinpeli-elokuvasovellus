@@ -5,7 +5,6 @@ import axios from "axios";
 import { useUser } from "../context/UseUser";
 import { Link } from "react-router-dom";
 
-
 export default function GroupPage() {
   let { groupName } = useParams();
   const { moviePick, setMoviePick } = useUser();
@@ -22,7 +21,6 @@ export default function GroupPage() {
 
   groupName = decodeURIComponent(groupName);
 
-
   // ----- Ryhmän omistajan + jäsenten haut -----
   useEffect(() => {
     axios
@@ -34,8 +32,10 @@ export default function GroupPage() {
         console.error("Fetching owner failed", error);
       });
 
-      axios
-      .get(`http://localhost:3001/getmembers/membersingroup?groupname=${groupName}`)
+    axios
+      .get(
+        `http://localhost:3001/getmembers/membersingroup?groupname=${groupName}`
+      )
       .then((response) => {
         setMembers(response.data);
         console.log(response.data);
@@ -43,9 +43,7 @@ export default function GroupPage() {
       .catch((error) => {
         console.error("Fetching members failed", error);
       });
-
   }, [groupName]);
-
 
   // ----- Suosikkielokuvat ja -sarjat -----
   useEffect(() => {
@@ -69,10 +67,9 @@ export default function GroupPage() {
     }
   }, [setMoviePick, groupName]);
 
-
   // ----- Ryhmän näytösaikojen haku -----
   useEffect(() => {
-      axios
+    axios
       .get(`http://localhost:3001/groupST/getgrouptimes?groupname=${groupName}`)
       .then((response) => {
         setGroupShowtimes(response.data);
@@ -82,8 +79,6 @@ export default function GroupPage() {
         console.error("Fetching showtimes failed", error);
       });
   }, [groupName]);
-
-
 
   // ----- Nuolinäppäimet piiloon, mikäli ei scrollattavaa -----
   useEffect(() => {
@@ -110,7 +105,6 @@ export default function GroupPage() {
       });
     };
   }, [moviePick, showArrowsMovies, showArrowsTV]);
-
 
   // ----- Nuolinäppäimille funktiot -----
   const scrollRight = (ref) => () => {
@@ -180,186 +174,187 @@ export default function GroupPage() {
     }
   };
 
+  const handle = () => {};
 
   // ----- Id ja sitä vastaava kaupunki -----
   const theatreToCity = {
-    "1056": "Espoo",
-    "1039": "Pori",
-    "1038": "Helsinki",
-    "1058": "Helsinki",
-    "1034": "Helsinki",
-    "1047": "Helsinki",
-    "1043": "Vantaa",
-    "1044": "Jyväskylä",
-    "1049": "Kuopio",
-    "1042": "Lahti",
-    "1052": "Lappeenranta",
-    "1036": "Oulu",
-    "1037": "Tampere",
-    "1040": "Tampere",
+    1056: "Espoo",
+    1039: "Pori",
+    1038: "Helsinki",
+    1058: "Helsinki",
+    1034: "Helsinki",
+    1047: "Helsinki",
+    1043: "Vantaa",
+    1044: "Jyväskylä",
+    1049: "Kuopio",
+    1042: "Lahti",
+    1052: "Lappeenranta",
+    1036: "Oulu",
+    1037: "Tampere",
+    1040: "Tampere",
     "1059'": "Turku",
-    "1035": "Turku"
+    1035: "Turku",
   };
 
   return (
     <>
       {user ? (
-      <div className="container_grouppage">
-        <div className="group_info">
-          <div className="group_name">
-            <h1>{groupName}</h1>
-          </div>
-          <div className="group_members">
-            <div className="group_owner">
-              <p>
-                <strong>Ryhmän perustaja: </strong>
-                {owner}
-              </p>
+        <div className="container_grouppage">
+          <div className="group_info">
+            <div className="group_name">
+              <h1>{groupName}</h1>
             </div>
-            <div className="other_members">
-              <div className="other_members_infotext">
+            <div className="group_members">
+              <div className="group_owner">
                 <p>
-                  <strong>Jäsenet:</strong>
+                  <strong>Ryhmän perustaja: </strong>
+                  {owner}
                 </p>
               </div>
-              <div className="other_members_list">
-                {members &&
-                  members.map((member, index) =>
-                    member.username !== owner ? (
-                      <div key={index}>
-                        <p>{member.username}</p>
-                      </div>
-                    ) : null
-                  )}
+              <div className="other_members">
+                <div className="other_members_infotext">
+                  <p>
+                    <strong>Jäsenet:</strong>
+                  </p>
+                </div>
+                <div className="other_members_list">
+                  {members &&
+                    members.map((member, index) =>
+                      member.username !== owner ? (
+                        <div key={index}>
+                          <p>{member.username}</p>
+                        </div>
+                      ) : null
+                    )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="group_favorites">
-          <div className="movieList">
-            {showArrowsMovies && (
-              <button className="prev" onClick={scrollLeft(scrollMoviesRef)}>
-                {"<"}
-              </button>
-            )}
-            <div className="userfavorite_info">
-              <h3>Ryhmän elokuvat</h3>
-            </div>
-            <div className="container_poster" ref={scrollMoviesRef}>
-              {moviePick &&
-                moviePick.length > 0 &&
-                moviePick
-                  .filter((movie) => movie.media_type === "movie")
-                  .map((movie, index) => (
-                    <div className="content_poster" key={index}>
-                      {movie.poster_path && (
-                        <Link to={`/movie/?id=${movie.id}`}>
-                          <div className="img_poster">
-                            <img
-                              src={
-                                "https://image.tmdb.org/t/p/w342/" +
-                                movie.poster_path
-                              }
-                              alt="Movie poster"
-                            />
-                          </div>
-                          <div className="year_imdbrating">
-                            <div className="release_year">
-                              {movie.release_date ? (
-                                <p>{movie.release_date.split("-")[0]}</p>
-                              ) : movie.first_air_date ? (
-                                <p>{movie.first_air_date.split("-")[0]}</p>
+          <div className="group_favorites">
+            <div className="movieList">
+              {showArrowsMovies && (
+                <button className="prev" onClick={scrollLeft(scrollMoviesRef)}>
+                  {"<"}
+                </button>
+              )}
+              <div className="userfavorite_info">
+                <h3>Ryhmän elokuvat</h3>
+              </div>
+              <div className="container_poster" ref={scrollMoviesRef}>
+                {moviePick &&
+                  moviePick.length > 0 &&
+                  moviePick
+                    .filter((movie) => movie.media_type === "movie")
+                    .map((movie, index) => (
+                      <div className="content_poster" key={index}>
+                        {movie.poster_path && (
+                          <Link to={`/movie/?id=${movie.id}`}>
+                            <div className="img_poster">
+                              <img
+                                src={
+                                  "https://image.tmdb.org/t/p/w342/" +
+                                  movie.poster_path
+                                }
+                                alt="Movie poster"
+                              />
+                            </div>
+                            <div className="year_imdbrating">
+                              <div className="release_year">
+                                {movie.release_date ? (
+                                  <p>{movie.release_date.split("-")[0]}</p>
+                                ) : movie.first_air_date ? (
+                                  <p>{movie.first_air_date.split("-")[0]}</p>
+                                ) : (
+                                  <p>Ei julkaisuvuotta</p>
+                                )}
+                              </div>
+                              <div className="imdb_rating">
+                                <span className="star">&#9733;</span>
+                                <p>{movie.vote_average}</p>
+                              </div>
+                            </div>
+                            <div className="movie_title">
+                              {movie.title ? (
+                                <p>{movie.title}</p>
+                              ) : movie.name ? (
+                                <p>{movie.name}</p>
                               ) : (
-                                <p>Ei julkaisuvuotta</p>
+                                <p>Ei nimeä saatavilla</p>
                               )}
                             </div>
-                            <div className="imdb_rating">
-                              <span className="star">&#9733;</span>
-                              <p>{movie.vote_average}</p>
+                          </Link>
+                        )}
+                      </div>
+                    ))}
+              </div>
+              {showArrowsMovies && (
+                <button className="next" onClick={scrollRight(scrollMoviesRef)}>
+                  {">"}
+                </button>
+              )}
+            </div>
+            <div className="movieList">
+              {showArrowsTV && (
+                <button className="prev" onClick={scrollLeft(scrollTVRef)}>
+                  {"<"}
+                </button>
+              )}
+              <div className="userfavorite_info">
+                <h3>Ryhmän sarjat</h3>
+              </div>
+              <div className="container_poster" ref={scrollTVRef}>
+                {moviePick &&
+                  moviePick.length > 0 &&
+                  moviePick
+                    .filter((movie) => movie.media_type === "tv")
+                    .map((movie, index) => (
+                      <div className="content_poster" key={index}>
+                        {movie.poster_path && (
+                          <Link to={`/movie/?id=${movie.id}`}>
+                            <div className="img_poster">
+                              <img
+                                src={
+                                  "https://image.tmdb.org/t/p/w342/" +
+                                  movie.poster_path
+                                }
+                                alt="Movie poster"
+                              />
                             </div>
-                          </div>
-                          <div className="movie_title">
-                            {movie.title ? (
-                              <p>{movie.title}</p>
-                            ) : movie.name ? (
-                              <p>{movie.name}</p>
-                            ) : (
-                              <p>Ei nimeä saatavilla</p>
-                            )}
-                          </div>
-                        </Link>
-                      )}
-                    </div>
-                  ))}
-            </div>
-            {showArrowsMovies && (
-              <button className="next" onClick={scrollRight(scrollMoviesRef)}>
-                {">"}
-              </button>
-            )}
-          </div>
-          <div className="movieList">
-            {showArrowsTV && (
-              <button className="prev" onClick={scrollLeft(scrollTVRef)}>
-                {"<"}
-              </button>
-            )}
-            <div className="userfavorite_info">
-              <h3>Ryhmän sarjat</h3>
-            </div>
-            <div className="container_poster" ref={scrollTVRef}>
-              {moviePick &&
-                moviePick.length > 0 &&
-                moviePick
-                  .filter((movie) => movie.media_type === "tv")
-                  .map((movie, index) => (
-                    <div className="content_poster" key={index}>
-                      {movie.poster_path && (
-                        <Link to={`/movie/?id=${movie.id}`}>
-                          <div className="img_poster">
-                            <img
-                              src={
-                                "https://image.tmdb.org/t/p/w342/" +
-                                movie.poster_path
-                              }
-                              alt="Movie poster"
-                            />
-                          </div>
-                          <div className="year_imdbrating">
-                            <div className="release_year">
-                              {movie.release_date ? (
-                                <p>{movie.release_date.split("-")[0]}</p>
-                              ) : movie.first_air_date ? (
-                                <p>{movie.first_air_date.split("-")[0]}</p>
+                            <div className="year_imdbrating">
+                              <div className="release_year">
+                                {movie.release_date ? (
+                                  <p>{movie.release_date.split("-")[0]}</p>
+                                ) : movie.first_air_date ? (
+                                  <p>{movie.first_air_date.split("-")[0]}</p>
+                                ) : (
+                                  <p>Ei julkaisuvuotta</p>
+                                )}
+                              </div>
+                              <div className="imdb_rating">
+                                <span className="star">&#9733;</span>
+                                <p>{movie.vote_average}</p>
+                              </div>
+                            </div>
+                            <div className="movie_title">
+                              {movie.title ? (
+                                <p>{movie.title}</p>
+                              ) : movie.name ? (
+                                <p>{movie.name}</p>
                               ) : (
-                                <p>Ei julkaisuvuotta</p>
+                                <p>Ei nimeä saatavilla</p>
                               )}
                             </div>
-                            <div className="imdb_rating">
-                              <span className="star">&#9733;</span>
-                              <p>{movie.vote_average}</p>
-                            </div>
-                          </div>
-                          <div className="movie_title">
-                            {movie.title ? (
-                              <p>{movie.title}</p>
-                            ) : movie.name ? (
-                              <p>{movie.name}</p>
-                            ) : (
-                              <p>Ei nimeä saatavilla</p>
-                            )}
-                          </div>
-                        </Link>
-                      )}
-                    </div>
-                  ))}
+                          </Link>
+                        )}
+                      </div>
+                    ))}
+              </div>
+              {showArrowsTV && (
+                <button className="next" onClick={scrollRight(scrollTVRef)}>
+                  {">"}
+                </button>
+              )}
             </div>
-            {showArrowsTV && (
-              <button className="next" onClick={scrollRight(scrollTVRef)}>
-                {">"}
-              </button>
-            )}
-          </div>
             <div className="list_showtimes">
               <div className="info_showtimes">
                 <h3>Tallennetut näytösajat</h3>
@@ -367,26 +362,51 @@ export default function GroupPage() {
               <div className="container_groupshowtimes">
                 {groupShowtimes &&
                   groupShowtimes
-                  .filter(showtime => {
-                    //Tarkistetaan, onko näytöksen päivämäärä jo mennyt
-                    const showtimeDate = new Date(showtime.showdate);
-                    const currentDate = new Date();
-                    return showtimeDate >= currentDate;
-                  })
-                  .map((showtime, index) => 
-                    <div className="content_showtimes" key={index}>
-                      <div className="img_showtime">
-                        <img src={showtime.img} alt="" />
+                    .filter((showtime) => {
+                      //Tarkistetaan, onko näytöksen päivämäärä jo mennyt
+                      const showtimeDate = new Date(showtime.showdate);
+                      const currentDate = new Date();
+                      return showtimeDate >= currentDate;
+                    })
+                    .map((showtime, index) => (
+                      <div className="content_showtimes" key={index}>
+                        <div className="img_showtime">
+                          <img src={showtime.img} alt="" />
+                        </div>
+                        <div className="showtime_data">
+                          <p>{showtime.movietitle}</p>
+                          <p>{theatreToCity[showtime.theatreid]}</p>
+                          <p>{showtime.showdate.substr(0, 10)}</p>
+                          <p>{showtime.showstarttime.substr(0, 5)}</p>
+                        </div>
                       </div>
-                      <div className="showtime_data">
-                        <p>{showtime.movietitle}</p>
-                        <p>{theatreToCity[showtime.theatreid]}</p>
-                        <p>{showtime.showdate.substr(0, 10)}</p>
-                        <p>{showtime.showstarttime.substr(0, 5)}</p>
-                      </div>
-                    </div>
-                  )}
+                    ))}
               </div>
+            </div>
+            <div className="group_chat">
+              <h2>Chat</h2>
+              {chat.map((msg, index) => (
+                <p key={index}>
+                  {msg.sender}: {msg.text}
+                </p>
+              ))}
+              <form onSubmit={handle}>
+                <input
+                  type="text"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Kirjoita viesti..."
+                />
+                <button type="submit">Lähetä</button>
+              </form>
+            </div>
+          </div>
+          <div className="buttonToAdminPage">
+            {isAdmin && user === owner && (
+              <Link to="/adminpage">
+                <button>Ryhmän ylläpitosivuille</button>
+              </Link>
+            )}
           </div>
           <div className="group_chat">
             <h2>Chat</h2>
@@ -395,7 +415,7 @@ export default function GroupPage() {
                 {msg.sender}: {msg.text}
               </p>
             ))}
-            <form onSubmit={sendMessage}>
+            <form onSubmit={handle}>
               <input
                 type="text"
                 value={message}
@@ -406,31 +426,9 @@ export default function GroupPage() {
             </form>
           </div>
         </div>
-        <div className="buttonToAdminPage">
-          {isAdmin && user === owner && (
-            <Link to="/adminpage">
-              <button>Ryhmän ylläpitosivuille</button>
-            </Link>
-          )}
-        <div className="group_chat">
-          <h2>Chat</h2>
-          {chat.map((msg, index) => (
-            <p key={index}>
-              {msg.sender}: {msg.text}
-            </p>
-          ))}
-          <form onSubmit={}>
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Kirjoita viesti..."
-            />
-            <button type="submit">Lähetä</button>
-          </form>
-        </div>
-      </div>
-      ) : (<h1>Sivua ei löytynyt</h1>)}
+      ) : (
+        <h1>Sivua ei löytynyt</h1>
+      )}
     </>
-  )
+  );
 }
