@@ -101,7 +101,7 @@ export default function Movie() {
     setFavoriteData(updatedFavoriteData)
 
     await axios
-      .post("http://localhost:3001/favorite/addfavorite", updatedFavoriteData)
+      .post(process.env.REACT_APP_URL + "/favorite/addfavorite", updatedFavoriteData)
       .then((response) => {
         if (response.data.message === "success") {
           console.log("Added favorite successfully:", response.data);
@@ -134,7 +134,7 @@ export default function Movie() {
       setGroupFavoriteData(updatedGroupFavoriteData)
 
       await axios
-      .post("http://localhost:3001/favorite/addgroupfavorite", updatedGroupFavoriteData)
+      .post(process.env.REACT_APP_URL + "/favorite/addgroupfavorite", updatedGroupFavoriteData)
       .then((response) => {
         if (response.data.message === "success") {
           console.log("Added favorite successfully:", response.data);
@@ -189,7 +189,7 @@ export default function Movie() {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3001/rating/addRating", ratingData)
+      .post(process.env.REACT_APP_URL + "/rating/addRating", ratingData)
       .then((response) => {
         if (response.data.message === "success") {
           console.log("Rating registered successfully:", response.data);

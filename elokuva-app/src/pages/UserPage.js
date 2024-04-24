@@ -20,9 +20,8 @@ export default function UserPage() {
     const confirmDelete = window.confirm('Haluatko varmasti poistaa käyttäjätilin?');
 
     if (confirmDelete) {
-      const username = sessionStorage.getItem('username');
-      axios
-        .delete('http://localhost:3001/auth/delete', { data: { username } })
+      const username = sessionStorage.getItem("username");
+      axios.delete(process.env.REACT_APP_URL + '/auth/delete', { data: { username } })
         .then(response => {
           setUser(null);
           window.alert('Käyttäjätili ja tiedot poistettu onnistuneesti.');

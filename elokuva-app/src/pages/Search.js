@@ -77,7 +77,7 @@ export default function Search() {
     console.log("Tämä on" + JSON.stringify(movieData));
 
     axios
-      .post("http://localhost:3001/movies?query=", movieData)
+      .post(process.env.REACT_APP_URL + "/movies?query=", movieData)
       .then((response) => {
         if (response.data.length === 0){
           alert("Ei yhtään hakutulosta. Suorita uusi haku.")
@@ -106,7 +106,7 @@ export default function Search() {
     }
     console.log("Tämä on" + JSON.stringify(searchData));
 
-    axios.post('http://localhost:3001/movies/filtered', searchData)
+    axios.post(process.env.REACT_APP_URL + '/movies/filtered', searchData)
     .then(response => {
       console.log(response.data.length)
       if (response.data.length === 0){
@@ -131,7 +131,7 @@ export default function Search() {
 
     console.log("Tämä on" + JSON.stringify(searchData));
 
-    axios.post('http://localhost:3001/movies/series', searchData)
+    axios.post(process.env.REACT_APP_URL + '/movies/series', searchData)
     .then(response => {
       console.log(response.data.length)
       if (response.data.length === 0){
