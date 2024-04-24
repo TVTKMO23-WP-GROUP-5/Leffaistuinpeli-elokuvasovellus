@@ -23,8 +23,10 @@
     justify-content: space-between;
 }
 
-.makegroup, .mygroups {
+.makegroup, .adminview, .mygroups {
     border-radius: 8px;
+    padding: 0em !important;
+    text-align: center;
 }
 
 .info {
@@ -73,18 +75,18 @@
 
 .groups_allgroups li {
     padding: 0.5em;
-    border: 1px solid black;
+    border: 1px solid var(--dark-color);
     border-radius: 8px;
+    background-color: var(--light-background-color);
 }
 
-
 .light .groups_allgroups li {
-    border: 1px solid black; 
-  }
+    border: 1px solid var(--dark-color); 
+}
   
-  .dark .groups_allgroups li {
+.dark .groups_allgroups li {
     border: 1px solid white; 
-  }
+}
 
 .groups_allgroups li div {
     display: block;
@@ -141,6 +143,15 @@
     .group_buttons,
     .groups_allgroups {
         width: 100%;
+    }
+
+    .group_buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .group_buttons button {
+        margin-bottom: 1em;
     }
 
     .groupname_allgroups {

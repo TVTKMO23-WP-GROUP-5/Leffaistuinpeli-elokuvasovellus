@@ -24,8 +24,9 @@
 
 .container_owngroups li {
     padding: 0.5em;
-    border: 1px solid black;
+    border: 1px solid var(--dark-color);
     border-radius: 8px;
+    background-color: var(--light-background-color);
 }
 
 .dark-theme .container_owngroups li {
@@ -59,9 +60,9 @@
 
 .container_owngroups a:hover {
     strong {
-        color: var(--accent-color)
+        color: var(--blue-color)
     }
-    color: var(--accent-color);
+    color: var(--blue-color);
 }
 
 

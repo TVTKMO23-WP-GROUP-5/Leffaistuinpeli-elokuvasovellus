@@ -99,7 +99,7 @@ export default function AllGroups() {
           </Link>
           {isAdmin && (
             <Link to='/adminpage'>
-              <button>Ryhmieni ylläpitosivut</button>
+              <button className='adminview'>Ryhmieni ylläpitosivut</button>
             </Link>
           )}
           <Link to='/owngroups'>
