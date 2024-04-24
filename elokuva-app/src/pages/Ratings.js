@@ -123,6 +123,7 @@ export default function Ratings() {
     }
     const averages = topFiveList()
     return (
+        <div className="marginiaYlos">
         <div className={theme === 'dark' ? 'dark-theme' : ''}>
             <div className="choises">
                 <select name="sort" onChange={(e) => {
@@ -202,6 +203,7 @@ export default function Ratings() {
                 <div className="page-number">sivu {page}</div>
                 {isButton && endIndex < sort.length && <button onClick={handleClickNext}>Seuraava</button>}
             </div>
+        </div>
         </div>
     ) 
 }

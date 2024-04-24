@@ -257,7 +257,7 @@ nav {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
+  margin-right: 42px;
 }
 
 .theme-icon {
@@ -282,6 +282,10 @@ nav {
   #menu {
     width: auto;
   }
+
+  .theme {
+    margin-right: 0;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -292,6 +296,7 @@ nav {
 
   .theme {
     order: 1;
+    margin-right: 0;
   }
 
   .burger-menu {
@@ -300,6 +305,7 @@ nav {
 
   .logo-container {
     order: 2;
+    margin-left: 30px;
   }
 
   .login {
@@ -308,6 +314,12 @@ nav {
 
   .login-small {
     display: inline;
+    font-size: 17px;
+  }
+
+  .signButton {
+    padding: 10px;
+    text-align: center;
   }
 
   .sign-container {
@@ -333,13 +345,43 @@ nav {
   #menu a {
     font-size: 2.6vw;
   }
+
+  .burger-menu,
+  .theme {
+    min-width: 90px;
+  }
 }
 
 @media (max-width: 800px) {
+
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .logo-container {
+    order: 2;
+    text-align: center;
+    margin-left: 0;
+  }
+  
+  .login-small {
+    display: inline;
+    font-size: 12px;
+  }
+
+  .theme,
+  .burger-menu {
+    order: 1;
+    margin-right: 10px;
+  }
+
   .burger-menu {
     margin-top: 0;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 5px;
   }
 
   .menu {
@@ -353,6 +395,11 @@ nav {
 
   .container {
     overflow: none;
+  }
+
+  .theme,
+  .burger-menu {
+    min-width: 50px;
   }
 }
 

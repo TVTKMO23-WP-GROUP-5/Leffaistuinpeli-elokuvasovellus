@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import { useUser } from "../context/UseUser";
@@ -8,6 +8,23 @@ export default function Login() {
   const { user } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("")
+  const usernameInputRef = useRef(null)
+  const passwordInputRef = useRef(null)
+
+  // Focus käyttäjäfieldiin
+  useEffect(() => {
+    if (usernameInputRef.current) {
+      usernameInputRef.current.focus();
+    }
+  }, []);
+
+  // Entterillä salasanafieldiin
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      passwordInputRef.current && passwordInputRef.current.focus();
+    }
+  }
 
   const validate = (e) => {
     e.preventDefault();
@@ -15,7 +32,7 @@ export default function Login() {
       const data = { user: username, password: password };
       login(data.user, data.password);
     }
-  };
+  }
 
   return (
     <div id="login-form">
@@ -25,6 +42,8 @@ export default function Login() {
           <label>Käyttäjä</label>
           <input
             value={username}
+            onKeyDown={handleKeyDown}
+            ref={usernameInputRef}
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
@@ -33,7 +52,8 @@ export default function Login() {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            ref={passwordInputRef}
+            onChange={(e) => setPassword(e.target.value)}  
           />
         </div>
 

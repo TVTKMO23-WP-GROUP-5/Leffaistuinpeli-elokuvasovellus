@@ -6,6 +6,8 @@
   max-width: 500px;
   margin: var(--general-margin);
   padding: 20px;
+  margin-top: 10vh;
+  margin-bottom: 15vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: var(--light-foreground-color);
@@ -25,7 +27,6 @@
 .or-text,
 .loginButton {
   width: 100%;
-  color: var(--black-foreground-color);
   margin-bottom: 15px;
   text-align: center;
   padding: 2px;
@@ -37,10 +38,7 @@
   font-size: 1.1em;
 }
 
-#input input {
-  width: calc(100%-15px);
-  padding: 10px;
-}
+
 
 .loggedOut {
   margin-top: 50px;
