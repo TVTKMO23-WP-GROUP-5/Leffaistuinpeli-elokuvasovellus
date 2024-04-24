@@ -20,7 +20,7 @@ export default function UserProvider({ children }) {
   const navigate = useNavigate()
 
   const login = async (uname, password) => {
-    axios.post('http://localhost:3001/auth/login',
+    axios.post(process.env.REACT_APP_URL + '/auth/login',
       { username: uname, password: password })
       .then(resp => {
         setUser(uname) // jaakko muokkas, että tässä setUseriin menee vain uname, aiemmin {username: uname}, mutta se aiheutti ongelmia adminiin. 
@@ -35,7 +35,7 @@ export default function UserProvider({ children }) {
   // Asettaa groupMemberseihin,jos käyttäjä on adminina niin tietoa. 
   useEffect(() => {
     if (user !== null) {
-      axios.post('http://localhost:3001/getmembers', { username: user })
+      axios.post(process.env.REACT_APP_URL + '/getmembers', { username: user })
         .then(response => {
           setGroupMembers(response.data)
           console.log(response.data.application)
@@ -48,7 +48,7 @@ export default function UserProvider({ children }) {
 
   // Asettaa kaikki arvostelut ratingsListaan
   useEffect(() => {
-    axios.get("http://localhost:3001/rating/getrating")
+    axios.get(process.env.REACT_APP_URL + "/rating/getrating")
       .then((response) => {
         setRatingsList(response.data)
         console.log("Tänne arvostelut", response.data)
@@ -79,7 +79,7 @@ export default function UserProvider({ children }) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/getmembers/checkowner", { username: user })
+      .post(process.env.REACT_APP_URL + "/getmembers/checkowner", { username: user })
       .then((response) => {
         setIsAdmin(response.data);
       })
@@ -92,7 +92,7 @@ export default function UserProvider({ children }) {
     if (user) {
       const username = sessionStorage.getItem('username')
       axios
-        .get(`http://localhost:3001/groups/owngroups?username=${username}`)
+        .get(process.env.REACT_APP_URL + `/groups/owngroups?username=${username}`)
         .then((response) => {
           setUserGroups(response.data);
         })

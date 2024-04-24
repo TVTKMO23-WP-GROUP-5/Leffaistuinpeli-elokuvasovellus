@@ -16,7 +16,7 @@ export default function OwnGroups() {
 
   useEffect(() => {
     const username = sessionStorage.getItem('username')
-    axios.get(`http://localhost:3001/groups/owngroups?username=${(username)}`)
+    axios.get(process.env.REACT_APP_URL + `/groups/owngroups?username=${(username)}`)
           .then(response => {
             const sortedGroups = response.data.sort((a, b ) => a.name.localeCompare(b.name))
             setGroup(sortedGroups)

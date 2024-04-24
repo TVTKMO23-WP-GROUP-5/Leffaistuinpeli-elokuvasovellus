@@ -22,7 +22,7 @@ export default function UserPage() {
   const handleDeleteUser = () => {
     if (confirmDelete) {
       const username = sessionStorage.getItem("username");
-      axios.delete('http://localhost:3001/auth/delete', { data: { username } })
+      axios.delete(process.env.REACT_APP_URL + '/auth/delete', { data: { username } })
         .then(response => {
           setUser(null);
           alert('Käyttäjätili poistettu onnistuneesti.');
