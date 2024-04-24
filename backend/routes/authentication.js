@@ -38,6 +38,7 @@ router.post("/login", async (req, res) => {
     }
   } else {
     res.status(404).json({ error: "User not found" });
+    res.status(401).json({ error: "User not found" });
   }
 });
 

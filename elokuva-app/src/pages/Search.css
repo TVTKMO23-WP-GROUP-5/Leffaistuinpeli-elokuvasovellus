@@ -6,11 +6,16 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 .search-type {
   display:flex;
   margin-bottom: 0.3em;
+}
+
+#search {
+  font-size: 1.2em
 }
 
 .search-type input{
@@ -75,7 +80,7 @@
   width: 100%; 
 }
 
-input {
+.searchInput {
   border: 2px solid var(--dark-background-color);
   text-align: center;
   font-size: 1.2em;
@@ -94,6 +99,8 @@ input {
   margin-bottom: 10px;
   border-radius: 18px;
 }
+
+
 
 .search-bars button {
   border: 2px solid var(--dark-background-color);
@@ -149,6 +156,7 @@ input:-webkit-autofill:focus {
     align-items: center;
     height: 200px;
   }
+
 }
 
 @media only screen and (max-width: 1000px){
@@ -169,11 +177,13 @@ input:-webkit-autofill:focus {
   .poster {
     width: 45vw;
   }
+
 }
 
 @media only screen and (max-width: 400px){
   .poster {
     width: 80vw;
   }
+
 }
 

@@ -121,7 +121,7 @@ form {
   width: 100%;
 }
 
-form button {
+#movieButton {
   max-width: 30%;
 }
 

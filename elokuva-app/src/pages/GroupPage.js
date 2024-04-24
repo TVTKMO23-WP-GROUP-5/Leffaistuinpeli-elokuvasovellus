@@ -2,11 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import "./GroupPage.css";
 import axios from "axios";
-import io from "socket.io-client";
 import { useUser } from "../context/UseUser";
 import { Link } from "react-router-dom";
 
-const socket = io("http://localhost:3001");
 
 export default function GroupPage() {
   let { groupName } = useParams();
@@ -23,16 +21,6 @@ export default function GroupPage() {
   const scrollTVRef = useRef(null);
 
   groupName = decodeURIComponent(groupName);
-
-
-  // ----- Alustetaan Socket yhteys -----
-  useEffect(() => {
-    socket.on("message", (message) => {
-      setChat((prevChat) => [...prevChat, message]);
-    });
-
-    return () => socket.disconnect();
-  }, []);
 
 
   // ----- Ryhmän omistajan + jäsenten haut -----
@@ -56,24 +44,7 @@ export default function GroupPage() {
         console.error("Fetching members failed", error);
       });
 
-    socket.on("message", (message) => {
-      setChat((prevChat) => [...prevChat, message]);
-    });
-
-    return () => {
-      socket.off("message");
-    };
   }, [groupName]);
-
-
-  // ----- Ryhmänchat -----
-  const sendMessage = (e) => {
-    e.preventDefault();
-    if (message.trim()) {
-      socket.emit("sendMessage", { text: message, groupName, sender: user });
-      setMessage("");
-    }
-  };
 
 
   // ----- Suosikkielokuvat ja -sarjat -----

@@ -152,9 +152,9 @@ export default function Search() {
     <>
     <div className={`searchpage-container ${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
       <div className = "search-type">
-        <input type = "radio" name = "searchType" value = "basic" onClick={handleSearchType}/><span class="radio-label">Nimihaku</span>
-        <input type = "radio" name = "searchType" value = "filtered" onClick={handleSearchType}/><span class="radio-label">Tarkempi elokuvahaku</span>
-        <input type = "radio" name = "searchType" value = "filtered-series" onClick={handleSearchType}/><span class="radio-label">Tarkempi sarjahaku</span>
+        <input type = "radio" name = "searchType" className = "searchInput" value = "basic" onClick={handleSearchType}/><span class="radio-label">Nimihaku</span>
+        <input type = "radio" name = "searchType" className = "searchInput" value = "filtered" onClick={handleSearchType}/><span class="radio-label">Tarkempi elokuvahaku</span>
+        <input type = "radio" name = "searchType" className = "searchInput" value = "filtered-series" onClick={handleSearchType}/><span class="radio-label">Tarkempi sarjahaku</span>
       </div>
       <div className = "search-bars"> 
         {searchType === "basic" && (
@@ -162,6 +162,7 @@ export default function Search() {
           <input
             type="text"
             name="search"
+            className="searchInput"
             placeholder="Hae elokuvia tai sarjoja"
             onChange={handleChange}
           />
@@ -209,8 +210,8 @@ export default function Search() {
             </select>
           </div>
           <div> 
-            <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
-            <input name = "cast" placeholder= "näyttelijä" onChange={handleFilter}/>
+            <input name = "year" id="search" placeholder="Julkaisuvuosi" onChange={handleFilter}/>
+            <input name = "cast" id="search" placeholder= "Näyttelijä" onChange={handleFilter}/>
             <button type="submit" className = "searchButton" >Haku</button>
           </div> 
           <div>
@@ -265,7 +266,7 @@ export default function Search() {
             </select>
             </div>
             <div>
-              <input name = "year" placeholder="julkaisuvuosi" onChange={handleFilter}/>
+              <input id="search" name = "year" placeholder="Julkaisuvuosi" onChange={handleFilter}/>
               <button className = "searchButton" type="submit">Haku</button>
             </div>
             <div>
