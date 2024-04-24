@@ -122,12 +122,13 @@ export default function Showtimes() {
     const newShowtimeData = {
       groupname: selectedGroup[activeIndex],
       theatreid: selectedShow.TheatreID?._text,
-      showdate: selectedShow.dttmShowStart?._text.substr(0, 10),
+      showdate: selectedShow.dttmShowStart?._text,
       movieid: selectedShow.EventID?._text,
       movietitle: selectedShow.Title?._text,
       showstarttime: selectedShow.dttmShowStart?._text.substr(11, 19),
       img: selectedShow.Images.EventMediumImagePortrait?._text,
     };
+
     setShowtimeData(newShowtimeData)
 
       axios

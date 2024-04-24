@@ -63,6 +63,11 @@ body, html {
     vertical-align: baseline;
 }
 
+.content_poster :hover {
+    transform: scale(1.03);
+    cursor: pointer;
+}
+
 .img_poster img {
     width: 200px !important;
     height: 300px !important;

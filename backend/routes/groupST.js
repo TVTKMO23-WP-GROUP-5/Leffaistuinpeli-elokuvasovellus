@@ -4,7 +4,7 @@ const router = require("express").Router();
 
 router.post("/addshowtime", async (req, res) => {
     try {  
-        const { groupname, theatreid, showdate, movieid, movietitle, showstarttime, img } = req.body
+      const { groupname, theatreid, showdate, movieid, movietitle, showstarttime, img } = req.body
       await addShowtime(groupname, theatreid, showdate, movieid, movietitle, showstarttime, img);
       res.json({message: "success"})
     } catch (error) {
