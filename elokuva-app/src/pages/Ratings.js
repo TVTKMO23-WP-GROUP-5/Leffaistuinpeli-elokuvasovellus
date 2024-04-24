@@ -17,7 +17,7 @@ export default function Ratings() {
     const [isButton, setIsButton] = useState(true)
 
     useEffect(() => {
-        axios.post("http://localhost:3001/rating/ratedmoviedata", { data: ratingsList })
+        axios.post(process.env.REACT_APP_URL + "/rating/ratedmoviedata", { data: ratingsList })
             .then((response) => {
                 setShowRatings(response.data)
                 setSort(response.data)

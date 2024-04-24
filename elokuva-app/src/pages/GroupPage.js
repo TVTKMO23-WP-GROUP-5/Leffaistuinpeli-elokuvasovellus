@@ -24,7 +24,7 @@ export default function GroupPage() {
   // ----- Ryhmän omistajan + jäsenten haut -----
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/groups/owner?groupname=${groupName}`)
+      .get(process.env.REACT_APP_URL + `/groups/owner?groupname=${groupName}`)
       .then((response) => {
         setOwner(response.data);
       })
@@ -34,7 +34,7 @@ export default function GroupPage() {
 
     axios
       .get(
-        `http://localhost:3001/getmembers/membersingroup?groupname=${groupName}`
+        process.env.REACT_APP_URL + `/getmembers/membersingroup?groupname=${groupName}`
       )
       .then((response) => {
         setMembers(response.data);
@@ -50,7 +50,7 @@ export default function GroupPage() {
     const gname = groupName;
     try {
       axios
-        .get(`http://localhost:3001/favorite/getgroupfavorites`, {
+        .get(process.env.REACT_APP_URL + `/favorite/getgroupfavorites`, {
           params: {
             groupname: gname,
           },
@@ -70,7 +70,7 @@ export default function GroupPage() {
   // ----- Ryhmän näytösaikojen haku -----
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/groupST/getgrouptimes?groupname=${groupName}`)
+      .get(process.env.REACT_APP_URL + `/groupST/getgrouptimes?groupname=${groupName}`)
       .then((response) => {
         setGroupShowtimes(response.data);
         console.log("Tänne ryhmän ajat: ", response.data);

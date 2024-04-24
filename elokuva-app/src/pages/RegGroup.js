@@ -33,7 +33,7 @@ export default function Register() {
     }
 
     try {
-      const response = await axios.post('http://localhost:3001/groups/register', groupRegisterData);
+      const response = await axios.post(process.env.REACT_APP_URL + '/groups/register', groupRegisterData);
 
       if (response.data.message === 'success') {
         console.log('Group registered successfully:', response.data);
@@ -41,7 +41,7 @@ export default function Register() {
         setIsAdmin(true);
         if (user !== null) {
           axios
-            .post('http://localhost:3001/getmembers', { username: user })
+            .post(process.env.REACT_APP_URL + '/getmembers', { username: user })
             .then((response) => {
               setGroupMembers(response.data);
               console.log(response.data.application);
