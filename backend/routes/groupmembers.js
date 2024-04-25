@@ -134,8 +134,27 @@ router.post("/groupstatus", async (req,res) => {
         console.error(error);
         res.status(500).send('Sever error');
     }  
+})
 
-    
+router.get("/isgroupmember", async (req,res) => {
+    try {
+        const user = req.query.username
+        const groupname = req.query.groupname
+        const id = await getAccountId(user)
+        const groupStatus = await getUserGroupStatus(id.idaccount)
+        
+        const filteredStatus = groupStatus.filter(status => status.groupname === groupname);
+        console.log(filteredStatus[0].ismember)
+        if (filteredStatus.length > 0) {
+            res.json(filteredStatus[0].ismember);
+        } else {
+            res.status(404).json({ error: "Group not found" });
+        }
+
+    }catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
+        console.error(error);
+        res.status(500).send('Sever error');
+    }   
 })
 
 router.get("/membersingroup", async (req,res) => {

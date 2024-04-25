@@ -26,7 +26,7 @@ export default function UserProvider({ children }) {
         setUser(uname) // jaakko muokkas, että tässä setUseriin menee vain uname, aiemmin {username: uname}, mutta se aiheutti ongelmia adminiin. 
         jwtToken.value = resp.data.jwtToken
         sessionStorage.setItem('username', uname)
-        navigate('/userpage')
+        navigate('/')
         alert("Kirjautuminen onnistui!")
       })
       .catch(err => console.log(err.message, alert("Väärä käyttäjätunnus tai salasana!")))
@@ -54,7 +54,7 @@ export default function UserProvider({ children }) {
         console.log("Tänne arvostelut", response.data)
       })
       .catch((error) => {
-        console.error("Error adding favorite:", error.response.data);
+        console.error("Error adding favorite:", error);
         alert("Virhe arvostelujen lataamisessa.");
       })
   }, [])
