@@ -9,6 +9,7 @@ export default function GroupPage() {
   let { groupName } = useParams();
   const { moviePick, setMoviePick } = useUser();
   const { isAdmin, user } = useUser();
+  const [isMember, setIsMember] = useState(false)
   const [owner, setOwner] = useState("");
   const [members, setMembers] = useState([]);
   const [message, setMessage] = useState("");
@@ -20,6 +21,22 @@ export default function GroupPage() {
   const scrollTVRef = useRef(null);
 
   groupName = decodeURIComponent(groupName);
+
+
+  // ----- Tarkistaa onko käyttäjä jäsen -----
+  useEffect(() => {
+    const uname = user ? user : sessionStorage.getItem("username")
+    axios
+      .get(process.env.REACT_APP_URL + `/getmembers/isgroupmember?username=${uname}&groupname=${groupName}`)
+      .then((response) => {
+        setIsMember(response.data)
+      })
+      .catch((error) => {
+        console.error("Checking status failed", error);
+      });
+  }, [])
+
+
 
   // ----- Ryhmän omistajan + jäsenten haut -----
   useEffect(() => {
@@ -38,7 +55,6 @@ export default function GroupPage() {
       )
       .then((response) => {
         setMembers(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error("Fetching members failed", error);
@@ -56,7 +72,6 @@ export default function GroupPage() {
           },
         })
         .then((response) => {
-          console.log("Movies fetched:", response.data);
           setMoviePick(response.data);
         })
         .catch((error) => {
@@ -174,6 +189,8 @@ export default function GroupPage() {
     }
   };
 
+
+  // Tämä chatin tekeleelle
   const handle = () => {};
 
   // ----- Id ja sitä vastaava kaupunki -----
@@ -198,7 +215,7 @@ export default function GroupPage() {
 
   return (
     <>
-      {user ? (
+      {user && isMember ? (
         <div className="container_grouppage">
           <div className="group_info">
             <div className="group_name">
@@ -427,7 +444,7 @@ export default function GroupPage() {
           </div>
         </div>
       ) : (
-        <h1>Sivua ei löytynyt</h1>
+        <h1 style={ {marginTop: '4em'} }>Ei oikeuksia</h1>
       )}
     </>
   );
