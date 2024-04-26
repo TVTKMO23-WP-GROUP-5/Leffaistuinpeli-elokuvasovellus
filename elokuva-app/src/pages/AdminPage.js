@@ -76,7 +76,7 @@ export default function AdminPage() {
                 
                 {groupMembers.members && groupMembers.members.length > 0 ? (
                     groupMembers.members.map((member, index) => (
-                        <div className ="groupmembers-list">
+                        <div className ="groupmembers-list" key={index}>
                             <div  className = "group-title">
                                 <div className = "gr-title-descripe">
                                     <h1>{groupMembers.name[index]}</h1>
@@ -106,7 +106,7 @@ export default function AdminPage() {
 
                 {groupMembers.application && groupMembers.application.length > 0 ? (
                     groupMembers.application.map((memberApplication, index) => (
-                        <div className ="groupmembers-list">
+                        <div className ="groupmembers-list" key={index}>
                             <div  className = "group-title">
                                 <h2>{groupMembers.applicationGroupName[index]}</h2>
                             </div>
