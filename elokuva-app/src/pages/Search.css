@@ -132,6 +132,14 @@
   width: 15vw;
 }
 
+.changePage-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 

@@ -9,7 +9,7 @@ export default function Search() {
   const { theme } = useTheme();
   const [movieData, setMovieData] = useState({ 
     search: "",
-    pages: "1" 
+    pages: "5" 
   });
   const [filteredSearch, setFilteredSearch] = useState({
     year: "",
@@ -17,12 +17,14 @@ export default function Search() {
     cast: "",
     genre: "",
     language: "", 
-    pages: "1"
+    pages: "5"
   })
   
   const { moviePick, setMoviePick } = useUser();
   const [searchType, setSearchType] = useState("basic")
   const resultsRef = useRef(null);
+  const [page, setPage] = useState(1)
+  const [itemsPerPage, setItemsPerPage] = useState(18)
 
   useEffect(() => {
     setMoviePick(null);
@@ -47,11 +49,11 @@ export default function Search() {
       cast: "",
       genre: "",
       language: "", 
-      pages: "1"
+      pages: "5"
     })
     setMovieData({ 
       search: "",
-      pages: "1" 
+      pages: "5" 
     })
     console.log(searchType)
   }
@@ -147,6 +149,19 @@ export default function Search() {
 
   };
 
+  // Sivunvaihtokoodit alkvata tästä
+  const handleClickNext = () => {
+    setPage(prevPage => prevPage + 1)
+    console.log("seuraava", startIndex, endIndex)
+  };
+
+  const startIndex = (page - 1) * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+
+  const handleClickPrevious = () => {
+      setPage(prevPage => Math.max(prevPage - 1, 1))
+      console.log("edellinen", startIndex, endIndex)
+  };
 
   return (
     <>
@@ -167,10 +182,10 @@ export default function Search() {
             onChange={handleChange}
           />
           <select name="pages" onChange={handleChange}>
-              <option value="" disabled selected>Hakutulosten laajuus</option>
-              <option value="1">Normaali</option>
-              <option value="4">Laajempi</option>
-              <option value="8">Laajin</option>
+              <option value="5" disabled selected>Hakutulosten laajuus</option>
+              <option value="5" defaultValue>Normaali</option>
+              <option value="20">Laajempi</option>
+              <option value="100">Laajin (hidas lataus)</option>
           </select>
           <button type="submit" className = "searchButton">Haku</button>
         </form>
@@ -227,10 +242,10 @@ export default function Search() {
 
             </select>
             <select name="pages" onChange={(e) => { handleFilter(e); handleFilteredSearch(e,e.target.name,e.target.value); }}>
-              <option value="" disabled selected>Hakutulosten laajuus</option>
-              <option value="1">Normaali</option>
-              <option value="4">Laajempi</option>
-              <option value="8">Laajin</option>
+              <option value="5" disabled selected>Hakutulosten laajuus</option>
+              <option value="5" defaultValue>Normaali</option>
+              <option value="20">Laajempi</option>
+              <option value="100">Laajin (hidas lataus)</option>
             </select>
           </div> 
         </form>
@@ -280,34 +295,61 @@ export default function Search() {
               <option value="first_air_date.desc">Uusin ensin</option>
             </select>
             <select name="pages" onChange={(e) => { handleFilter(e); handleFilteredSeries(e,e.target.name,e.target.value); }}>
-              <option value="" disabled selected>Hakutulosten laajuus</option>
-              <option value="1">Normaali</option>
-              <option value="4">Laajempi</option>
-              <option value="8">Laajin</option>
+              <option value="5" disabled selected>Hakutulosten laajuus</option>
+              <option value="5" defaultValue>Normaali</option>
+              <option value="20">Laajempi</option>
+              <option value="100">Laajin (hidas lataus)</option>
             </select>
             </div>
         </form>
         )}
       </div>
+            <div className="changePage-search">
+        {page > 1 && (
+          <div>
+            <button onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>
+          </div>
+        )}
+        {moviePick && endIndex < moviePick.length && (
+          <div>
+            <button onClick={handleClickNext}>Seuraava</button>
+          </div>
+        )}
+      </div>
       <div className="movieList" ref={resultsRef}>
-        {moviePick &&
+        {moviePick ? (
           moviePick
             .filter(movie => movie.poster_path !== null)
+            .slice(startIndex, endIndex)
             .map((movie, index) => (
-            <div className="poster" key={index}>
-              {/*<h2>{movie.title}</h2>*/}
-              {movie.poster_path && (
-                <Link to={`/movie/?id=${movie.id}`}>
-                  {/*<Link to={`/movie/${(movie.title)}?poster=${(movie.poster_path)}/${(movie.id)}`}>*/}
-                  <img
-                    src={"https://image.tmdb.org/t/p/w342/" + movie.poster_path}
-                    alt="Movie poster"
-                  />
-                </Link>
-              )}
-            </div>
-          ))}
+              movie.poster_path && (
+                <div className="poster" key={index}>
+                  <Link to={`/movie/?id=${movie.id}`}>
+                    <img
+                      src={"https://image.tmdb.org/t/p/w342/" + movie.poster_path}
+                      alt="Movie poster"
+                    />
+                  </Link>
+                </div>
+              )
+            ))
+        ) : (
+          <div>Odotetaan elokuvia</div>
+        )}
       </div>
+      <div className="changePage-search">
+        {page > 1 && (
+          <div>
+            <button onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>
+          </div>
+        )}
+        {moviePick && endIndex < moviePick.length && (
+          <div>
+            <button onClick={handleClickNext}>Seuraava</button>
+          </div>
+        )}
+      </div>
+
     </div>
     </>
   );
