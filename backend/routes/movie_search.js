@@ -44,7 +44,6 @@ router.post("/filtered", async (req, res) => {
 
   const pages = req.body.pages
 
-  console.log(year, sort, cast, genre, language)
   let urls = []
   
   for (let i = 1; i <= pages; i++){  
@@ -72,7 +71,6 @@ router.post("/series", async (req, res) => {
 
   const pages = req.body.pages
 
-  console.log(year, sort, genre, language)
   let urls = []
   
   for (let i = 1; i <= pages; i++){  
@@ -85,7 +83,6 @@ router.post("/series", async (req, res) => {
     "&api_key=" + process.env.MOVIEDB_API_KEY)
   }
 
-  console.log(urls)
 
   // tässä kutsutaan funktiota.
   movieResponse(urls, req, res, pages)

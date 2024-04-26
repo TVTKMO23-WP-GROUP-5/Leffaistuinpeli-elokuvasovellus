@@ -66,7 +66,6 @@ router.get("/getownfavorites", async (req, res) => {
     }
 
     const results = await Promise.all(favorites.map(fetchDetails))
-    console.log(results)
     res.json(results)
 
   } catch (error) {

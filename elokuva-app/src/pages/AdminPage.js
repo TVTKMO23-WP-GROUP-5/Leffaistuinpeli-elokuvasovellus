@@ -71,7 +71,7 @@ export default function AdminPage() {
                 <p>{user}</p>
             </div>
 {/*------------------Tästä alkaa koodisilmukat adminin hallitsemiin ryhmiin --------------------------- */}
-            <h3 style={{ color: 'var(--dark-background-color)' }}>RYHMÄT</h3>
+            <h3 style={{ color: 'var(--dark-background-color)', textAlign: 'center'}}>RYHMÄT</h3>
             <div className = "groups">
                 
                 {groupMembers.members && groupMembers.members.length > 0 ? (
@@ -101,7 +101,7 @@ export default function AdminPage() {
                 )}
             </div>
 {/*------------------Tästä alkaa koodisilmukat ryhmähakemuksiin --------------------------- */}
-            <h3 style={{ color: 'var(--dark-background-color)' }}>Hakemukset ryhmän jäseniksi</h3>            
+            <h3 style={{ color: 'var(--dark-background-color)', textAlign: 'center' }}>Hakemukset ryhmän jäseniksi</h3>            
                 <div className = "applications">
 
                 {groupMembers.application && groupMembers.application.length > 0 ? (

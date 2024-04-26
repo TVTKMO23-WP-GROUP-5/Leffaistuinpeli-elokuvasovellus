@@ -9,7 +9,6 @@ router.post("/addRating", async (req, res) => {
     res.json({ message: "success" });
     res.end();
   } catch (error) {
-    console.log("Failed to add rating", error)
     res.status(500).json({ message: "Error adding rating", error: error.message})
   }
 });
@@ -26,7 +25,6 @@ router.get("/getrating", async (req,res) => {
 
 router.post("/ratedmoviedata", async (req,res) => {
   const ratedList = req.body.data
-  console.log(ratedList)
 
   const apiKey = process.env.MOVIEDB_API_KEY;
 
@@ -41,7 +39,6 @@ router.post("/ratedmoviedata", async (req,res) => {
     }
 
     const results = await Promise.all(ratedList.map(fetchDetails))
-    console.log(results)
     res.json(results)
 
   } catch (error) {
