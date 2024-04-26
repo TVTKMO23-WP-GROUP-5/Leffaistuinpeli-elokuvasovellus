@@ -38,7 +38,6 @@ export default function UserProvider({ children }) {
       axios.post(process.env.REACT_APP_URL + '/getmembers', { username: user })
         .then(response => {
           setGroupMembers(response.data)
-          console.log(response.data.application)
         })
         .catch(error => {
           console.error("Fetching failed", error)
@@ -51,7 +50,6 @@ export default function UserProvider({ children }) {
     axios.get(process.env.REACT_APP_URL + "/rating/getrating")
       .then((response) => {
         setRatingsList(response.data)
-        console.log("Tänne arvostelut", response.data)
       })
       .catch((error) => {
         console.error("Error adding favorite:", error);

@@ -41,6 +41,15 @@ CREATE TABLE groupmembers(
 );
 
 
+CREATE TABLE groupmessage (
+    idmsg INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username VARCHAR(255) NOT NULL REFERENCES account(username),
+    groupname VARCHAR(50) NOT NULL REFERENCES groups(groupname),
+    msg TEXT NOT NULL,
+    msgtime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
 CREATE TABLE ratings(
     idRating INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     idMovie INT NOT NULL,
