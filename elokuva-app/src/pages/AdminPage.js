@@ -82,7 +82,7 @@ export default function AdminPage() {
                                     <h1>{groupMembers.name[index]}</h1>
                                     <h4 className =  "group-descripe">{groupMembers.kuvaus[index]}</h4>
                                 </div>
-                                <button name={groupMembers.name[index]} onClick={() => handleGroupDelete(user, groupMembers.ID[index])}>Poista ryhmä</button>
+                                <button className = "deleteButton" name={groupMembers.name[index]} onClick={() => handleGroupDelete(user, groupMembers.ID[index])}>Poista ryhmä</button>
                             </div>
 
                                 {member.map((groupmember, innerIndex) => (

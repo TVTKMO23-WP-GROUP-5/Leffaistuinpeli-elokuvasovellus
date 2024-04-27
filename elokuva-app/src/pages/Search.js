@@ -24,7 +24,7 @@ export default function Search() {
   const [searchType, setSearchType] = useState("basic")
   const resultsRef = useRef(null);
   const [page, setPage] = useState(1)
-  const [itemsPerPage, setItemsPerPage] = useState(18)
+  const [itemsPerPage, setItemsPerPage] = useState(24)
 
   useEffect(() => {
     setMoviePick(null);
@@ -225,8 +225,8 @@ export default function Search() {
             </select>
           </div>
           <div> 
-            <input name = "year" id="search" placeholder="Julkaisuvuosi" onChange={handleFilter}/>
-            <input name = "cast" id="search" placeholder= "Näyttelijä" onChange={handleFilter}/>
+            <input className="searchInput" name = "year" id="search" placeholder="Julkaisuvuosi" onChange={handleFilter}/>
+            <input className="searchInput" name = "cast" id="search" placeholder= "Näyttelijä" onChange={handleFilter}/>
             <button type="submit" className = "searchButton" >Haku</button>
           </div> 
           <div>
@@ -281,7 +281,7 @@ export default function Search() {
             </select>
             </div>
             <div>
-              <input id="search" name = "year" placeholder="Julkaisuvuosi" onChange={handleFilter}/>
+              <input className="searchInput" id="search" name = "year" placeholder="Julkaisuvuosi" onChange={handleFilter}/>
               <button className = "searchButton" type="submit">Haku</button>
             </div>
             <div>
@@ -304,15 +304,15 @@ export default function Search() {
         </form>
         )}
       </div>
-            <div className="changePage-search">
+      <div className="changePage-search">
         {page > 1 && (
-          <div>
-            <button onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>
+          <div className = "searchButton" >
+            <button className = "searchButton" onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>
           </div>
         )}
         {moviePick && endIndex < moviePick.length && (
-          <div>
-            <button onClick={handleClickNext}>Seuraava</button>
+          <div className = "searchNext">
+            <button className = "searchButton" onClick={handleClickNext}>Seuraava</button>
           </div>
         )}
       </div>
@@ -334,18 +334,18 @@ export default function Search() {
               )
             ))
         ) : (
-          <div>Odotetaan elokuvia</div>
+          <div>Suorita ensimmäinen haku</div>
         )}
       </div>
       <div className="changePage-search">
         {page > 1 && (
-          <div>
-            <button onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>
+          <div className = "searchPrevious">
+            <button className = "searchButton" onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>
           </div>
         )}
         {moviePick && endIndex < moviePick.length && (
-          <div>
-            <button onClick={handleClickNext}>Seuraava</button>
+          <div className = "searchNext">
+            <button className = "searchButton" onClick={handleClickNext}>Seuraava</button>
           </div>
         )}
       </div>

@@ -100,8 +100,6 @@
   border-radius: 18px;
 }
 
-
-
 .search-bars button {
   border: 2px solid var(--dark-background-color);
   text-align: center;
@@ -133,12 +131,31 @@
 }
 
 .changePage-search {
+  width: 90%;
+  height: 50px;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  align-items: center;
   margin-top: 1em;
   margin-bottom: 1em;
+  position: relative;
 }
+
+.searchPrevious{
+  position: absolute;
+  left: 5px;
+}
+
+.searchButton {
+  padding: 0.5em;
+}
+
+
+.searchNext{
+  position: absolute;
+  right: 5px;
+}
+
 
 
 input:-webkit-autofill,
