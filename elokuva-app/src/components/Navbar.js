@@ -94,12 +94,14 @@ export default function Navbar() {
               <span className="link-text">Ryhmät</span>
             </Link>
           </li>
+          {user && (
           <li>
             <Link to="/owngroups">
               <FontAwesomeIcon icon={faUserGroup} className="fa-icon" />
               <span className="link-text">Omat ryhmät</span>
             </Link>
           </li>
+          )}
           {isAdmin && (
             <>
               <li>
@@ -148,12 +150,6 @@ export default function Navbar() {
                 <span className="link-text">Kirjaudu ulos</span>
               </Link>
             )}
-          </li>
-          <li>
-            <Link to="/search">Haku</Link>
-          </li>
-          <li>
-            <Link to="/search">Haku</Link>
           </li>
         </ul>
       </div>

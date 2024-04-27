@@ -1,10 +1,8 @@
 require('dotenv').config()
-const { sql } = require("../database/auth_db");
 const jwt = require('jsonwebtoken')
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const { register, getPw, deleteAccount } = require("../database/auth_db");
-const pgPool = require("../database/pg_connection");
+const { register, getPw, deleteAccount, deleteRatings, deleteFavorites, getUserData } = require("../database/auth_db")
 
 router.post("/register", async (req, res) => {
   try {  
@@ -45,9 +43,20 @@ router.delete("/delete", async (req, res) => {
   const username = req.body.username;
   
   try {
-    const result = await deleteAccount(username);
-    if (result.rowCount > 0) {
-      res.status(200).json({ message: "User deleted successfully" });
+    const ratingsResult = await deleteRatings(username);
+    if (!ratingsResult.success) {
+      return res.status(500).json({ error: "Failed to delete user ratings"})
+    }
+
+    const favoriteResult = await deleteFavorites(username);
+    if (!favoriteResult.success) {
+      return res.status(500).json({ error: "Failed to delete user favorites"})
+    }
+
+
+    const accountResult = await deleteAccount(username);
+    if (accountResult.rowCount > 0) {
+      res.status(200).json({ message: "All user data deleted successfully" });
     } else {
       res.status(404).json({ error: "User not found" });
     }
@@ -57,8 +66,8 @@ router.delete("/delete", async (req, res) => {
   }
 });
 
-router.get("/user/:username", async (req, res) => {
-  const username = req.params.username;
+router.get("/userdata", async (req, res) => {
+  const username = req.query.username;
   
   try {
     const userData = await getUserData(username);
@@ -69,9 +78,5 @@ router.get("/user/:username", async (req, res) => {
   }
 });
 
-async function getUserData(username) {
-  const result = await pgPool.query(sql.GET_USER_DATA, [username]);
-  return result.rowCount > 0 ? result.rows[0] : null;
-}
 
 module.exports = router;

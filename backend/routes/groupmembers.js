@@ -72,16 +72,13 @@ router.post("/handleapplication", async (req, res) => {
         const username = req.body.user
         const groupID = req.body.ID
         const admin = req.body.admin
-        console.log(username)
         id_account = await getAccountId(username)
-        id = await getGroupId(admin)
-        console.log(groupID, id_account.idaccount, admin) 
+        id = await getGroupId(admin) 
         await updateGroupMembership(groupID, id_account.idaccount)
     } catch (error) {
         console.error(error);
         res.status(500).send('Sever error');
     }
-    console.log("käytiin")
     handleGroups(id, req, res)
 })
 
@@ -90,17 +87,14 @@ router.post("/insertapplication", async (req, res) => {
         const uname = req.body.username
         const admin = req.body.groupOwner
         const groupName = req.body.groupName
-        console.log("username: ",uname,"Admin: ", admin, "nimi: ", groupName)
         const userId = await getAccountId(uname)
         const groupId = await getGroupId(admin)
         let grId
         for (let i = 0; i<groupId.length; i++){
             if (groupId[i].groupname === groupName){
-                console.log("hep")
                 grId = groupId[i].idgroup
             }
         }
-        console.log("AccountID: ", userId.idaccount, "groupID: ", grId)
         await groupApplication(grId, userId.idaccount)
         res.send("Meni perille")
     }catch (error) {
@@ -114,7 +108,6 @@ router.post("/checkowner", async (req, res) => {
     try{
         const admin = req.body.username
         const isOwner = await checkUserOwner(admin)
-        console.log("tämä", admin, isOwner)
         res.send(isOwner)
     } catch(error) {
         console.error(error);
@@ -128,22 +121,37 @@ router.post("/groupstatus", async (req,res) => {
         const user = req.body.username
         const id = await getAccountId(user)
         const groupStatus = await getUserGroupStatus(id.idaccount)
-        console.log("UUSIN: ", user, id, groupStatus)
         res.json(groupStatus)
     }catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
         console.error(error);
         res.status(500).send('Sever error');
     }  
+})
 
-    
+router.get("/isgroupmember", async (req,res) => {
+    try {
+        const user = req.query.username
+        const groupname = req.query.groupname
+        const id = await getAccountId(user)
+        const groupStatus = await getUserGroupStatus(id.idaccount)
+        
+        const filteredStatus = groupStatus.filter(status => status.groupname === groupname);
+        if (filteredStatus.length > 0) {
+            res.json(filteredStatus[0].ismember);
+        } else {
+            res.status(404).json({ error: "Group not found" });
+        }
+
+    }catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
+        console.error(error);
+        res.status(500).send('Sever error');
+    }   
 })
 
 router.get("/membersingroup", async (req,res) => {
     try {
         const groupname = req.query.groupname
-        console.log(groupname)
         const id = await getGroupIdByGroupname(groupname)
-        console.log(id)
         const groupmembers = await getGroupMember(id)
         res.json(groupmembers)
     }catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin

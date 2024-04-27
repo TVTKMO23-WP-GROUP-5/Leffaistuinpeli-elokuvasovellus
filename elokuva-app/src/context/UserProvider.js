@@ -26,7 +26,17 @@ export default function UserProvider({ children }) {
         setUser(uname) // jaakko muokkas, että tässä setUseriin menee vain uname, aiemmin {username: uname}, mutta se aiheutti ongelmia adminiin. 
         jwtToken.value = resp.data.jwtToken
         sessionStorage.setItem('username', uname)
-        navigate('/userpage')
+        // toinen axios-kutsu tarkastaa, että onko käyttäjä myös admin
+        axios
+          .post(process.env.REACT_APP_URL + "/getmembers/checkowner", { username: uname })
+          .then((response) => {
+            setIsAdmin(response.data);
+            sessionStorage.setItem('admin', response.data)
+          })
+          .catch((error) => {
+            console.error("Fetching failed", error);
+          });
+        navigate('/')
         alert("Kirjautuminen onnistui!")
       })
       .catch(err => console.log(err.message, alert("Väärä käyttäjätunnus tai salasana!")))
@@ -38,7 +48,6 @@ export default function UserProvider({ children }) {
       axios.post(process.env.REACT_APP_URL + '/getmembers', { username: user })
         .then(response => {
           setGroupMembers(response.data)
-          console.log(response.data.application)
         })
         .catch(error => {
           console.error("Fetching failed", error)
@@ -51,22 +60,27 @@ export default function UserProvider({ children }) {
     axios.get(process.env.REACT_APP_URL + "/rating/getrating")
       .then((response) => {
         setRatingsList(response.data)
-        console.log("Tänne arvostelut", response.data)
       })
       .catch((error) => {
-        console.error("Error adding favorite:", error.response.data);
+        console.error("Error adding favorite:", error);
         alert("Virhe arvostelujen lataamisessa.");
       })
   }, [])
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem("username");
+    const storedAdmin = sessionStorage.getItem("admin")
     if (storedUser === "null") {
       setUser(null);
     } else {
       setUser(storedUser)
     }
-  }, [setUser]);
+    if (storedAdmin === "null") {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(storedAdmin)
+    }
+  }, [setUser, setIsAdmin]);
 
   useEffect(() => {
     const storedMoviePick = sessionStorage.getItem("moviePick");
@@ -77,7 +91,7 @@ export default function UserProvider({ children }) {
     }
   }, [setMoviePick]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     axios
       .post(process.env.REACT_APP_URL + "/getmembers/checkowner", { username: user })
       .then((response) => {
@@ -86,7 +100,7 @@ export default function UserProvider({ children }) {
       .catch((error) => {
         console.error("Fetching failed", error);
       });
-  }, [user]);
+  }, [user]);*/
 
   useEffect(() => {
     if (user) {

@@ -9,6 +9,7 @@ export default function GroupPage() {
   let { groupName } = useParams();
   const { moviePick, setMoviePick } = useUser();
   const { isAdmin, user } = useUser();
+  const [isMember, setIsMember] = useState(false)
   const [owner, setOwner] = useState("");
   const [members, setMembers] = useState([]);
   const [message, setMessage] = useState("");
@@ -20,6 +21,22 @@ export default function GroupPage() {
   const scrollTVRef = useRef(null);
 
   groupName = decodeURIComponent(groupName);
+
+
+  // ----- Tarkistaa onko käyttäjä jäsen -----
+  useEffect(() => {
+    const uname = user ? user : sessionStorage.getItem("username")
+    axios
+      .get(process.env.REACT_APP_URL + `/getmembers/isgroupmember?username=${uname}&groupname=${groupName}`)
+      .then((response) => {
+        setIsMember(response.data)
+      })
+      .catch((error) => {
+        console.error("Checking status failed", error);
+      });
+  }, [])
+
+
 
   // ----- Ryhmän omistajan + jäsenten haut -----
   useEffect(() => {
@@ -38,7 +55,6 @@ export default function GroupPage() {
       )
       .then((response) => {
         setMembers(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error("Fetching members failed", error);
@@ -56,7 +72,6 @@ export default function GroupPage() {
           },
         })
         .then((response) => {
-          console.log("Movies fetched:", response.data);
           setMoviePick(response.data);
         })
         .catch((error) => {
@@ -73,7 +88,6 @@ export default function GroupPage() {
       .get(process.env.REACT_APP_URL + `/groupST/getgrouptimes?groupname=${groupName}`)
       .then((response) => {
         setGroupShowtimes(response.data);
-        console.log("Tänne ryhmän ajat: ", response.data);
       })
       .catch((error) => {
         console.error("Fetching showtimes failed", error);
@@ -174,8 +188,6 @@ export default function GroupPage() {
     }
   };
 
-  const handle = () => {};
-
   // ----- Id ja sitä vastaava kaupunki -----
   const theatreToCity = {
     1056: "Espoo",
@@ -196,9 +208,67 @@ export default function GroupPage() {
     1035: "Turku",
   };
 
+
+  // ----- Ryhmän chat -----
+
+  // Viestin lähetys
+  const handleMsg = async (event) => {
+    event.preventDefault();
+
+    const username = user;
+    const gname = groupName;
+    const msg = message.trim();
+
+    if (!msg) return; // Estää tyhjät viestit
+
+   axios.post(process.env.REACT_APP_URL + `/groupMsg/sendmsg`, {
+        username: username,
+        groupname: gname,
+        msg: msg
+      })
+      .then((response) => {
+        setChat(previousMessages => [{username, msg, msgtime: new Date().toISOString()}, ...previousMessages]);
+        setMessage('')
+      })
+      .catch((error) => {
+      console.error("Sending message failed!", error)
+      })
+  };
+
+  // Viestien vastaanottaminen
+  useEffect (() => {
+    const gname = groupName;
+
+    axios.get(process.env.REACT_APP_URL + `/groupMsg/getmsg?groupname=${gname}`)
+    .then((response) => {
+      setChat(response.data.reverse())
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+  }, [groupName])
+
+
+
+  // ----- Aika muunnetaan suomen aikaan -----
+  const finTime = (time) => {
+    const utcTimetamp = time;
+
+    const date = new Date(utcTimetamp);
+
+    const finnishTime = date.toLocaleString("fi-FI", { timeZone: "Europe/Helsinki" })
+
+    return finnishTime.substring(0, 15);
+  }
+
+  const toFinnishTime = (utcDate) => {
+    const date = new Date(utcDate);
+    return date.toLocaleString("fi-FI", { timeZone: "Europe/Helsinki" });
+  };
+
   return (
     <>
-      {user ? (
+      {user && isMember ? (
         <div className="container_grouppage">
           <div className="group_info">
             <div className="group_name">
@@ -229,6 +299,13 @@ export default function GroupPage() {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="buttonToAdminPage">
+            {isAdmin && user === owner && (
+              <Link to="/adminpage">
+                <button>Ryhmän ylläpitosivuille</button>
+              </Link>
+            )}
           </div>
           <div className="group_favorites">
             <div className="movieList">
@@ -376,58 +453,50 @@ export default function GroupPage() {
                         <div className="showtime_data">
                           <p>{showtime.movietitle}</p>
                           <p>{theatreToCity[showtime.theatreid]}</p>
-                          <p>{showtime.showdate.substr(0, 10)}</p>
-                          <p>{showtime.showstarttime.substr(0, 5)}</p>
+                          <p>{toFinnishTime(showtime.showdate).substr(0, 10)}</p>
+                          <p>{showtime.showstarttime.substr(0,5)}</p>
                         </div>
                       </div>
                     ))}
               </div>
             </div>
-            <div className="group_chat">
-              <h2>Chat</h2>
-              {chat.map((msg, index) => (
-                <p key={index}>
-                  {msg.sender}: {msg.text}
-                </p>
-              ))}
-              <form onSubmit={handle}>
-                <input
-                  type="text"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Kirjoita viesti..."
-                />
-                <button type="submit">Lähetä</button>
-              </form>
+            <div className="container_chat">
+              <div className="info_chat">
+                <h3>Chat</h3>
+              </div>
+              <div className="content_chat">
+                <div className="display_chat">
+                  {chat.map((msg, index) => ( 
+                    <div className="msgs">
+                      <div className="msgs_msg">
+                        <p key={index}>
+                          <strong>{msg.username}:</strong> {msg.msg}
+                        </p>
+                      </div>
+                      <div className="msgs_time">
+                        <em>{finTime(msg.msgtime)}</em>
+                      </div>
+                    </div>
+                  ))} 
+                </div>
+                <div className="messaging">
+                  <form onSubmit={handleMsg}>
+                    <input
+                      type="text"
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Kirjoita viesti..."
+                    />
+                    <button type="submit">Lähetä</button>
+                  </form>
+                </div>
+              </div>  
             </div>
           </div>
-          <div className="buttonToAdminPage">
-            {isAdmin && user === owner && (
-              <Link to="/adminpage">
-                <button>Ryhmän ylläpitosivuille</button>
-              </Link>
-            )}
-          </div>
-          <div className="group_chat">
-            <h2>Chat</h2>
-            {chat.map((msg, index) => (
-              <p key={index}>
-                {msg.sender}: {msg.text}
-              </p>
-            ))}
-            <form onSubmit={handle}>
-              <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Kirjoita viesti..."
-              />
-              <button type="submit">Lähetä</button>
-            </form>
-          </div>
+          
         </div>
       ) : (
-        <h1>Sivua ei löytynyt</h1>
+        <h1 style={ {marginTop: '4em'} }>Ei oikeuksia</h1>
       )}
     </>
   );
