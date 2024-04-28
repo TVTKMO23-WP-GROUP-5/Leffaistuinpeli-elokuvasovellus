@@ -1,5 +1,5 @@
 import "./Register.css"
-import React from 'react'
+import React, { useState } from 'react'
 import { useUser } from '../context/UseUser'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -14,6 +14,7 @@ export default function Register() {
     username: '',
     password: ''
 })
+const [passwordLength, setPasswordLength] = useState(0)
 
 // samalla kun kirjoitetaan kenttiin, data päivittyy
 const handleChange = (e) => {
@@ -21,7 +22,10 @@ const handleChange = (e) => {
         ...prevRegisterData,
         [e.target.name]: e.target.value
     }))
-    console.log(registerData)
+    if (e.target.name == "first_password"){
+        setPasswordLength(e.target.value.length)
+    }
+    console.log(passwordLength)
 }
 
 // luo navigointimahdollisuuden 
@@ -65,12 +69,16 @@ return (
         <div className='rekisteröidy'>
           <h2>Luo tunnus</h2>
             <form onSubmit = {handleSubmit}>
-                
                 <input type="text" name="fname" placeholder='Etunimi' onChange={handleChange} />
                 <input type="text" name="lname" placeholder='Sukunimi' onChange={handleChange} />
                 <input type="email" name="email" placeholder='Sähköposti' onChange={handleChange} />
                 <input type="text" name="username" placeholder='Käyttäjätunnus' onChange={handleChange} />
                 <input type="password" name="first_password" placeholder='Salasana' onChange={handleChange} />
+                <p style={{ color: passwordLength < 8 ? 'red' : 'black' }}>
+                    {passwordLength < 8 
+                        ? `Salasanassa täytyy olla vähintään 8 merkkiä. Salasanasi pituus ${passwordLength}` 
+                        : `Salasana ok. Pituus: ${passwordLength}`}
+                </p>
                 <input type="password" name="password" placeholder='Salasana uudestaan' onChange={handleChange} />
                 <button type="submit" className="continue">Jatka</button>
             </form>

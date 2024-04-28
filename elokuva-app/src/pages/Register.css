@@ -14,11 +14,19 @@ form {
 }
   
 .rekisteröidy *{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 1em;
+    margin-bottom: 0em;
     padding: 0.5em;
     min-width: 350px;
     border-radius: 8px;
     box-sizing: border-box;
+}
+
+.rekisteröidy p {
+    margin-top: 0px;
 }
   
 
