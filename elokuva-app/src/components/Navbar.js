@@ -198,14 +198,12 @@ export default function Navbar() {
           <Link to="/login" className="signButton">
             <FontAwesomeIcon icon={faRightFromBracket} className="fa-icon" />
             <span className="login">Kirjaudu sisään</span>
-            <span className="login-small">Kirjaudu</span>
           </Link>
        )}
         {user && (
           <Link to="/logout" className="signButton">
             <FontAwesomeIcon icon={faRightFromBracket} className="fa-icon" />
             <span className="login">Kirjaudu ulos</span>
-            <span className="login-small">Kirjaudu</span>
           </Link>
         )}
       </div>
