@@ -130,11 +130,62 @@
 
 
 @media (max-width: 800px) {
+  .frontText.one {
+    margin-right: 100px;
+  }
+  
+  .frontText.two {
+      margin-right: 90px;
+  }
+
+  
+  .frontText.three {
+    margin-right: 130px;
+  }
+}
+
+
+
+@media (max-width: 600px) {
   .home-container {
+    justify-content: center;
+    align-items: center;
     padding-bottom: 100px;
   }
 
   .card-container {
-    margin-bottom: 100px;
+    margin: 30px auto;
+    margin-top: 10px;
+    margin-bottom: 150px;
+  }
+
+  .frontText {
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-right: 40px;
+    text-align: center;
+  }
+
+  .homeposter {
+    margin-top: 50px;
+    width: 20%;
+    height: auto;
+    left: 34%;
+    transform: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .frontText.one {
+    margin-right: 40px;
+  }
+  
+  .frontText.two {
+      margin-right: 30px;
+  }
+  
+  .frontText.three {
+    margin-right: 40px;
   }
 }
