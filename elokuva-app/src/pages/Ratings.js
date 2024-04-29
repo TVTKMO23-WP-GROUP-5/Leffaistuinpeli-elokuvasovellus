@@ -160,9 +160,17 @@ export default function Ratings() {
                 </div>
             </div>
             <div className="changePage">
-                {isButton && page > 1 && <button onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>}
+                {isButton && page > 1 && 
+                <div className='ratingsPrevious'>    
+                    <button onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>
+                </div>
+                }
                 <div className="page-number">sivu {page}</div>
-                {isButton && endIndex < sort.length && <button onClick={handleClickNext}>Seuraava</button>}
+                {isButton && endIndex < sort.length && 
+                <div className='ratingsNext'>  
+                    <button onClick={handleClickNext}>Seuraava</button>
+                </div>      
+                }
             </div>
             <div className="ratingslist">
                 {sort &&
@@ -199,9 +207,17 @@ export default function Ratings() {
 
             </div>
             <div className="changePage">
-                {isButton && page > 1 && <button onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>}
+                {isButton && page > 1 && 
+                <div className='ratingsPrevious'>    
+                    <button onClick={handleClickPrevious} disabled={page === 1}>Edellinen</button>
+                </div>
+                }
                 <div className="page-number">sivu {page}</div>
-                {isButton && endIndex < sort.length && <button onClick={handleClickNext}>Seuraava</button>}
+                {isButton && endIndex < sort.length && 
+                <div className='ratingsNext'>  
+                    <button onClick={handleClickNext}>Seuraava</button>
+                </div>      
+                }
             </div>
         </div>
         </div>

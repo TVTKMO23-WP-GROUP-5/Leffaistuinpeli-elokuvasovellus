@@ -26,6 +26,16 @@ export default function UserProvider({ children }) {
         setUser(uname) // jaakko muokkas, että tässä setUseriin menee vain uname, aiemmin {username: uname}, mutta se aiheutti ongelmia adminiin. 
         jwtToken.value = resp.data.jwtToken
         sessionStorage.setItem('username', uname)
+        // toinen axios-kutsu tarkastaa, että onko käyttäjä myös admin
+        axios
+          .post(process.env.REACT_APP_URL + "/getmembers/checkowner", { username: uname })
+          .then((response) => {
+            setIsAdmin(response.data);
+            sessionStorage.setItem('admin', response.data)
+          })
+          .catch((error) => {
+            console.error("Fetching failed", error);
+          });
         navigate('/')
         alert("Kirjautuminen onnistui!")
       })
@@ -59,12 +69,18 @@ export default function UserProvider({ children }) {
 
   useEffect(() => {
     const storedUser = sessionStorage.getItem("username");
+    const storedAdmin = sessionStorage.getItem("admin")
     if (storedUser === "null") {
       setUser(null);
     } else {
       setUser(storedUser)
     }
-  }, [setUser]);
+    if (storedAdmin === "null") {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(storedAdmin)
+    }
+  }, [setUser, setIsAdmin]);
 
   useEffect(() => {
     const storedMoviePick = sessionStorage.getItem("moviePick");
@@ -75,7 +91,7 @@ export default function UserProvider({ children }) {
     }
   }, [setMoviePick]);
 
-  useEffect(() => {
+  /*useEffect(() => {
     axios
       .post(process.env.REACT_APP_URL + "/getmembers/checkowner", { username: user })
       .then((response) => {
@@ -84,7 +100,7 @@ export default function UserProvider({ children }) {
       .catch((error) => {
         console.error("Fetching failed", error);
       });
-  }, [user]);
+  }, [user]);*/
 
   useEffect(() => {
     if (user) {

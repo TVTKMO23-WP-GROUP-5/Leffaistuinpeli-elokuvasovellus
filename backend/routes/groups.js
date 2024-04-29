@@ -35,7 +35,7 @@ router.get("/owngroups", async (req, res) => {
             description: group.description,
             owner: group.owner
         }))
-        res.json(filteredGroup);
+        res.status(200).json(filteredGroup);
     } catch (error) {
         res.status(500).send('Server error');
     }
@@ -98,7 +98,7 @@ router.post("/delete", async (req, res) =>{
   
     
       const responseMessage = 'Ryhmä luotu onnistuneesti';
-      res.json({ success: true, message:'success'  });
+      res.status(201).json({ success: true, message:'success'  });
     } catch (error) {
       console.error('Error creating group:', error);
       res.status(500).json({ success: false, message: 'Ryhmän luonti epäonnistui' });

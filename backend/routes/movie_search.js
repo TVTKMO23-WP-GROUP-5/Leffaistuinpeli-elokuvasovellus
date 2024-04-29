@@ -15,14 +15,22 @@ router.post("/", async (req, res) => {
     },
   };*/
 
-  let urls = []
-  
-  for (let i = 1; i <= pages; i++){  
-  urls.push(`https://api.themoviedb.org/3/search/multi?query=${query}&api_key=${process.env.MOVIEDB_API_KEY}&language=fi-FI&page=${i}`)
+  const url_for_total_pages = `https://api.themoviedb.org/3/search/multi?query=${query}&api_key=${process.env.MOVIEDB_API_KEY}&language=fi-FI&page=${1}`
+  const initialResp = await fetch(url_for_total_pages)
+  const initialJson = await initialResp.json()
+  let totalPages = initialJson.total_pages
+  if (totalPages > pages){
+    totalPages = pages
   }
 
+  let urls = []
+  
+  for (let i = 1; i <= totalPages; i++){  
+    urls.push(`https://api.themoviedb.org/3/search/multi?query=${query}&api_key=${process.env.MOVIEDB_API_KEY}&language=fi-FI&page=${i}`)
+  }
+  console.log("koko haku: ", totalPages)
   // tässä kutsutaan funktiota.
-  movieResponse(urls, req, res, pages)
+  movieResponse(urls, req, res, totalPages)
 
 });
 
@@ -41,12 +49,28 @@ router.post("/filtered", async (req, res) => {
   const sort = req.body.sort
   const genre = req.body.genre
   const language = req.body.language
-
   const pages = req.body.pages
 
   let urls = []
   
-  for (let i = 1; i <= pages; i++){  
+  const url_for_total_pages = "https://api.themoviedb.org/3/discover/movie?" +
+  "primary_release_year=" + year +
+  "&sort_by=" + sort +
+  "&with_cast=" + cast +
+  "&with_genres=" + genre +
+  "&with_original_language=" + language +
+  "&page=" + 1 +
+  "&language=fi-FI" +
+  "&api_key=" + process.env.MOVIEDB_API_KEY
+  const initialResp = await fetch(url_for_total_pages)
+  const initialJson = await initialResp.json()
+  let totalPages = initialJson.total_pages
+  if (totalPages > pages){
+    totalPages = pages
+  }
+
+
+  for (let i = 1; i <= totalPages; i++){  
   urls.push("https://api.themoviedb.org/3/discover/movie?" +
     "primary_release_year=" + year +
     "&sort_by=" + sort +
@@ -58,8 +82,9 @@ router.post("/filtered", async (req, res) => {
     "&api_key=" + process.env.MOVIEDB_API_KEY)
   }
 
+  console.log("Leffa haku: ", totalPages)
   // tässä kutsutaan funktiota.
-  movieResponse(urls, req, res, pages)
+  movieResponse(urls, req, res, totalPages)
 });
 
 // ------- TARKENNETTU SARJAHAKU -------------- //
@@ -68,24 +93,39 @@ router.post("/series", async (req, res) => {
   const sort = req.body.sort
   const genre = req.body.genre
   const language = req.body.language
-
   const pages = req.body.pages
 
   let urls = []
-  
-  for (let i = 1; i <= pages; i++){  
+
+  const url_for_total_pages = "https://api.themoviedb.org/3/discover/tv?" +
+  "primary_release_year=" + year +
+  "&sort_by=" + sort +
+  "&with_genres=" + genre +
+  "&with_original_language=" + language +
+  "&page=" + 1 +
+  "&language=fi-FI" +
+  "&api_key=" + process.env.MOVIEDB_API_KEY
+  const initialResp = await fetch(url_for_total_pages)
+  const initialJson = await initialResp.json()
+  let totalPages = initialJson.total_pages
+  if (totalPages > pages){
+    totalPages = pages
+  }
+
+  for (let i = 1; i <= totalPages; i++){  
   urls.push("https://api.themoviedb.org/3/discover/tv?" +
     "first_air_date_year=" + year +
     "&sort_by=" + sort +
     "&with_genres=" + genre +
     "&with_original_language=" + language +
     "&page=" + i +
+    "&language=fi-FI" +
     "&api_key=" + process.env.MOVIEDB_API_KEY)
   }
 
-
+  console.log("Sarjahaku: ", totalPages)
   // tässä kutsutaan funktiota.
-  movieResponse(urls, req, res, pages)
+  movieResponse(urls, req, res, totalPages)
 });
 
 module.exports = router;

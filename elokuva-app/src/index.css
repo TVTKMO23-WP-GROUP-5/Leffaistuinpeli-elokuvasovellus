@@ -120,7 +120,7 @@ button,
 .button,
 .navButton,
 .signButton,
-.loginButton {
+.loginButton{
   width: 100%;
   background-image: var(--button-gradient);
   border: 1.6px solid var(--dark-color);

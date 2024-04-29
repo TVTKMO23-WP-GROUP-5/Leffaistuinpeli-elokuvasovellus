@@ -142,7 +142,7 @@ router.get("/isgroupmember", async (req,res) => {
             res.status(404).json({ error: "Group not found" });
         }
 
-    }catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
+    }catch(error) {                                                                                 
         console.error(error);
         res.status(500).send('Sever error');
     }   
@@ -154,7 +154,7 @@ router.get("/membersingroup", async (req,res) => {
         const id = await getGroupIdByGroupname(groupname)
         const groupmembers = await getGroupMember(id)
         res.json(groupmembers)
-    }catch(error) {                                                                                    // jotka ovat samassa ryhmässä kuin admin
+    }catch(error) {                                                                              
         console.error(error);
         res.status(500).send('Sever error');
     }  
@@ -206,8 +206,7 @@ async function handleGroups(group_id, req, res) {
         const membersIdListApplication = resultsApplication.map(result => result.id);
         const groupNameListApplication = resultsApplication.map(result => result.name);
 
-
-        res.json({
+        res.status(200).json({
             members:membersList, 
             name:groupNameList, 
             kuvaus: descriptionList, 

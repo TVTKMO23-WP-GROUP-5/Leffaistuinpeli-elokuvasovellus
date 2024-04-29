@@ -5,24 +5,43 @@ const bcrypt = require("bcrypt");
 const { register, getPw, deleteAccount, deleteRatings, deleteFavorites, getUserData } = require("../database/auth_db")
 
 router.post("/register", async (req, res) => {
-  try {  
-    const fname = req.body.fname;
-    const lname = req.body.lname;
-    const email = req.body.email;
-    const username = req.body.username;
-    const password = req.body.password;
-    const hashPw = await bcrypt.hash(password, 10);
-    await register(fname, lname, email, username, hashPw);
-    res.status(200).json({message: "success"})
-    res.end();
-  } catch (error) {
-    res.json({message: error})
-  }
+    try {  
+      const fname = req.body.fname;
+      const lname = req.body.lname;
+      const email = req.body.email;
+      const username = req.body.username;
+      const password = req.body.password;
+      if (fname.length >0 && lname.length >0 && email.length > 0 && username.length > 0 && password.length >= 8 ){
+        const hashPw = await bcrypt.hash(password, 10);
+        await register(fname, lname, email, username, hashPw);
+        res.status(201).json({
+          message: "success",
+          fname: fname,
+          lname: lname,
+          email: email,
+          username: username
+        });
+      } else {
+        res.status(403).json({message: "Älä jätä mitään kohtaa tyhjäksi ja varmista salasanan pituus"})
+      }
+
+      res.end();
+    } catch (error) {
+      res.json({message: error})
+    }
 });
 
 router.post("/login", async (req, res) => {
-  const uname = req.body.username;
-  const pw = req.body.password;
+  let uname
+  let pw
+  
+  if (req.body.username.length>0 && req.body.password.length>0){
+    uname = req.body.username
+    pw = req.body.password
+  } else {
+    res.status(400).json({error: "käyttäjänimi tai salasana on tyhjä"})
+  }
+
 
   const db_pw = await getPw(uname);
 
