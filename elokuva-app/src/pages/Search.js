@@ -25,6 +25,8 @@ export default function Search() {
   const resultsRef = useRef(null);
   const [page, setPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(24)
+  const [startIndex, setStartIndex] = useState(0)
+  const [endIndex, setEndIndex] = useState(24)
 
   useEffect(() => {
     setMoviePick(null);
@@ -33,6 +35,18 @@ export default function Search() {
   useEffect(() => {
     console.log(movieData);
   }, [movieData]);
+
+  useEffect(() => {
+    const x = sessionStorage.getItem('moviePick')
+    const parsed_x = JSON.parse(x)
+    const p = sessionStorage.getItem('page')
+    console.log("session storagesta: ", p)
+    setMoviePick(parsed_x)
+    if (p > 0 && p !== null){
+      console.log("käytiin if-silmukassa")
+      setPage(parseInt(p, 10))
+    }
+  }, [])
 
   const handleChange = (e) => {
     setMovieData((prevMovieData) => ({
@@ -151,25 +165,38 @@ export default function Search() {
 
   // Sivunvaihtokoodit alkvata tästä
   const handleClickNext = () => {
-    setPage(prevPage => prevPage + 1)
-    console.log("seuraava", startIndex, endIndex)
-  };
+    setPage(prevPage => {
+        const nextPage = prevPage + 1;
+        sessionStorage.setItem('page', nextPage);
+        return nextPage;
+    });
+};
 
-  const startIndex = (page - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
+const handleClickPrevious = () => {
+    setPage(prevPage => {
+        const prevPageValue = Math.max(prevPage - 1, 1);
+        sessionStorage.setItem('page', prevPageValue);
+        return prevPageValue;
+    });
+};
 
-  const handleClickPrevious = () => {
-      setPage(prevPage => Math.max(prevPage - 1, 1))
-      console.log("edellinen", startIndex, endIndex)
-  };
+  useEffect(() => {
+    const newStartIndex = (page - 1) * itemsPerPage;
+    const newEndIndex = newStartIndex + itemsPerPage;
+    setStartIndex(newStartIndex);
+    setEndIndex(newEndIndex);
+    console.log("hep");
+  }, [page]);
 
   return (
     <>
     <div className={`searchpage-container ${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
       <div className = "search-type">
-        <input type = "radio" name = "searchType" className = "searchInput" value = "basic" onClick={handleSearchType}/><span class="radio-label">Nimihaku</span>
-        <input type = "radio" name = "searchType" className = "searchInput" value = "filtered" onClick={handleSearchType}/><span class="radio-label">Tarkempi elokuvahaku</span>
-        <input type = "radio" name = "searchType" className = "searchInput" value = "filtered-series" onClick={handleSearchType}/><span class="radio-label">Tarkempi sarjahaku</span>
+      <select onChange={handleSearchType}>
+          <option value = "basic" >Nimihaku</option>
+          <option value = "filtered" >Tarkempi elokuvahaku</option>
+          <option value = "filtered-series">Tarkempi sarjahaku</option>
+        </select>
       </div>
       <div className = "search-bars"> 
         {searchType === "basic" && (
