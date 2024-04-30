@@ -10,7 +10,7 @@ export default function AdminPage() {
     const handleSubmit = (name, admin, id) => {        
         const confirmed = window.confirm("Haluatko varmasti suorittaa toiminnon?")
         if (confirmed){
-            axios.post(process.env.REACT_APP_URL + '/getmembers/deleteuser', {username: name, admin: admin, ID:id})
+            axios.post('/getmembers/deleteuser', {username: name, admin: admin, ID:id})
                 .then(response => {
                     setGroupMembers(response.data)
                     console.log('User registered successfully:', response.data);
@@ -30,7 +30,7 @@ export default function AdminPage() {
         const confirmed = window.confirm("Haluatko varmasti poistaa ryhmän?")
         console.log(admin)
         if (confirmed){
-            axios.post(process.env.REACT_APP_URL + '/getmembers/deletegroup', {owner: admin, ID:id})
+            axios.post('/getmembers/deletegroup', {owner: admin, ID:id})
                 .then(response => {
                     setGroupMembers(response.data)
                     console.log(admin, id)
@@ -50,7 +50,7 @@ export default function AdminPage() {
     const handleApplication = (username, group_id, admin) =>{
         const confirmed = window.confirm("Haluatko varmasti hyväksyä pyynnön?")
         if (confirmed){
-            axios.post(process.env.REACT_APP_URL + '/getmembers/handleapplication', {user: username, ID:group_id, admin:admin})
+            axios.post('/getmembers/handleapplication', {user: username, ID:group_id, admin:admin})
                 .then(response => {
                     setGroupMembers(response.data)
                     alert("Hyväksytty ryhmään.")

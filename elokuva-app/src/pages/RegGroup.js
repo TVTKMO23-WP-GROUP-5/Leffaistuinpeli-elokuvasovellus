@@ -33,7 +33,7 @@ export default function Register() {
     }
 
     try {
-      const response = await axios.post(process.env.REACT_APP_URL + '/groups/register', groupRegisterData);
+      const response = await axios.post('/groups/register', groupRegisterData);
 
       if (response.data.message === 'success') {
         console.log('Group registered successfully:', response.data);
@@ -41,7 +41,7 @@ export default function Register() {
         setIsAdmin(true);
         if (user !== null) {
           axios
-            .post(process.env.REACT_APP_URL + '/getmembers', { username: user })
+            .post('/getmembers', { username: user })
             .then((response) => {
               setGroupMembers(response.data);
               console.log(response.data.application);
@@ -78,13 +78,13 @@ export default function Register() {
             />
           </div>
           <div className="kuvaus">
-            <input
-              type="text"
-              name="description"
-              placeholder="Kuvaus"
-              value={groupRegisterData.description}
-              onChange={handleChange}
-            />
+          <textarea
+    name="description"
+    placeholder="Kuvaus"
+    value={groupRegisterData.description}
+    onChange={handleChange}
+    rows="5"
+  ></textarea>
           </div>
           {error && <div className="error">{error}</div>}
           <div className="nappi">

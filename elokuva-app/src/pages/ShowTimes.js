@@ -132,9 +132,10 @@ export default function Showtimes() {
     setShowtimeData(newShowtimeData)
 
       axios
-        .post(process.env.REACT_APP_URL + `/groupST/addshowtime`, newShowtimeData)
+        .post(`/groupST/addshowtime`, newShowtimeData)
         .then((response) => {
           console.log("Server response :", response)
+          alert("Näytösaika lisätty ryhmän sivulle!")
         })
         .catch((error) => {
           console.error("Lisäys epäonnistui: ", error);

@@ -20,7 +20,7 @@ export default function UserProvider({ children }) {
   const navigate = useNavigate()
 
   const login = async (uname, password) => {
-    axios.post(process.env.REACT_APP_URL + '/auth/login',
+    axios.post('/auth/login',
       { username: uname, password: password })
       .then(resp => {
         setUser(uname) // jaakko muokkas, että tässä setUseriin menee vain uname, aiemmin {username: uname}, mutta se aiheutti ongelmia adminiin. 
@@ -28,7 +28,7 @@ export default function UserProvider({ children }) {
         sessionStorage.setItem('username', uname)
         // toinen axios-kutsu tarkastaa, että onko käyttäjä myös admin
         axios
-          .post(process.env.REACT_APP_URL + "/getmembers/checkowner", { username: uname })
+          .post("/getmembers/checkowner", { username: uname })
           .then((response) => {
             setIsAdmin(response.data);
             sessionStorage.setItem('admin', response.data)
@@ -45,7 +45,7 @@ export default function UserProvider({ children }) {
   // Asettaa groupMemberseihin,jos käyttäjä on adminina niin tietoa. 
   useEffect(() => {
     if (user !== null) {
-      axios.post(process.env.REACT_APP_URL + '/getmembers', { username: user })
+      axios.post('/getmembers', { username: user })
         .then(response => {
           setGroupMembers(response.data)
         })
@@ -57,9 +57,10 @@ export default function UserProvider({ children }) {
 
   // Asettaa kaikki arvostelut ratingsListaan
   useEffect(() => {
-    axios.get(process.env.REACT_APP_URL + "/rating/getrating")
+    axios.get("/rating/getrating")
       .then((response) => {
         setRatingsList(response.data)
+        console.log(response.data)
       })
       .catch((error) => {
         console.error("Error adding favorite:", error);
@@ -91,22 +92,12 @@ export default function UserProvider({ children }) {
     }
   }, [setMoviePick]);
 
-  /*useEffect(() => {
-    axios
-      .post(process.env.REACT_APP_URL + "/getmembers/checkowner", { username: user })
-      .then((response) => {
-        setIsAdmin(response.data);
-      })
-      .catch((error) => {
-        console.error("Fetching failed", error);
-      });
-  }, [user]);*/
 
   useEffect(() => {
     if (user) {
       const username = sessionStorage.getItem('username')
       axios
-        .get(process.env.REACT_APP_URL + `/groups/owngroups?username=${username}`)
+        .get(`/groups/owngroups?username=${username}`)
         .then((response) => {
           setUserGroups(response.data);
         })

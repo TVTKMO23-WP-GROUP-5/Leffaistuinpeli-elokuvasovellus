@@ -18,7 +18,7 @@ export default function Home() {
     
     if (isHome && movies.length === 0 && !loading) {
       setLoading(true)
-      axios.get(process.env.REACT_APP_URL + "/random_movies/homepage")
+      axios.get("/random_movies/homepage")
         .then(response => {
           setMovies(response.data)
           setLoading(false)
@@ -33,7 +33,7 @@ export default function Home() {
       console.log("Dokumentin tila: ", document.visibilityState)
       if (document.visibilityState === 'hidden' && isHome) {
         setLoading(true);
-        axios.get(process.env.REACT_APP_URL + "/random_movies/homepage")
+        axios.get("/random_movies/homepage")
           .then(response => {
             setMovies(response.data)
             setLoading(false);

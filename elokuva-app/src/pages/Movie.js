@@ -4,7 +4,7 @@ import "./Movie.css";
 import axios from "axios";
 import { useUser } from "../context/UseUser";
 export default function Movie() {
-  const { user, moviePick, setMoviePick, userGroups } = useUser();
+  const { user, moviePick, setMoviePick, userGroups, setRatingsList } = useUser();
   const [showGroupDropdown, setShowGroupDropdown] = useState(false)
   const [selectedGroup, setSelectedGroup] = useState('')
   const [ratingData, setRatingData] = useState({
@@ -98,7 +98,7 @@ export default function Movie() {
     setFavoriteData(updatedFavoriteData)
 
     await axios
-      .post(process.env.REACT_APP_URL + "/favorite/addfavorite", updatedFavoriteData)
+      .post("/favorite/addfavorite", updatedFavoriteData)
       .then((response) => {
         if (response.data.message === "success") {
           console.log("Added favorite successfully:", response.data);
@@ -132,7 +132,7 @@ export default function Movie() {
       setGroupFavoriteData(updatedGroupFavoriteData)
 
       await axios
-      .post(process.env.REACT_APP_URL + "/favorite/addgroupfavorite", updatedGroupFavoriteData)
+      .post("/favorite/addgroupfavorite", updatedGroupFavoriteData)
       .then((response) => {
         if (response.data.message === "success") {
           console.log("Added favorite successfully:", response.data);
@@ -190,11 +190,20 @@ export default function Movie() {
     event.preventDefault();
 
     axios
-      .post(process.env.REACT_APP_URL + "/rating/addRating", ratingData)
+      .post("/rating/addRating", ratingData)
       .then((response) => {
         if (response.data.message === "success") {
           console.log("Rating registered successfully:", response.data);
           alert("Arvostelun luominen onnistui");
+          axios
+            .get("/rating/getrating")
+            .then((response) => {
+              setRatingsList(response.data);
+            })
+            .catch((error) => {
+              console.error("Error adding favorite:", error);
+              alert("Virhe arvostelujen lataamisessa.");
+            });
           resetReviewForm();
         } else {
           console.log("Something went wrong:", response.data);

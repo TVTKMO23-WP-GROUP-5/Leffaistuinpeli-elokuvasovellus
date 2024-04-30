@@ -13,12 +13,13 @@ const rating = require('./routes/rating');
 const favorite = require('./routes/favorite');
 const express = require("express");
 const app = express();
+app.use(express.static('public'))
 const PORT = process.env.PORT || 3001;
 
 
-app.use(express.urlencoded({extended: true})); // vastaanottaa form-url-encoded. Jaakko
-app.use(express.json()); // Ottaa vastaaan jsonia. Jaakko
-app.use((cors())); // poistaa header-ongelmia. Jaakko
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+app.use((cors()));
 app.use("/account", account);
 app.use("/groups", groups);
 app.use("/groupST", groupST);
@@ -34,5 +35,13 @@ app.use("/favorite", favorite);
 app.listen(PORT, () => {
   console.log("Server running:" + PORT);
 });
+
+app.get('/*', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html', function(err){
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 module.exports = app;

@@ -22,7 +22,7 @@ const handleChange = (e) => {
         ...prevRegisterData,
         [e.target.name]: e.target.value
     }))
-    if (e.target.name == "first_password"){
+    if (e.target.name === "first_password"){
         setPasswordLength(e.target.value.length)
     }
     console.log(passwordLength)
@@ -43,7 +43,7 @@ const handleSubmit = (event) => {
 
     console.log(registerData)
 
-    axios.post(process.env.REACT_APP_URL + '/auth/register', registerData)
+    axios.post('/auth/register', registerData)
         .then(response => {
             if (response.data.message === "success"){
                 console.log('User registered successfully:', response.data);
@@ -67,19 +67,19 @@ const handleSubmit = (event) => {
 return (
     <div className='main'>
         <div className='rekisteröidy'>
-          <h2>Luo tunnus</h2>
             <form onSubmit = {handleSubmit}>
-                <input type="text" name="fname" placeholder='Etunimi' onChange={handleChange} />
-                <input type="text" name="lname" placeholder='Sukunimi' onChange={handleChange} />
-                <input type="email" name="email" placeholder='Sähköposti' onChange={handleChange} />
-                <input type="text" name="username" placeholder='Käyttäjätunnus' onChange={handleChange} />
-                <input type="password" name="first_password" placeholder='Salasana' onChange={handleChange} />
+                <h2>Luo tunnus</h2>
+                <input type="text" className="registerInput" name="fname" placeholder='Etunimi' onChange={handleChange} />
+                <input type="text" className="registerInput" name="lname" placeholder='Sukunimi' onChange={handleChange} />
+                <input type="email" className="registerInput" name="email" placeholder='Sähköposti' onChange={handleChange} />
+                <input type="text" className="registerInput" name="username" placeholder='Käyttäjätunnus' onChange={handleChange} />
+                <input type="password" className="registerInput" name="first_password" placeholder='Salasana' onChange={handleChange} />
                 <p style={{ color: passwordLength < 8 ? 'red' : 'black' }}>
                     {passwordLength < 8 
-                        ? `Salasanassa täytyy olla vähintään 8 merkkiä. Salasanasi pituus ${passwordLength}` 
+                        ? `Salasanassa täytyy olla vähintään 8 merkkiä. Salasanasi pituus on ${passwordLength}` 
                         : `Salasana ok. Pituus: ${passwordLength}`}
                 </p>
-                <input type="password" name="password" placeholder='Salasana uudestaan' onChange={handleChange} />
+                <input type="password" className="registerInput" name="password" placeholder='Salasana uudestaan' onChange={handleChange} />
                 <button type="submit" className="continue">Jatka</button>
             </form>
         </div>

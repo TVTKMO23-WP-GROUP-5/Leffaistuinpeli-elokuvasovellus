@@ -28,7 +28,7 @@ export default function UserPage() {
    useEffect(() => {
      if (user) {
        axios
-         .get(process.env.REACT_APP_URL + `/auth/userdata?username=${user}`)
+         .get(`/auth/userdata?username=${user}`)
          .then((response) => {
            setUserinfo((userinfo) => ({
              ...userinfo,
@@ -50,7 +50,7 @@ export default function UserPage() {
 
     if (confirmDelete) {
       const username = sessionStorage.getItem("username");
-      axios.delete(process.env.REACT_APP_URL + '/auth/delete', { data: { username } })
+      axios.delete('/auth/delete', { data: { username } })
         .then(response => {
           setUser(null);
           console.log(response.data)

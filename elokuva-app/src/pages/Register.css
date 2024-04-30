@@ -10,7 +10,7 @@ form {
 }
   
 .rekisteröidy:first-child{
-    margin-top: 50px;
+    margin-top: 35px;
 }
   
 .rekisteröidy *{
@@ -28,10 +28,56 @@ form {
 .rekisteröidy p {
     margin-top: 0px;
 }
-  
+
+.registerInput {
+    max-width: 175px;
+    max-height: 75px;
+    font-size: 1.2em;
+    border-radius: 15px;
+}
 
 .continue {
+    max-width: 175px;
+    max-height: 75px;
     padding: 0.30em;
     font-weight: 600;
     font-size: 1.45em;
+    margin-bottom: 110px;
+    border-radius: 15px;
   }
+
+  @media (min-width: 601px) and (max-width: 900px) {
+    .rekisteröidy * {
+        min-width: 300px;
+        padding: 0.4em;
+        margin: 0.75em;
+    }
+
+    .rekisteröidy:first-child {
+        margin-top: 30px;
+    }
+
+    .continue {
+        padding: 0.28em;
+        margin-bottom: 50px;
+        font-size: 1.35em;
+    }
+}
+
+@media (max-width: 600px) {
+    .rekisteröidy * {
+        min-width: 280px;
+        padding: 0.3em;
+        margin: 0.5em;
+    }
+
+    .rekisteröidy:first-child {
+        margin-top: 20px;
+    }
+
+    .continue {
+        padding: 0.25em;
+        font-size: 1.2em;
+        margin-bottom: 0;
+    }
+}

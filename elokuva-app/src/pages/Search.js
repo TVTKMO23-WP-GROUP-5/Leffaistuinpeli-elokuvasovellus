@@ -93,7 +93,7 @@ export default function Search() {
     console.log("Tämä on" + JSON.stringify(movieData));
 
     axios
-      .post(process.env.REACT_APP_URL + "/movies?query=", movieData)
+      .post("/movies?query=", movieData)
       .then((response) => {
         if (response.data.length === 0){
           alert("Ei yhtään hakutulosta. Suorita uusi haku.")
@@ -122,7 +122,7 @@ export default function Search() {
     }
     console.log("Tämä on" + JSON.stringify(searchData));
 
-    axios.post(process.env.REACT_APP_URL + '/movies/filtered', searchData)
+    axios.post('/movies/filtered', searchData)
     .then(response => {
       console.log(response.data.length)
       if (response.data.length === 0){
@@ -147,7 +147,7 @@ export default function Search() {
 
     console.log("Tämä on" + JSON.stringify(searchData));
 
-    axios.post(process.env.REACT_APP_URL + '/movies/series', searchData)
+    axios.post('/movies/series', searchData)
     .then(response => {
       console.log(response.data.length)
       if (response.data.length === 0){
@@ -361,7 +361,7 @@ const handleClickPrevious = () => {
               )
             ))
         ) : (
-          <div>Suorita ensimmäinen haku</div>
+          <div><p>Suorita ensimmäinen haku</p></div>
         )}
       </div>
       <div className="changePage-search">

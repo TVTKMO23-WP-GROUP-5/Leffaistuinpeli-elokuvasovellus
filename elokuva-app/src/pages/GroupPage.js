@@ -27,7 +27,7 @@ export default function GroupPage() {
   useEffect(() => {
     const uname = user ? user : sessionStorage.getItem("username")
     axios
-      .get(process.env.REACT_APP_URL + `/getmembers/isgroupmember?username=${uname}&groupname=${groupName}`)
+      .get(`/getmembers/isgroupmember?username=${uname}&groupname=${groupName}`)
       .then((response) => {
         setIsMember(response.data)
       })
@@ -41,7 +41,7 @@ export default function GroupPage() {
   // ----- Ryhmän omistajan + jäsenten haut -----
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_URL + `/groups/owner?groupname=${groupName}`)
+      .get(`/groups/owner?groupname=${groupName}`)
       .then((response) => {
         setOwner(response.data);
       })
@@ -51,7 +51,7 @@ export default function GroupPage() {
 
     axios
       .get(
-        process.env.REACT_APP_URL + `/getmembers/membersingroup?groupname=${groupName}`
+        `/getmembers/membersingroup?groupname=${groupName}`
       )
       .then((response) => {
         setMembers(response.data);
@@ -66,7 +66,7 @@ export default function GroupPage() {
     const gname = groupName;
     try {
       axios
-        .get(process.env.REACT_APP_URL + `/favorite/getgroupfavorites`, {
+        .get(`/favorite/getgroupfavorites`, {
           params: {
             groupname: gname,
           },
@@ -85,7 +85,7 @@ export default function GroupPage() {
   // ----- Ryhmän näytösaikojen haku -----
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_URL + `/groupST/getgrouptimes?groupname=${groupName}`)
+      .get(`/groupST/getgrouptimes?groupname=${groupName}`)
       .then((response) => {
         setGroupShowtimes(response.data);
       })
@@ -221,7 +221,7 @@ export default function GroupPage() {
 
     if (!msg) return; // Estää tyhjät viestit
 
-   axios.post(process.env.REACT_APP_URL + `/groupMsg/sendmsg`, {
+   axios.post(`/groupMsg/sendmsg`, {
         username: username,
         groupname: gname,
         msg: msg
@@ -239,7 +239,7 @@ export default function GroupPage() {
   useEffect (() => {
     const gname = groupName;
 
-    axios.get(process.env.REACT_APP_URL + `/groupMsg/getmsg?groupname=${gname}`)
+    axios.get(`/groupMsg/getmsg?groupname=${gname}`)
     .then((response) => {
       setChat(response.data.reverse())
     })
@@ -263,7 +263,10 @@ export default function GroupPage() {
 
   const toFinnishTime = (utcDate) => {
     const date = new Date(utcDate);
-    return date.toLocaleString("fi-FI", { timeZone: "Europe/Helsinki" });
+    return date.toLocaleString("fi-FI", { timeZone: "Europe/Helsinki" , 
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'});
   };
 
   return (
@@ -443,6 +446,8 @@ export default function GroupPage() {
                       //Tarkistetaan, onko näytöksen päivämäärä jo mennyt
                       const showtimeDate = new Date(showtime.showdate);
                       const currentDate = new Date();
+                      showtimeDate.setHours(0, 0, 0, 0);
+                      currentDate.setHours(0, 0, 0, 0);
                       return showtimeDate >= currentDate;
                     })
                     .map((showtime, index) => (
@@ -453,7 +458,7 @@ export default function GroupPage() {
                         <div className="showtime_data">
                           <p>{showtime.movietitle}</p>
                           <p>{theatreToCity[showtime.theatreid]}</p>
-                          <p>{toFinnishTime(showtime.showdate).substr(0, 10)}</p>
+                          <p>{toFinnishTime(showtime.showdate)}</p>
                           <p>{showtime.showstarttime.substr(0,5)}</p>
                         </div>
                       </div>

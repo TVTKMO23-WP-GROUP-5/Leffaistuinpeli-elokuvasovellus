@@ -17,7 +17,7 @@ export default function Ratings() {
     const [isButton, setIsButton] = useState(true)
 
     useEffect(() => {
-        axios.post(process.env.REACT_APP_URL + "/rating/ratedmoviedata", { data: ratingsList })
+        axios.post("/rating/ratedmoviedata", { data: ratingsList })
             .then((response) => {
                 setShowRatings(response.data)
                 setSort(response.data)
@@ -26,7 +26,7 @@ export default function Ratings() {
                 console.error("Error adding favorite:", error.response.data);
                 alert("Virhe arvostelujen lataamisessa.");
             })
-    }, [user, setShowRatings, setSort])
+    }, [ratingsList])
 
     const sortMovies = (sorting, check) => {
         setFilter("")
