@@ -16,9 +16,9 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 
-app.use(express.urlencoded({extended: true})); // vastaanottaa form-url-encoded. Jaakko
-app.use(express.json()); // Ottaa vastaaan jsonia. Jaakko
-app.use((cors())); // poistaa header-ongelmia. Jaakko
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+app.use((cors()));
 app.use("/account", account);
 app.use("/groups", groups);
 app.use("/groupST", groupST);

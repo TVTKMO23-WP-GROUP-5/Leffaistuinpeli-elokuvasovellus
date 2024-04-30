@@ -4,7 +4,7 @@ import "./Movie.css";
 import axios from "axios";
 import { useUser } from "../context/UseUser";
 export default function Movie() {
-  const { user, moviePick, setMoviePick, userGroups } = useUser();
+  const { user, moviePick, setMoviePick, userGroups, setRatingsList } = useUser();
   const [showGroupDropdown, setShowGroupDropdown] = useState(false)
   const [selectedGroup, setSelectedGroup] = useState('')
   const [ratingData, setRatingData] = useState({
@@ -195,6 +195,15 @@ export default function Movie() {
         if (response.data.message === "success") {
           console.log("Rating registered successfully:", response.data);
           alert("Arvostelun luominen onnistui");
+          axios
+            .get(process.env.REACT_APP_URL + "/rating/getrating")
+            .then((response) => {
+              setRatingsList(response.data);
+            })
+            .catch((error) => {
+              console.error("Error adding favorite:", error);
+              alert("Virhe arvostelujen lataamisessa.");
+            });
           resetReviewForm();
         } else {
           console.log("Something went wrong:", response.data);

@@ -26,7 +26,7 @@ export default function Ratings() {
                 console.error("Error adding favorite:", error.response.data);
                 alert("Virhe arvostelujen lataamisessa.");
             })
-    }, [user, setShowRatings, setSort])
+    }, [ratingsList])
 
     const sortMovies = (sorting, check) => {
         setFilter("")

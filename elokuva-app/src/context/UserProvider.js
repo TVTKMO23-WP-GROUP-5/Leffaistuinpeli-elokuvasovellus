@@ -60,6 +60,7 @@ export default function UserProvider({ children }) {
     axios.get(process.env.REACT_APP_URL + "/rating/getrating")
       .then((response) => {
         setRatingsList(response.data)
+        console.log(response.data)
       })
       .catch((error) => {
         console.error("Error adding favorite:", error);
