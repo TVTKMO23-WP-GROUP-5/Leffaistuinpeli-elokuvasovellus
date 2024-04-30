@@ -1,8 +1,6 @@
-# Sovellus
+#<strong>Leffaistuinpeli – </strong>#
 
-#<strong>Leffaistuinpeli – </strong> 
-
-##Projektin esittely 
+##Projektin esittely##
 
 Projektin tavoitteena oli kehittää ryhmätyönä selaimessa toimiva verkkosivusto elokuvaharrastajille, hyödyntäen The Movie Databasen ja Finnkinon avointa dataa. Sivuston suunnitteluun sisältyy toimintoja sekä kirjautumattomille että kirjautuneille käyttäjille, ja sen on tarkoitus olla käyttäjäystävällinen sekä tietokoneen suurella näytöllä että mobiililaitteilla. 
 
@@ -12,40 +10,38 @@ Kirjautumattomat käyttäjät voivat suorittaa elokuvahakuja ja etsiä mielenkii
 
 Kirjautuneet käyttäjät voivat kaiken edellä mainitun lisäksi luoda omia ryhmiä ja liittyä muiden käyttäjien luomiin ryhmiin. Ryhmissä jäsenet voivat lisätä mieluisia elokuvia ja sarjoja sekä keskustella keskenään ryhmän valitsemista aiheista. Kirjautuneet käyttäjät voivat myös luoda omat sivut, joille voi lisätä suosikkielokuvia, -sarjoja ja Finnkinon näytösaikoja. He voivat arvostella elokuvia tähtien avulla yhdestä viiteen olevalla asteikolla ja antaa lyhyitä arviointitekstejä. 
 
-##Esittely projektin teknologioista 
+##Esittely projektin teknologioista##
 
 Projektissa käytimme Reactia frontendin rakentamiseen ja Node.js:ää backendin kehittämiseen. Tietojen tallentamiseen ja hallintaan käytimme PostgreSQL-tietokantaa. Lisäksi Hyödynsimme Expressiä API-rajapintojen rakentamiseen ja Axiosia HTTP-kutsujen tekemiseen. Suunnitteluvaiheessa käytimme Figmaa käyttöliittymän suunniteluun.  
 
-##Projektin tekijät ja roolitus 
-
-<strong>Projektiryhmä:</strong>
+##Projektin tekijät ja roolitus##
 
 Tämän projektin tekijöihin kuuluivat Antre Ahonen (antreahonen), Taneli Heikkilä (TaneliNH), Juho Kultala (Kuljuho), Tuomas Jurvansuu (TuomasJurvansuu) ja Jaakko Mattila (mattilja88). Taneli Heikkilä toimi pääosin ryhmän vetäjänä. Muita rooleja olivat esimerkiksi ohjelmoija ja suunnittelija. Jokainen projektin jäsen toteutti näitä rooleja omalta osaltaan vaihtelevasti. Tehtävänjako tapahtui siten, että projektiin kuuluvat tehtävät jaettiin kaikkien kesken.  
 
 Kaikki ryhmän jäsenet tekivät koodia omilla sovituilla vastuualueillaan. Tarvittaessa ryhmän jäsenet auttoivat toisiaan projektin edetessä, jos esimerkiksi koodaamisen kanssa tuli ongelmia. Discordin ja WhatsAppin välityksellä käytiin keskustelua tehtävien jaosta sekä siitä, miten kukin toteuttaa omaa rooliaan projektissa. Roolitus onnistui pääasiassa hyvin. 
 
-##Esittely tietokantasuunnitelmasta 
+##Esittely tietokantasuunnitelmasta##
 
-###Luokkakaavion tarkoitus 
+###Luokkakaavion tarkoitus###
 
 Luokkakaavio kuvaa projektimme tietokannan rakennetta. Tietokannan tarkoituksena on hallita käyttäjätilejä, ryhmiä ja niiden jäseniä sekä ryhmien elokuvia ja näytösaikoja sekä yksittäisen käyttäjän tallentamia suosikkeja ja arvosteluja. Luokkakaavion tarkoituksena on selkeyttää sovelluksen toimintaperiaatetta sekä auttaa ryhmän jäseniä sovelluksen toteutuksessa. 
 
 ![Er-kaavio](elokuva-app/src/images/erkaavio.png) 
 KUVA 1. Projektin luokkakaavio 
 
-###Käyttäjätilit ja ryhmät 
+###Käyttäjätilit ja ryhmät###
 
 Käyttäjät luovat tunnuksen rekisteröitymisen yhteydessä, syöttäen perustietoja kuten etunimi, sukunimi ja sähköposti. Uniikki käyttäjänimi on pakollinen. Kirjautuneena käyttäjät voivat tallentaa elokuvia ja tv-sarjoja suosikkilistoihinsa, jotka haetaan avoimen datan lähteestä ja tallennetaan favorites-tauluun. Käyttäjät voivat myös luoda ryhmiä sovellukseen. Ryhmän luojasta tulee automaattisesti ryhmän omistaja. 
 
-###Ryhmien toiminnallisuudet 
+###Ryhmien toiminnallisuudet###
 
 Ryhmätoimintojen kautta jäsenet voivat lähettää liittymispyyntöjä, jotka hyväksyttäessä muuttavat ismember-kentän arvon trueksi, mikä tarkoittaa että jäsen on hyväksytty ryhmään omistajan toimesta. Ryhmien jäsenet voivat lisätä ryhmän sivulle elokuvia ja tv-sarjoja sekä Finnkinon näytösaikoja. Elokuvien ja tv-sarjojen sekä näytösaikojen tiedot haetaan avoimen datan lähteistä. Tiedot näistä tallentuvat groupmovies sekä groupshowtimes-tauluihin. Ryhmän sivulta löytyy jäsenille tarkoitettu chat, jossa voidaan käydä ryhmänvälisiä keskusteluja. Chat toimii ja kommunikoi tietokannasta löytyvän groupmessage-taulun avulla. 
 
-###Elokuvien ja sarjojen arvostelut 
+###Elokuvien ja sarjojen arvostelut###
 
 Käyttäjät voivat arvostella elokuvia ja tv-sarjoja antamalla tähtiä ja kirjoittamalla arvostelutekstejä, jotka tallentuvat ratings-tauluun. Arvosteluja voi selata myös kirjautumaton käyttäjä. Käyttäjät voivat myös luoda oman suosikkilistan haluamistaan elokuvista ja tv-sarjoista. Suosikit tallentuvat tietokannan tauluun favorites. Listan pystyy jakamaan muille yksilöllisellä URL-osoitteella. 
 
-##Esittely käyttöliittymästä 
+##Esittely käyttöliittymästä###
 
 ![Käyttöliittymäsuunnitelma](elokuva-app/src/images/kayttoliittymasuunnitelma.png) 
 
@@ -61,16 +57,8 @@ Suunnittelu perustui mobiili ensin -periaatteeseen, mutta hahmottelimme samalla,
 
 (Tähän linkki nettisivuille) 
 
-###Sovelluksen esittely 
+###Sovelluksen esittely###
 
 (Tähän linkki videoon, jolla esitellään video) 
 
-![Haku](elokuva-app/src/images/haku.png) 
-
-<strong>Projektiryhmä:</strong>
-
-- Antre Ahonen (GitHub: antreahonen)
-- Jaakko Mattila (GitHub: mattilja88)
-- Juho Kultala (GitHub: Kuljuho)
-- Taneli Heikkilä (GitHub: TaneliNH)
-- Tuomas Jurvansuu (GitHub: TuomasJurvansuu)
+![Haku](elokuva-app/src/images/haku.png)
