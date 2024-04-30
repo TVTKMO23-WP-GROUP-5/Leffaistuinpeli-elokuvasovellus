@@ -36,7 +36,6 @@ h3 {
 
 .overview, .imdb {
     font-size: 1em;
-    color: var(--black-background-color);
     text-align: center;
     padding: 10px 0;
     flex-shrink: 1;
@@ -150,6 +149,11 @@ form {
   padding: var(--general-padding);
 }
 
+.ratings .continue {
+  margin-bottom: 2em;
+}
+
+
 @media (max-width: 768px) {
   .poster-container {
     margin: auto;
@@ -163,7 +167,8 @@ form {
     width: 80%;
   }
 
-  h3 {
+  .poster-container h3 {
+    margin: 2em 0;
     font-size: 1.5em;
   }
 

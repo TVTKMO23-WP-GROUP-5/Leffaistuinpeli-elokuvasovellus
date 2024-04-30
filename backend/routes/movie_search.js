@@ -82,7 +82,6 @@ router.post("/filtered", async (req, res) => {
     "&api_key=" + process.env.MOVIEDB_API_KEY)
   }
 
-  console.log("Leffa haku: ", totalPages)
   // tässä kutsutaan funktiota.
   movieResponse(urls, req, res, totalPages)
 });
@@ -122,8 +121,7 @@ router.post("/series", async (req, res) => {
     "&language=fi-FI" +
     "&api_key=" + process.env.MOVIEDB_API_KEY)
   }
-
-  console.log("Sarjahaku: ", totalPages)
+  
   // tässä kutsutaan funktiota.
   movieResponse(urls, req, res, totalPages)
 });

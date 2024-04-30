@@ -6,14 +6,11 @@ const {
 const router = require("express").Router();
 
 
-router.post("/sendmsg", async (req, res) =>{
-
+router.post("/sendmsg", async (req, res) =>{    
     const { username, groupname, msg } = req.body;
-    console.log(username, groupname, msg);
     
     try {
         const message = await sendMessage(username, groupname, msg);
-        console.log(message)
         res.send('Message received!')
     } catch (error) {
         console.error(error);
@@ -26,7 +23,6 @@ router.get("/getmsg", async (req, res) => {
     
     try {
         const msgs = await getAllMessages(gname);
-        console.log("GroupMsg.js r29 :", msgs)
         res.send(msgs)
     } catch (error) {
         console.error(error);
