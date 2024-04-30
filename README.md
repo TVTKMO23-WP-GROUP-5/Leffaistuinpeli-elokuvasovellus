@@ -17,7 +17,7 @@ Projektissa käytimme Reactia frontendin rakentamiseen ja Node.js:ää backendin
 
 ## Projektin tekijät ja roolitus
 
-Tämän projektin tekijöihin kuuluivat Antre Ahonen (antreahonen), Taneli Heikkilä (TaneliNH), Juho Kultala (Kuljuho), Tuomas Jurvansuu (TuomasJurvansuu) ja Jaakko Mattila (mattilja88). Taneli Heikkilä toimi pääosin ryhmän vetäjänä. Muita rooleja olivat esimerkiksi ohjelmoija ja suunnittelija. Jokainen projektin jäsen toteutti näitä rooleja omalta osaltaan vaihtelevasti. Tehtävänjako tapahtui siten, että projektiin kuuluvat tehtävät jaettiin kaikkien kesken.
+Tämän projektin tekijöihin kuuluivat [Antre Ahonen](https://github.com/antreahonen), [Taneli Heikkilä](https://github.com/TaneliNH), [Juho Kultala](https://github.com/Kuljuho), [Tuomas Jurvansuu](https://github.com/TuomasJurvansuu) ja [Jaakko Mattila](https://github.com/mattilja88). Taneli Heikkilä toimi pääosin ryhmän vetäjänä. Muita rooleja olivat esimerkiksi ohjelmoija ja suunnittelija. Jokainen projektin jäsen toteutti näitä rooleja omalta osaltaan vaihtelevasti. Tehtävänjako tapahtui siten, että projektiin kuuluvat tehtävät jaettiin kaikkien kesken.
 
 Kaikki ryhmän jäsenet tekivät koodia omilla sovituilla vastuualueillaan. Tarvittaessa ryhmän jäsenet auttoivat toisiaan projektin edetessä, jos esimerkiksi koodaamisen kanssa tuli ongelmia. Discordin ja WhatsAppin välityksellä käytiin keskustelua tehtävien jaosta sekä siitä, miten kukin toteuttaa omaa rooliaan projektissa. Roolitus onnistui pääasiassa hyvin. 
 
