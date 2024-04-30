@@ -334,7 +334,7 @@ export default function Search() {
               )
             ))
         ) : (
-          <div>Suorita ensimmäinen haku</div>
+          <div><p>Suorita ensimmäinen haku</p></div>
         )}
       </div>
       <div className="changePage-search">

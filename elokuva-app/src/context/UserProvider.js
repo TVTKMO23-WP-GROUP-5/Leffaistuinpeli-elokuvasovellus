@@ -92,16 +92,6 @@ export default function UserProvider({ children }) {
     }
   }, [setMoviePick]);
 
-  /*useEffect(() => {
-    axios
-      .post("/getmembers/checkowner", { username: user })
-      .then((response) => {
-        setIsAdmin(response.data);
-      })
-      .catch((error) => {
-        console.error("Fetching failed", error);
-      });
-  }, [user]);*/
 
   useEffect(() => {
     if (user) {

@@ -263,7 +263,10 @@ export default function GroupPage() {
 
   const toFinnishTime = (utcDate) => {
     const date = new Date(utcDate);
-    return date.toLocaleString("fi-FI", { timeZone: "Europe/Helsinki" });
+    return date.toLocaleString("fi-FI", { timeZone: "Europe/Helsinki" , 
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'});
   };
 
   return (
@@ -443,6 +446,8 @@ export default function GroupPage() {
                       //Tarkistetaan, onko näytöksen päivämäärä jo mennyt
                       const showtimeDate = new Date(showtime.showdate);
                       const currentDate = new Date();
+                      showtimeDate.setHours(0, 0, 0, 0);
+                      currentDate.setHours(0, 0, 0, 0);
                       return showtimeDate >= currentDate;
                     })
                     .map((showtime, index) => (
@@ -453,7 +458,7 @@ export default function GroupPage() {
                         <div className="showtime_data">
                           <p>{showtime.movietitle}</p>
                           <p>{theatreToCity[showtime.theatreid]}</p>
-                          <p>{toFinnishTime(showtime.showdate).substr(0, 10)}</p>
+                          <p>{toFinnishTime(showtime.showdate)}</p>
                           <p>{showtime.showstarttime.substr(0,5)}</p>
                         </div>
                       </div>

@@ -135,6 +135,7 @@ export default function Showtimes() {
         .post(`/groupST/addshowtime`, newShowtimeData)
         .then((response) => {
           console.log("Server response :", response)
+          alert("Näytösaika lisätty ryhmän sivulle!")
         })
         .catch((error) => {
           console.error("Lisäys epäonnistui: ", error);
