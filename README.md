@@ -1,4 +1,4 @@
-# **Leffaistuinpeli**
+# **Leffaistuinpeli - Elokuvaharrastajien sivusto**
 
 ## Projektin esittely
 
@@ -44,10 +44,10 @@ Käyttäjät voivat arvostella elokuvia ja tv-sarjoja antamalla tähtiä ja kirj
 
 ## Esittely käyttöliittymästä
 
+Alla olevassa kuvassa näkyvässä projektin käyttöliittymäsuunnitelmassa käytimme apuna Figmaa. Aluksi keräsimme yhteen projektin vaatimukset ja tavoitteet sekä ryhmän omat näkemykset. Näiden pohjalta aloimme laatia alustavia luonnoksia käyttöliittymän pääkomponenteista.  
+
 ![Käyttöliittymäsuunnitelma](elokuva-app/src/images/kayttoliittymasuunnitelma.png)
 *KUVA 3. Projektin käyttöliittymäsuunnitelma*
-
-Yllä olevassa kuvassa näkyvässä projektin käyttöliittymäsuunnitelmassa käytimme apuna Figmaa. Aluksi keräsimme yhteen projektin vaatimukset ja tavoitteet sekä ryhmän omat näkemykset. Näiden pohjalta aloimme laatia alustavia luonnoksia käyttöliittymän pääkomponenteista.  
 
 Suunnittelu perustui mobiili ensin -periaatteeseen, mutta hahmottelimme samalla, miltä sovelluksen etusivu näyttäisi tietokonenäkymässä. Yksi keskeinen osa responsiivisen sivuston toteuttamisessa oli mobiilinäkymään suunniteltu hampurilaisvalikko, joka mahdollisti tehokkaan tilankäytön. Lopulta sivuston ulkonäkö vastasi hyvin alkuperäistä suunnitelmaamme, kuten voitte havaita alla olevasta linkistä. 
 
