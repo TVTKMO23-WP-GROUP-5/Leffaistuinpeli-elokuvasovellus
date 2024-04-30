@@ -9,7 +9,7 @@ export default function Movie() {
   const [selectedGroup, setSelectedGroup] = useState('')
   const [ratingData, setRatingData] = useState({
     idmovie: "",
-    media_type: "",                 //  Jaakko lisäsi, jos sekoaa, poista tämä!
+    media_type: "",                
     username: user ? user.username : "",
     stars: 0,
     description: "",
@@ -32,6 +32,8 @@ export default function Movie() {
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
 
+
+
   useEffect(() => {
     let active = true;
 
@@ -42,11 +44,10 @@ export default function Movie() {
         );
         if (foundMovie) {
           setPickedObject(foundMovie);
-          //console.log("Jaakon2",moviePick)
           setRatingData((prev) => ({
             ...prev,
             idmovie: foundMovie.id,
-            media_type: foundMovie.type,   //  Jaakko lisäsi, jos sekoaa, poista tämä!
+            media_type: foundMovie.type,
             username: user ? user.username : "",
           }));
         }
@@ -63,7 +64,7 @@ export default function Movie() {
             setRatingData((prev) => ({
               ...prev,
               idmovie: foundMovie.id,
-              media_type: foundMovie.type,   //  Jaakko lisäsi, jos sekoaa, poista tämä!
+              media_type: foundMovie.type,
               username: user ? user.username : "",
             }));
           }
@@ -78,12 +79,8 @@ export default function Movie() {
     };
   }, [id, user]);
 
-  //console.log("Movie ID from query:", id);
 
-  useEffect(() => { //Tämä vain testinä, voi poistella jossain kohtaa -Taneli
-    console.log(userGroups)
-  }, [userGroups])
-
+  // ----- Suosikkeihin lisäys -----
   const addToFavorite = async (event) => {
     event.preventDefault();
 
@@ -120,6 +117,7 @@ export default function Movie() {
       });
   };
 
+  // ----- Ryhmän suosikkeihin lisäys ------
   const addToGroupFavorite = async (e) => {
     e.preventDefault();
 
@@ -157,19 +155,20 @@ export default function Movie() {
     }
   };
 
+
   const handleGroupSelect = (e) => {
     setSelectedGroup(e.target.value);
   }
 
   const handleRating = (rate) => {
-    const newRating = rate + 1;
+    const newRating = rate;
     setRatingData((prev) => ({ ...prev, stars: newRating }));
     setStars(newRating);
     setHoverRating(newRating);
   };
 
   const handleMouseOver = (rate) => {
-    setHoverRating(rate + 1);
+    setHoverRating(rate);
   };
 
   const handleMouseLeave = () => {
@@ -185,6 +184,8 @@ export default function Movie() {
     console.log(ratingData);
   };
 
+
+  // ----- Arvostelun lisääminen -----
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -206,14 +207,10 @@ export default function Movie() {
       });
   };
 
-  const handleFavorite = (event) => {
-
-  }
-
   const resetReviewForm = () => {
     setRatingData({
       idmovie: ratingData.idmovie,
-      media_type: "",               //  Jaakko lisäsi, jos sekoaa, poista tämä!
+      media_type: "",             
       username: ratingData.username,
       stars: 0,
       description: "",
@@ -229,13 +226,6 @@ export default function Movie() {
     }
   }, []);
 
-  function MovieLink({ movie, imageSize }) {
-    return (
-      <Link to={`/movie/?id=${movie.id}`}>
-        <img src={`https://image.tmdb.org/t/p/${imageSize}/${movie.poster_path}`} alt={movie.title} />
-      </Link>
-    );
-  }
 
   return (
     <>
@@ -274,7 +264,7 @@ export default function Movie() {
       )}
       {user && (
         <div className="ratings">
-          <form onSubmit={handleFavorite}>
+          <form>
             <div className="add_to_favorite">
               <div className="favorite_text">
                 <p><strong>Lisää omiin suosikkeihin</strong></p>
@@ -315,10 +305,10 @@ export default function Movie() {
                   <button
                     type="button"
                     id="movieButton"
-                    key={index}
-                    className={index <= hoverRating ? "on" : "off"}
-                    onClick={() => handleRating(index)}
-                    onMouseOver={() => handleMouseOver(index)}
+                    key={star}
+                    className={star <= hoverRating ? "on" : "off"}
+                    onClick={() => handleRating(star)}
+                    onMouseOver={() => handleMouseOver(star)}
                   >
                     <span className="star">&#9733;</span>
                   </button>

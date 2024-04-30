@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUser } from '../context/UseUser';
 import axios from 'axios';
-import { useTheme } from '../context/ThemeContext'; // Lisätään teeman koukku
+import { useTheme } from '../context/ThemeContext';
 import './AllGroups.css';
 
 export default function AllGroups() {
   const { user } = useUser();
   const { groups, setGroups } = useUser();
   const { isAdmin } = useUser();
-  const { theme } = useTheme(); // Haetaan teema
+  const { theme } = useTheme();
 
   const [activeGroup, setActiveGroup] = useState(null);
   const [isSortedAsc, setIsSortedAsc] = useState(true);
   const [applicationStatus, setApplicationStatus] = useState([]);
 
+  // ----- Haetaan kaikki ryhmät -----
   useEffect(() => {
     let isMounted = true;
 
@@ -43,6 +44,8 @@ export default function AllGroups() {
     return () => { isMounted = false; };
   }, [user, setGroups]);
 
+
+  // ----- Aakkosjärjestys ----- 
   const toggleSort = () => {
     const sortedGroups = [...groups].sort((a, b) => {
       return isSortedAsc ? b.name.localeCompare(a.name) : a.name.localeCompare(b.name);
@@ -51,6 +54,8 @@ export default function AllGroups() {
     setIsSortedAsc(!isSortedAsc);
   };
 
+
+  // ----- Ryhmään liittymis -kutsut -----
   const handleInvitation = (index) => {
     setActiveGroup(index);
   };
@@ -80,6 +85,8 @@ export default function AllGroups() {
     }
   };
 
+
+  // Tarkistetaan käyttäjän status ryhmään nähden
   useEffect(() => {
     axios.post(process.env.REACT_APP_URL + '/getmembers/groupstatus', { username: user })
       .then(response => {
