@@ -1,12 +1,12 @@
 .poster-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    margin: 20px auto;
-    max-width: 90vw;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 90vw;
+  width: 100%;
 }
 
 .movie_poster {
@@ -34,11 +34,12 @@ h3 {
   color: var(--black-background-color);
 }
 
-.overview, .imdb {
-    font-size: 1em;
-    text-align: center;
-    padding: 10px 0;
-    flex-shrink: 1;
+.overview,
+.imdb {
+  font-size: 1em;
+  text-align: center;
+  padding: 10px 0;
+  flex-shrink: 1;
 }
 
 .ratings {
@@ -52,7 +53,7 @@ h3 {
 }
 
 .ratings h2 {
-  padding: var(--general-padding)
+  padding: var(--general-padding);
 }
 
 .add_to_favorite {
@@ -63,7 +64,9 @@ h3 {
   margin: auto;
 }
 
-.favorite_text, .favorite_buttons, .dropdown_and_button {
+.favorite_text,
+.favorite_buttons,
+.dropdown_and_button {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -86,11 +89,13 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items:flex-end;
+  align-items: flex-end;
   width: 90%;
 }
 
-.add_to_favorite button, .dropdown_and_button button, .dropdown_and_button select {
+.add_to_favorite button,
+.dropdown_and_button button,
+.dropdown_and_button select {
   width: auto;
   padding: 8px 16px;
   margin: 5px;
@@ -124,7 +129,8 @@ form {
   max-width: 30%;
 }
 
-.on, .off {
+.on,
+.off {
   font-size: 25px;
   cursor: pointer;
   background: none;
@@ -153,7 +159,6 @@ form {
   margin-bottom: 2em;
 }
 
-
 @media (max-width: 768px) {
   .poster-container {
     margin: auto;
@@ -172,18 +177,22 @@ form {
     font-size: 1.5em;
   }
 
-  .overview, .imdb {
+  .overview,
+  .imdb {
     font-size: 0.9em;
   }
 }
 
 @media (max-width: 480px) {
-  .poster-container, .movie_container {
+  .poster-container,
+  .movie_container {
     padding: 10px;
     margin: auto;
   }
 
-  h3, .overview, .imdb {
+  h3,
+  .overview,
+  .imdb {
     text-align: center;
   }
 }

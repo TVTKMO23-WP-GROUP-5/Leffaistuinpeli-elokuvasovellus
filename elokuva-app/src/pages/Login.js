@@ -8,9 +8,9 @@ export default function Login() {
   const { user } = useUser();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("")
-  const usernameInputRef = useRef(null)
-  const passwordInputRef = useRef(null)
+  const [error, setError] = useState("");
+  const usernameInputRef = useRef(null);
+  const passwordInputRef = useRef(null);
 
   // Focus käyttäjäfieldiin
   useEffect(() => {
@@ -21,10 +21,10 @@ export default function Login() {
 
   // Entterillä salasanafieldiin
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       passwordInputRef.current && passwordInputRef.current.focus();
     }
-  }
+  };
 
   const validate = (e) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ export default function Login() {
       const data = { user: username, password: password };
       login(data.user, data.password);
     }
-  }
+  };
 
   return (
     <div id="login-form">
@@ -53,7 +53,7 @@ export default function Login() {
             type="password"
             value={password}
             ref={passwordInputRef}
-            onChange={(e) => setPassword(e.target.value)}  
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
 

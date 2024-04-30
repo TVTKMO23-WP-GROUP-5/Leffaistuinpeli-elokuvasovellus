@@ -9,7 +9,7 @@ export default function GroupPage() {
   let { groupName } = useParams();
   const { moviePick, setMoviePick } = useUser();
   const { isAdmin, user } = useUser();
-  const [isMember, setIsMember] = useState(false)
+  const [isMember, setIsMember] = useState(false);
   const [owner, setOwner] = useState("");
   const [members, setMembers] = useState([]);
   const [message, setMessage] = useState("");
@@ -22,21 +22,18 @@ export default function GroupPage() {
 
   groupName = decodeURIComponent(groupName);
 
-
   // ----- Tarkistaa onko käyttäjä jäsen -----
   useEffect(() => {
-    const uname = user ? user : sessionStorage.getItem("username")
+    const uname = user ? user : sessionStorage.getItem("username");
     axios
       .get(`/getmembers/isgroupmember?username=${uname}&groupname=${groupName}`)
       .then((response) => {
-        setIsMember(response.data)
+        setIsMember(response.data);
       })
       .catch((error) => {
         console.error("Checking status failed", error);
       });
-  }, [])
-
-
+  }, []);
 
   // ----- Ryhmän omistajan + jäsenten haut -----
   useEffect(() => {
@@ -50,9 +47,7 @@ export default function GroupPage() {
       });
 
     axios
-      .get(
-        `/getmembers/membersingroup?groupname=${groupName}`
-      )
+      .get(`/getmembers/membersingroup?groupname=${groupName}`)
       .then((response) => {
         setMembers(response.data);
       })
@@ -208,7 +203,6 @@ export default function GroupPage() {
     1035: "Turku",
   };
 
-
   // ----- Ryhmän chat -----
 
   // Viestin lähetys
@@ -221,34 +215,37 @@ export default function GroupPage() {
 
     if (!msg) return; // Estää tyhjät viestit
 
-   axios.post(`/groupMsg/sendmsg`, {
+    axios
+      .post(`/groupMsg/sendmsg`, {
         username: username,
         groupname: gname,
-        msg: msg
+        msg: msg,
       })
       .then((response) => {
-        setChat(previousMessages => [{username, msg, msgtime: new Date().toISOString()}, ...previousMessages]);
-        setMessage('')
+        setChat((previousMessages) => [
+          { username, msg, msgtime: new Date().toISOString() },
+          ...previousMessages,
+        ]);
+        setMessage("");
       })
       .catch((error) => {
-      console.error("Sending message failed!", error)
-      })
+        console.error("Sending message failed!", error);
+      });
   };
 
   // Viestien vastaanottaminen
-  useEffect (() => {
+  useEffect(() => {
     const gname = groupName;
 
-    axios.get(`/groupMsg/getmsg?groupname=${gname}`)
-    .then((response) => {
-      setChat(response.data.reverse())
-    })
-    .catch((error) => {
-      console.error(error)
-    })
-  }, [groupName])
-
-
+    axios
+      .get(`/groupMsg/getmsg?groupname=${gname}`)
+      .then((response) => {
+        setChat(response.data.reverse());
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [groupName]);
 
   // ----- Aika muunnetaan suomen aikaan -----
   const finTime = (time) => {
@@ -256,10 +253,12 @@ export default function GroupPage() {
 
     const date = new Date(utcTimetamp);
 
-    const finnishTime = date.toLocaleString("fi-FI", { timeZone: "Europe/Helsinki" })
+    const finnishTime = date.toLocaleString("fi-FI", {
+      timeZone: "Europe/Helsinki",
+    });
 
     return finnishTime.substring(0, 15);
-  }
+  };
 
   const toFinnishTime = (utcDate) => {
     const date = new Date(utcDate);
@@ -453,8 +452,10 @@ export default function GroupPage() {
                         <div className="showtime_data">
                           <p>{showtime.movietitle}</p>
                           <p>{theatreToCity[showtime.theatreid]}</p>
-                          <p>{toFinnishTime(showtime.showdate).substr(0, 10)}</p>
-                          <p>{showtime.showstarttime.substr(0,5)}</p>
+                          <p>
+                            {toFinnishTime(showtime.showdate).substr(0, 10)}
+                          </p>
+                          <p>{showtime.showstarttime.substr(0, 5)}</p>
                         </div>
                       </div>
                     ))}
@@ -466,7 +467,7 @@ export default function GroupPage() {
               </div>
               <div className="content_chat">
                 <div className="display_chat">
-                  {chat.map((msg, index) => ( 
+                  {chat.map((msg, index) => (
                     <div className="msgs">
                       <div className="msgs_msg">
                         <p key={index}>
@@ -477,7 +478,7 @@ export default function GroupPage() {
                         <em>{finTime(msg.msgtime)}</em>
                       </div>
                     </div>
-                  ))} 
+                  ))}
                 </div>
                 <div className="messaging">
                   <form onSubmit={handleMsg}>
@@ -490,13 +491,12 @@ export default function GroupPage() {
                     <button type="submit">Lähetä</button>
                   </form>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
-          
         </div>
       ) : (
-        <h1 style={ {marginTop: '4em'} }>Ei oikeuksia</h1>
+        <h1 style={{ marginTop: "4em" }}>Ei oikeuksia</h1>
       )}
     </>
   );

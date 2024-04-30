@@ -11,7 +11,6 @@ export default function UserFavorite() {
   const [showArrowsTV, setShowArrowsTV] = useState(false);
   const scrollMoviesRef = useRef(null);
   const scrollTVRef = useRef(null);
-  
 
   // ----- Suosikkien haku -----
   useEffect(() => {
@@ -34,7 +33,6 @@ export default function UserFavorite() {
       console.error("Jokin meni pieleen", error);
     }
   }, [user, setMoviePick]);
-
 
   // ----- Nuolinäppäimet piiloon, mikäli ei scrollattavaa -----
   useEffect(() => {
@@ -61,7 +59,6 @@ export default function UserFavorite() {
       });
     };
   }, [moviePick]);
-
 
   // ----- Nuolinäppäimille funktiot -----
   const scrollRight = (ref) => () => {
@@ -147,49 +144,51 @@ export default function UserFavorite() {
             <h3>Elokuvat</h3>
           </div>
           <div className="container_poster" ref={scrollMoviesRef}>
-            {moviePick && moviePick.length > 0 && moviePick
-              .filter((movie) => movie.media_type === "movie")
-              .map((movie, index) => (
-                <div className="content_poster" key={index}>
-                  {movie.poster_path && (
-                    <Link to={`/movie/?id=${movie.id}`}>
-                      <div className="img_poster">
-                        <img
-                          src={
-                            "https://image.tmdb.org/t/p/w342/" +
-                            movie.poster_path
-                          }
-                          alt="Movie poster"
-                        />
-                      </div>
-                      <div className="year_imdbrating">
-                        <div className="release_year">
-                          {movie.release_date ? (
-                            <p>{movie.release_date.split("-")[0]}</p>
-                          ) : movie.first_air_date ? (
-                            <p>{movie.first_air_date.split("-")[0]}</p>
+            {moviePick &&
+              moviePick.length > 0 &&
+              moviePick
+                .filter((movie) => movie.media_type === "movie")
+                .map((movie, index) => (
+                  <div className="content_poster" key={index}>
+                    {movie.poster_path && (
+                      <Link to={`/movie/?id=${movie.id}`}>
+                        <div className="img_poster">
+                          <img
+                            src={
+                              "https://image.tmdb.org/t/p/w342/" +
+                              movie.poster_path
+                            }
+                            alt="Movie poster"
+                          />
+                        </div>
+                        <div className="year_imdbrating">
+                          <div className="release_year">
+                            {movie.release_date ? (
+                              <p>{movie.release_date.split("-")[0]}</p>
+                            ) : movie.first_air_date ? (
+                              <p>{movie.first_air_date.split("-")[0]}</p>
+                            ) : (
+                              <p>Ei julkaisuvuotta</p>
+                            )}
+                          </div>
+                          <div className="imdb_rating">
+                            <span className="star">&#9733;</span>
+                            <p>{movie.vote_average}</p>
+                          </div>
+                        </div>
+                        <div className="movie_title">
+                          {movie.title ? (
+                            <p>{movie.title}</p>
+                          ) : movie.name ? (
+                            <p>{movie.name}</p>
                           ) : (
-                            <p>Ei julkaisuvuotta</p>
+                            <p>Ei nimeä saatavilla</p>
                           )}
                         </div>
-                        <div className="imdb_rating">
-                          <span className="star">&#9733;</span>
-                          <p>{movie.vote_average}</p>
-                        </div>
-                      </div>
-                      <div className="movie_title">
-                        {movie.title ? (
-                          <p>{movie.title}</p>
-                        ) : movie.name ? (
-                          <p>{movie.name}</p>
-                        ) : (
-                          <p>Ei nimeä saatavilla</p>
-                        )}
-                      </div>
-                    </Link>
-                  )}
-                </div>
-              ))}
+                      </Link>
+                    )}
+                  </div>
+                ))}
           </div>
           {showArrowsMovies && (
             <button className="next" onClick={scrollRight(scrollMoviesRef)}>
@@ -207,49 +206,51 @@ export default function UserFavorite() {
             <h3>Sarjat</h3>
           </div>
           <div className="container_poster" ref={scrollTVRef}>
-            {moviePick && moviePick.length > 0 && moviePick
-              .filter((movie) => movie.media_type === "tv")
-              .map((movie, index) => (
-                <div className="content_poster" key={index}>
-                  {movie.poster_path && (
-                    <Link to={`/movie/?id=${movie.id}`}>
-                      <div className="img_poster">
-                        <img
-                          src={
-                            "https://image.tmdb.org/t/p/w342/" +
-                            movie.poster_path
-                          }
-                          alt="TV Show poster"
-                        />
-                      </div>
-                      <div className="year_imdbrating">
-                        <div className="release_year">
-                          {movie.release_date ? (
-                            <p>{movie.release_date.split("-")[0]}</p>
-                          ) : movie.first_air_date ? (
-                            <p>{movie.first_air_date.split("-")[0]}</p>
+            {moviePick &&
+              moviePick.length > 0 &&
+              moviePick
+                .filter((movie) => movie.media_type === "tv")
+                .map((movie, index) => (
+                  <div className="content_poster" key={index}>
+                    {movie.poster_path && (
+                      <Link to={`/movie/?id=${movie.id}`}>
+                        <div className="img_poster">
+                          <img
+                            src={
+                              "https://image.tmdb.org/t/p/w342/" +
+                              movie.poster_path
+                            }
+                            alt="TV Show poster"
+                          />
+                        </div>
+                        <div className="year_imdbrating">
+                          <div className="release_year">
+                            {movie.release_date ? (
+                              <p>{movie.release_date.split("-")[0]}</p>
+                            ) : movie.first_air_date ? (
+                              <p>{movie.first_air_date.split("-")[0]}</p>
+                            ) : (
+                              <p>Ei julkaisuvuotta</p>
+                            )}
+                          </div>
+                          <div className="imdb_rating">
+                            <span className="star">&#9733;</span>
+                            <p>{movie.vote_average}</p>
+                          </div>
+                        </div>
+                        <div className="movie_title">
+                          {movie.title ? (
+                            <p>{movie.title}</p>
+                          ) : movie.name ? (
+                            <p>{movie.name}</p>
                           ) : (
-                            <p>Ei julkaisuvuotta</p>
+                            <p>Ei nimeä saatavilla</p>
                           )}
                         </div>
-                        <div className="imdb_rating">
-                          <span className="star">&#9733;</span>
-                          <p>{movie.vote_average}</p>
-                        </div>
-                      </div>
-                      <div className="movie_title">
-                        {movie.title ? (
-                          <p>{movie.title}</p>
-                        ) : movie.name ? (
-                          <p>{movie.name}</p>
-                        ) : (
-                          <p>Ei nimeä saatavilla</p>
-                        )}
-                      </div>
-                    </Link>
-                  )}
-                </div>
-              ))}
+                      </Link>
+                    )}
+                  </div>
+                ))}
           </div>
           {showArrowsTV && (
             <button className="next" onClick={scrollRight(scrollTVRef)}>

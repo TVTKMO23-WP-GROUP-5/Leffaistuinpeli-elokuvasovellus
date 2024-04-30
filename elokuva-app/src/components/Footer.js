@@ -11,7 +11,13 @@ export default function Footer() {
   return (
     <>
       <footer>
-        <div className="footerLogo"><img src={logos} alt="Logo" style={{ width: '70px', height: 'auto' }}/></div>
+        <div className="footerLogo">
+          <img
+            src={logos}
+            alt="Logo"
+            style={{ width: "70px", height: "auto" }}
+          />
+        </div>
         <p>© 2024 Leffaistuinpeli</p>
       </footer>
     </>

@@ -1,6 +1,6 @@
 footer {
   background-color: var(--light-background-color);
-  background-position: 0% 100%; 
+  background-position: 0% 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ footer {
   text-align: center;
   font-size: 1.2vw;
   font-style: italic;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .footerLogo {

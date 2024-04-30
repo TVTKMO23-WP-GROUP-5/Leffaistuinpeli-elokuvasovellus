@@ -1,56 +1,62 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/UserContext"
-import { Link, useLocation } from 'react-router-dom';
+import { UserContext } from "../context/UserContext";
+import { Link, useLocation } from "react-router-dom";
 import "./Home.css";
 import axios from "axios";
 
 export default function Home() {
-  const { movies, setMovies, loading, setLoading } = useContext(UserContext)
+  const { movies, setMovies, loading, setLoading } = useContext(UserContext);
   const location = useLocation();
-  const [isHome, setIsHome] = useState(location.pathname === '/')
+  const [isHome, setIsHome] = useState(location.pathname === "/");
 
   useEffect(() => {
-    setIsHome(location.pathname === '/')
+    setIsHome(location.pathname === "/");
   }, [location]);
 
   useEffect(() => {
-    console.log('Effect running', { isHome, moviesLength: movies.length, loading });
-    
+    console.log("Effect running", {
+      isHome,
+      moviesLength: movies.length,
+      loading,
+    });
+
     if (isHome && movies.length === 0 && !loading) {
-      setLoading(true)
-      axios.get("/random_movies/homepage")
-        .then(response => {
-          setMovies(response.data)
-          setLoading(false)
+      setLoading(true);
+      axios
+        .get("/random_movies/homepage")
+        .then((response) => {
+          setMovies(response.data);
+          setLoading(false);
         })
-        .catch(error => {
-          console.error("Virhe elokuvien haussa", error)
-          setLoading(false)
+        .catch((error) => {
+          console.error("Virhe elokuvien haussa", error);
+          setLoading(false);
         });
     }
-  
+
     const handleVisibilityChange = () => {
-      console.log("Dokumentin tila: ", document.visibilityState)
-      if (document.visibilityState === 'hidden' && isHome) {
+      console.log("Dokumentin tila: ", document.visibilityState);
+      if (document.visibilityState === "hidden" && isHome) {
         setLoading(true);
-        axios.get("/random_movies/homepage")
-          .then(response => {
-            setMovies(response.data)
+        axios
+          .get("/random_movies/homepage")
+          .then((response) => {
+            setMovies(response.data);
             setLoading(false);
           })
-          .catch(error => {
-            console.error("Virhe elokuvien haussa", error)
+          .catch((error) => {
+            console.error("Virhe elokuvien haussa", error);
             setLoading(false);
           });
       }
     };
-  
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-  
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [isHome, movies.length, loading, setLoading, setMovies])
+  }, [isHome, movies.length, loading, setLoading, setMovies]);
 
   const renderCardGroup = (startIndex) => (
     <div className="card-container">
@@ -63,7 +69,7 @@ export default function Home() {
         </div>
       ))}
     </div>
-  )
+  );
 
   return (
     <div className="home-container">

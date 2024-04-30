@@ -1,85 +1,85 @@
 .container_owngroups {
-    min-height: 80vh;
-    width: 90vw;
-    margin: 2em 0 auto;
-    margin-top: 50px;
+  min-height: 80vh;
+  width: 90vw;
+  margin: 2em 0 auto;
+  margin-top: 50px;
 }
 
 .container_owngroups a {
-    text-decoration: none;
-    color: var(--black-foreground-color);
-    display: flex;
+  text-decoration: none;
+  color: var(--black-foreground-color);
+  display: flex;
 }
 
 .content_owngroups {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
 }
 
 .groupinfo_owngroups {
-    display: flex;
-    margin-bottom: 1em;
+  display: flex;
+  margin-bottom: 1em;
 }
 
 .container_owngroups li {
-    padding: 0.5em;
-    border: 1px solid var(--dark-color);
-    border-radius: 8px;
-    background-color: var(--light-background-color);
+  padding: 0.5em;
+  border: 1px solid var(--dark-color);
+  border-radius: 8px;
+  background-color: var(--light-background-color);
 }
 
 .dark-theme .container_owngroups li {
-    border-color: white;
+  border-color: white;
 }
 
 .groups_owngroups ul {
-    height: auto;
+  height: auto;
 }
 
-.container_owngroups .groupname_owngroups, .group_description_owngroups {
-    display: block;
-    flex: 1;
+.container_owngroups .groupname_owngroups,
+.group_description_owngroups {
+  display: block;
+  flex: 1;
 }
 
 .groups_owngroups li {
-    display: block;
+  display: block;
 }
 
-.list_groupname, .list_groupdescription {
-    flex: 1;
+.list_groupname,
+.list_groupdescription {
+  flex: 1;
 }
 
 .list_groupname {
-    text-align: left;
+  text-align: left;
 }
 
 .list_groupdescriptions {
-    text-align: left;
+  text-align: left;
 }
 
 .container_owngroups a:hover {
-    strong {
-        color: var(--blue-color)
-    }
+  strong {
     color: var(--blue-color);
+  }
+  color: var(--blue-color);
 }
-
 
 @media (max-width: 1100px) {
-    .content_owngroups {
-        width: 70vw;
-        margin: auto;
-    }
+  .content_owngroups {
+    width: 70vw;
+    margin: auto;
+  }
 }
-  
+
 @media (max-width: 655px) {
-    .content_owngroups {
-        width: 90vw;
-    }
+  .content_owngroups {
+    width: 90vw;
+  }
 }
 
 @media (max-width: 405px) {
-    
 }

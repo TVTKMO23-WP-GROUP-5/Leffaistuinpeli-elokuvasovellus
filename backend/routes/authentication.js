@@ -1,47 +1,64 @@
-require('dotenv').config()
-const jwt = require('jsonwebtoken')
+require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
-const { register, getPw, deleteAccount, deleteRatings, deleteFavorites, getUserData } = require("../database/auth_db")
+const {
+  register,
+  getPw,
+  deleteAccount,
+  deleteRatings,
+  deleteFavorites,
+  getUserData,
+} = require("../database/auth_db");
 
 router.post("/register", async (req, res) => {
-    try {  
-      const fname = req.body.fname;
-      const lname = req.body.lname;
-      const email = req.body.email;
-      const username = req.body.username;
-      const password = req.body.password;
-      if (fname.length >0 && lname.length >0 && email.length > 0 && username.length > 0 && password.length >= 8 ){
-        const hashPw = await bcrypt.hash(password, 10);
-        await register(fname, lname, email, username, hashPw);
-        res.status(201).json({
-          message: "success",
-          fname: fname,
-          lname: lname,
-          email: email,
-          username: username
+  try {
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+    if (
+      fname.length > 0 &&
+      lname.length > 0 &&
+      email.length > 0 &&
+      username.length > 0 &&
+      password.length >= 8
+    ) {
+      const hashPw = await bcrypt.hash(password, 10);
+      await register(fname, lname, email, username, hashPw);
+      res.status(201).json({
+        message: "success",
+        fname: fname,
+        lname: lname,
+        email: email,
+        username: username,
+      });
+    } else {
+      res
+        .status(403)
+        .json({
+          message:
+            "Älä jätä mitään kohtaa tyhjäksi ja varmista salasanan pituus",
         });
-      } else {
-        res.status(403).json({message: "Älä jätä mitään kohtaa tyhjäksi ja varmista salasanan pituus"})
-      }
-
-      res.end();
-    } catch (error) {
-      res.json({message: error})
     }
+
+    res.end();
+  } catch (error) {
+    res.json({ message: error });
+  }
 });
 
 router.post("/login", async (req, res) => {
-  let uname
-  let pw
-  
-  if (req.body.username.length>0 && req.body.password.length>0){
-    uname = req.body.username
-    pw = req.body.password
-  } else {
-    res.status(400).json({error: "käyttäjänimi tai salasana on tyhjä"})
-  }
+  let uname;
+  let pw;
 
+  if (req.body.username.length > 0 && req.body.password.length > 0) {
+    uname = req.body.username;
+    pw = req.body.password;
+  } else {
+    res.status(400).json({ error: "käyttäjänimi tai salasana on tyhjä" });
+  }
 
   const db_pw = await getPw(uname);
 
@@ -60,18 +77,17 @@ router.post("/login", async (req, res) => {
 
 router.delete("/delete", async (req, res) => {
   const username = req.body.username;
-  
+
   try {
     const ratingsResult = await deleteRatings(username);
     if (!ratingsResult.success) {
-      return res.status(500).json({ error: "Failed to delete user ratings"})
+      return res.status(500).json({ error: "Failed to delete user ratings" });
     }
 
     const favoriteResult = await deleteFavorites(username);
     if (!favoriteResult.success) {
-      return res.status(500).json({ error: "Failed to delete user favorites"})
+      return res.status(500).json({ error: "Failed to delete user favorites" });
     }
-
 
     const accountResult = await deleteAccount(username);
     if (accountResult.rowCount > 0) {
@@ -87,7 +103,7 @@ router.delete("/delete", async (req, res) => {
 
 router.get("/userdata", async (req, res) => {
   const username = req.query.username;
-  
+
   try {
     const userData = await getUserData(username);
     res.status(200).json(userData);
@@ -96,6 +112,5 @@ router.get("/userdata", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 module.exports = router;

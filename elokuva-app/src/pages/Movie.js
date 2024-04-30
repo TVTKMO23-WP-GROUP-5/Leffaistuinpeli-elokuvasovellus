@@ -4,12 +4,13 @@ import "./Movie.css";
 import axios from "axios";
 import { useUser } from "../context/UseUser";
 export default function Movie() {
-  const { user, moviePick, setMoviePick, userGroups, setRatingsList } = useUser();
-  const [showGroupDropdown, setShowGroupDropdown] = useState(false)
-  const [selectedGroup, setSelectedGroup] = useState('')
+  const { user, moviePick, setMoviePick, userGroups, setRatingsList } =
+    useUser();
+  const [showGroupDropdown, setShowGroupDropdown] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState("");
   const [ratingData, setRatingData] = useState({
     idmovie: "",
-    media_type: "",                
+    media_type: "",
     username: user ? user.username : "",
     stars: 0,
     description: "",
@@ -17,22 +18,20 @@ export default function Movie() {
   const [favoriteData, setFavoriteData] = useState({
     idmovie: "",
     username: user ? user.username : "",
-    media_type: ""
-  })
+    media_type: "",
+  });
   const [groupFavoriteData, setGroupFavoriteData] = useState({
     idmovie: "",
     groupname: "",
-    media_type: ""
-  })
+    media_type: "",
+  });
   const [pickedObject, setPickedObject] = useState(null);
   const [hoverRating, setHoverRating] = useState(0);
   const [stars, setStars] = useState(0);
-  
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get("id");
-
-
 
   useEffect(() => {
     let active = true;
@@ -79,23 +78,22 @@ export default function Movie() {
     };
   }, [id, user]);
 
-
   // ----- Suosikkeihin lisäys -----
   const addToFavorite = async (event) => {
     event.preventDefault();
 
-    const uname = sessionStorage.getItem('username')
+    const uname = sessionStorage.getItem("username");
 
     const updatedFavoriteData = {
-        ...favoriteData,
-        idmovie: pickedObject ? pickedObject.id : "",
-        username: user ? user : uname,
-        media_type: pickedObject ? pickedObject.type : ""
-      };
+      ...favoriteData,
+      idmovie: pickedObject ? pickedObject.id : "",
+      username: user ? user : uname,
+      media_type: pickedObject ? pickedObject.type : "",
+    };
 
-    console.log(updatedFavoriteData)
+    console.log(updatedFavoriteData);
 
-    setFavoriteData(updatedFavoriteData)
+    setFavoriteData(updatedFavoriteData);
 
     await axios
       .post("/favorite/addfavorite", updatedFavoriteData)
@@ -126,39 +124,37 @@ export default function Movie() {
         ...groupFavoriteData,
         idmovie: pickedObject ? pickedObject.id : "",
         groupname: selectedGroup,
-        media_type: pickedObject ? pickedObject.type : ""
+        media_type: pickedObject ? pickedObject.type : "",
       };
 
-      setGroupFavoriteData(updatedGroupFavoriteData)
+      setGroupFavoriteData(updatedGroupFavoriteData);
 
       await axios
-      .post("/favorite/addgroupfavorite", updatedGroupFavoriteData)
-      .then((response) => {
-        if (response.data.message === "success") {
-          console.log("Added favorite successfully:", response.data);
-          alert("Lisätty ryhmän suosikkeihin");
-        } else if (response.data.message === "duplicate") {
-          console.log("Something went wrong:", response.data);
-          alert("Elokuva löytyy jo ryhmäsi suosikeista!");
-        } else {
-          console.log("Something went wrong:", response.data);
-          alert("Suosikin lisääminen epäonnistui...");
-        }
-      })
-      .catch((error) => {
-        console.error("Error adding favorite:", error.response.data);
-        alert("Virhe suosikin lisäämisessä...");
-      });
-
+        .post("/favorite/addgroupfavorite", updatedGroupFavoriteData)
+        .then((response) => {
+          if (response.data.message === "success") {
+            console.log("Added favorite successfully:", response.data);
+            alert("Lisätty ryhmän suosikkeihin");
+          } else if (response.data.message === "duplicate") {
+            console.log("Something went wrong:", response.data);
+            alert("Elokuva löytyy jo ryhmäsi suosikeista!");
+          } else {
+            console.log("Something went wrong:", response.data);
+            alert("Suosikin lisääminen epäonnistui...");
+          }
+        })
+        .catch((error) => {
+          console.error("Error adding favorite:", error.response.data);
+          alert("Virhe suosikin lisäämisessä...");
+        });
     } else {
-      alert("Valitse ensin ryhmä!")
+      alert("Valitse ensin ryhmä!");
     }
   };
 
-
   const handleGroupSelect = (e) => {
     setSelectedGroup(e.target.value);
-  }
+  };
 
   const handleRating = (rate) => {
     const newRating = rate;
@@ -183,7 +179,6 @@ export default function Movie() {
     }));
     console.log(ratingData);
   };
-
 
   // ----- Arvostelun lisääminen -----
   const handleSubmit = (event) => {
@@ -219,7 +214,7 @@ export default function Movie() {
   const resetReviewForm = () => {
     setRatingData({
       idmovie: ratingData.idmovie,
-      media_type: "",             
+      media_type: "",
       username: ratingData.username,
       stars: 0,
       description: "",
@@ -234,7 +229,6 @@ export default function Movie() {
       setRatingData((prev) => ({ ...prev, username: storedUsername }));
     }
   }, []);
-
 
   return (
     <>
@@ -276,20 +270,21 @@ export default function Movie() {
           <form>
             <div className="add_to_favorite">
               <div className="favorite_text">
-                <p><strong>Lisää omiin suosikkeihin</strong></p>
-                <p><strong>Lisää ryhmän suosikkeihin</strong></p>
+                <p>
+                  <strong>Lisää omiin suosikkeihin</strong>
+                </p>
+                <p>
+                  <strong>Lisää ryhmän suosikkeihin</strong>
+                </p>
               </div>
               <div className="favorite_buttons">
-                <button 
-                  type="button"
-                  onClick={(e) => addToFavorite(e)}
-                  >
+                <button type="button" onClick={(e) => addToFavorite(e)}>
                   <span className="heart">&hearts;</span>
                 </button>
-                <button 
+                <button
                   type="button"
                   onClick={() => setShowGroupDropdown(!showGroupDropdown)}
-                  >
+                >
                   <span className="heart">&hearts;</span>
                 </button>
               </div>
@@ -297,13 +292,21 @@ export default function Movie() {
           </form>
           {showGroupDropdown && (
             <div className="dropdown_and_button">
-              <select className="select_group_dropdown" onChange={handleGroupSelect} value={selectedGroup}>
+              <select
+                className="select_group_dropdown"
+                onChange={handleGroupSelect}
+                value={selectedGroup}
+              >
                 <option value="">Valitse ryhmä</option>
                 {userGroups.map((group, index) => (
-                  <option key={index} value={group.name}>{group.name}</option>
+                  <option key={index} value={group.name}>
+                    {group.name}
+                  </option>
                 ))}
               </select>
-              <button onClick={(e) => addToGroupFavorite(e)}>Lisää suosikkeihin</button>
+              <button onClick={(e) => addToGroupFavorite(e)}>
+                Lisää suosikkeihin
+              </button>
             </div>
           )}
           <h2>Arvostele katsomasi elokuva tai sarja!</h2>

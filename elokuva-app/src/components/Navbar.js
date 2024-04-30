@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useUser } from "../context/UseUser";
 import { useTheme } from "../context/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
 import {
   faHouse,
   faMagnifyingGlass,
@@ -23,7 +22,7 @@ import {
 
 export default function Navbar() {
   const { user } = useUser();
-  const { isAdmin, setIsAdmin} = useUser()
+  const { isAdmin, setIsAdmin } = useUser();
   const [burger, setBurger] = useState("Burger unclicked");
   const [menu, setMenu] = useState("Menu hidden");
   const [isMenuClicked, setIsMenuClicked] = useState(false);
@@ -63,7 +62,7 @@ export default function Navbar() {
           <img src={logos} alt="Logo" />
         </Link>
       </div>
-        <div className={`burger-menu ${burger}`} onClick={updateMenu}>
+      <div className={`burger-menu ${burger}`} onClick={updateMenu}>
         <div className="burger"></div>
         <div className="burger"></div>
         <div className="burger"></div>
@@ -95,12 +94,12 @@ export default function Navbar() {
             </Link>
           </li>
           {user && (
-          <li>
-            <Link to="/owngroups">
-              <FontAwesomeIcon icon={faUserGroup} className="fa-icon" />
-              <span className="link-text">Omat ryhmät</span>
-            </Link>
-          </li>
+            <li>
+              <Link to="/owngroups">
+                <FontAwesomeIcon icon={faUserGroup} className="fa-icon" />
+                <span className="link-text">Omat ryhmät</span>
+              </Link>
+            </li>
           )}
           {isAdmin && (
             <>
@@ -179,17 +178,9 @@ export default function Navbar() {
 
       <div className="theme" onClick={changeTheme}>
         {theme === "dark" ? (
-          <FontAwesomeIcon
-            icon={faMoon}
-            size="3x"
-            className="theme-icon"
-          />
+          <FontAwesomeIcon icon={faMoon} size="3x" className="theme-icon" />
         ) : (
-          <FontAwesomeIcon
-            icon={faSun}
-            size="3x"
-            className="theme-icon"
-          />
+          <FontAwesomeIcon icon={faSun} size="3x" className="theme-icon" />
         )}
       </div>
 
@@ -199,7 +190,7 @@ export default function Navbar() {
             <FontAwesomeIcon icon={faRightFromBracket} className="fa-icon" />
             <span className="login">Kirjaudu sisään</span>
           </Link>
-       )}
+        )}
         {user && (
           <Link to="/logout" className="signButton">
             <FontAwesomeIcon icon={faRightFromBracket} className="fa-icon" />

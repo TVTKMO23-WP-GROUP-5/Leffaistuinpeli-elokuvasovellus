@@ -1,83 +1,83 @@
 h2 {
-    text-align: center;
+  text-align: center;
 }
 
 form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
-  
-.rekisteröidy:first-child{
-    margin-top: 35px;
+
+.rekisteröidy:first-child {
+  margin-top: 35px;
 }
-  
-.rekisteröidy *{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 1em;
-    margin-bottom: 0em;
-    padding: 0.5em;
-    min-width: 350px;
-    border-radius: 8px;
-    box-sizing: border-box;
+
+.rekisteröidy * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
+  margin-bottom: 0em;
+  padding: 0.5em;
+  min-width: 350px;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .rekisteröidy p {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
 .registerInput {
-    max-width: 175px;
-    max-height: 75px;
-    font-size: 1.2em;
-    border-radius: 15px;
+  max-width: 175px;
+  max-height: 75px;
+  font-size: 1.2em;
+  border-radius: 15px;
 }
 
 .continue {
-    max-width: 175px;
-    max-height: 75px;
-    padding: 0.30em;
-    font-weight: 600;
-    font-size: 1.45em;
-    margin-bottom: 110px;
-    border-radius: 15px;
+  max-width: 175px;
+  max-height: 75px;
+  padding: 0.3em;
+  font-weight: 600;
+  font-size: 1.45em;
+  margin-bottom: 110px;
+  border-radius: 15px;
+}
+
+@media (min-width: 601px) and (max-width: 900px) {
+  .rekisteröidy * {
+    min-width: 300px;
+    padding: 0.4em;
+    margin: 0.75em;
   }
 
-  @media (min-width: 601px) and (max-width: 900px) {
-    .rekisteröidy * {
-        min-width: 300px;
-        padding: 0.4em;
-        margin: 0.75em;
-    }
+  .rekisteröidy:first-child {
+    margin-top: 30px;
+  }
 
-    .rekisteröidy:first-child {
-        margin-top: 30px;
-    }
-
-    .continue {
-        padding: 0.28em;
-        margin-bottom: 50px;
-        font-size: 1.35em;
-    }
+  .continue {
+    padding: 0.28em;
+    margin-bottom: 50px;
+    font-size: 1.35em;
+  }
 }
 
 @media (max-width: 600px) {
-    .rekisteröidy * {
-        min-width: 280px;
-        padding: 0.3em;
-        margin: 0.5em;
-    }
+  .rekisteröidy * {
+    min-width: 280px;
+    padding: 0.3em;
+    margin: 0.5em;
+  }
 
-    .rekisteröidy:first-child {
-        margin-top: 20px;
-    }
+  .rekisteröidy:first-child {
+    margin-top: 20px;
+  }
 
-    .continue {
-        padding: 0.25em;
-        font-size: 1.2em;
-        margin-bottom: 0;
-    }
+  .continue {
+    padding: 0.25em;
+    font-size: 1.2em;
+    margin-bottom: 0;
+  }
 }

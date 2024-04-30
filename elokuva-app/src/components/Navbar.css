@@ -88,7 +88,8 @@ nav {
   background-color: var(--accent-color);
 }
 
-.burger-menu:focus, .theme:focus {
+.burger-menu:focus,
+.theme:focus {
   background-color: transparent;
   color: inherit;
 }
@@ -141,7 +142,7 @@ nav {
 #menu a:focus {
   background-color: var(--blue-color);
   color: var(--dark-foreground-color);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transform: scale(1.05);
   transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
@@ -301,7 +302,7 @@ nav {
   }
 }
 
-@media (max-width: 1000px) { 
+@media (max-width: 1000px) {
   .navButton,
   .button-container {
     display: none;
@@ -374,7 +375,6 @@ nav {
 }
 
 @media (max-width: 800px) {
-
   .nav {
     display: flex;
     flex-direction: column;

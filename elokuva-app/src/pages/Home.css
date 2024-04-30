@@ -15,8 +15,9 @@
   margin-top: 40px;
 }
 
-.home-container, .home-container * {
-  font-family: 'Madimi One', sans-serif !important;
+.home-container,
+.home-container * {
+  font-family: "Madimi One", sans-serif !important;
 }
 
 .card-container {
@@ -37,7 +38,7 @@
   align-items: center;
   margin-top: 10px;
   color: var(--dark-foreground-color);
-  font-size: 1.80rem;
+  font-size: 1.8rem;
   overflow: visible;
   letter-spacing: 1.2px;
   z-index: 5;
@@ -56,8 +57,8 @@
 }
 
 .frontText.two {
-    margin-left: 20px;
-    animation-delay: 10s;
+  margin-left: 20px;
+  animation-delay: 10s;
 }
 
 .frontText.one:hover {
@@ -73,7 +74,8 @@
   color: var(--light-foreground-color);
 }
 
-.card-container:hover, .frontText:hover {
+.card-container:hover,
+.frontText:hover {
   animation-play-state: paused;
 }
 
@@ -88,11 +90,12 @@
 }
 
 @keyframes colorPulse {
-  0%, 100% {
-    color: var(--dark-foreground-color)
+  0%,
+  100% {
+    color: var(--dark-foreground-color);
   }
   50% {
-    color: var(--light-foreground-color)
+    color: var(--light-foreground-color);
   }
 }
 
@@ -116,7 +119,6 @@
 
 .homeposter:nth-child(2):hover {
   transform: translateX(-15%) translateY(0%) rotate(5deg) scale(1.05);
-
 }
 
 .homeposter:last-child {
@@ -128,23 +130,19 @@
   transform: translateX(-100%) translateY(0.5%) rotate(-5deg) scale(1.05);
 }
 
-
 @media (max-width: 800px) {
   .frontText.one {
     margin-right: 100px;
   }
-  
+
   .frontText.two {
-      margin-right: 90px;
+    margin-right: 90px;
   }
 
-  
   .frontText.three {
     margin-right: 130px;
   }
 }
-
-
 
 @media (max-width: 600px) {
   .home-container {
@@ -180,11 +178,11 @@
   .frontText.one {
     margin-right: 40px;
   }
-  
+
   .frontText.two {
-      margin-right: 30px;
+    margin-right: 30px;
   }
-  
+
   .frontText.three {
     margin-right: 40px;
   }

@@ -21,7 +21,11 @@
 
 [data-theme="dark"] {
   --background-image: linear-gradient(135deg, #000 0%, #002244 100%);
-  --button-gradient: linear-gradient(247deg, rgb(83, 96, 104) 0%, rgb(13, 23, 75) 100%);
+  --button-gradient: linear-gradient(
+    247deg,
+    rgb(83, 96, 104) 0%,
+    rgb(13, 23, 75) 100%
+  );
   --theme-color: #002244;
   --dark-background-color: #72a0c1;
   --black-foreground-color: #f0f8ff;
@@ -38,8 +42,8 @@
 .theme-icon {
   color: var(--theme-color);
   display: inline-flex;
-  justify-content: center;   
-  align-items: center;   
+  justify-content: center;
+  align-items: center;
 }
 
 * {
@@ -121,7 +125,7 @@ button,
 .button,
 .navButton,
 .signButton,
-.loginButton{
+.loginButton {
   width: 100%;
   background-image: var(--button-gradient);
   border: 1.6px solid var(--dark-color);

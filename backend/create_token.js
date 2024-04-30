@@ -1,12 +1,12 @@
-var crypto = require('crypto');
-var co = require('co');
+var crypto = require("crypto");
+var co = require("co");
 
 function spawnTokenBuf() {
-    return function(callback) {
-        crypto.randomBytes(64, callback);
-    };
+  return function (callback) {
+    crypto.randomBytes(64, callback);
+  };
 }
 
 co(function* () {
-    console.log((yield spawnTokenBuf()).toString('base64'));
+  console.log((yield spawnTokenBuf()).toString("base64"));
 });

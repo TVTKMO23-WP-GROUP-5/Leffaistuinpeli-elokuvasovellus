@@ -60,7 +60,7 @@
   width: 60%;
 }
 
-.st-item:nth-child(3n+1) {
+.st-item:nth-child(3n + 1) {
   margin-left: 0;
 }
 .st-item:nth-child(3n) {
@@ -98,7 +98,8 @@
   margin-top: 10px;
 }
 
-.st-details, .st-time {
+.st-details,
+.st-time {
   font-size: 18px;
   color: var(--dark-color);
 }

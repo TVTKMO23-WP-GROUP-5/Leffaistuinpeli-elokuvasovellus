@@ -7,12 +7,12 @@ import { useUser } from "../context/UseUser";
 export default function Showtimes() {
   const { user, userGroups } = useUser();
   const [showtimes, setShowtimes] = useState(null);
-  const [selectedShowtime, setSelectedShowtime] = useState(null)
+  const [selectedShowtime, setSelectedShowtime] = useState(null);
   const [filter, setFilter] = useState("");
   const [date, setDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedGroup, setSelectedGroup] = useState('')
-  const [activeIndex, setActiveIndex] = useState(null)
+  const [selectedGroup, setSelectedGroup] = useState("");
+  const [activeIndex, setActiveIndex] = useState(null);
   const resultsRef = useRef(null);
   const [showtimeData, setShowtimeData] = useState({
     groupname: "",
@@ -21,14 +21,12 @@ export default function Showtimes() {
     movieid: "",
     movietitle: "",
     showstarttime: "",
-    img: ""
-  })
+    img: "",
+  });
 
   useEffect(() => {
     if (!filter || !date) {
-      console.log(
-        "showtimes"
-      );
+      console.log("showtimes");
       return;
     }
 
@@ -71,7 +69,7 @@ export default function Showtimes() {
       <option value="1022">Turku</option>
       <option value="1046">Raisio</option>
       <option value="1013">Vantaa</option>
-    </>
+    </>,
   ];
 
   const dateOptions = Array.from({ length: 7 }, (_, i) => (
@@ -105,13 +103,12 @@ export default function Showtimes() {
     return `${day}.${month}.${year}`;
   }
 
-
   // ----- Ryhmän sivulle lisääminen -----
   const handleGroupSelect = (index) => (e) => {
-    const newSelectedGroups = {...selectedGroup, [index]: e.target.value}
+    const newSelectedGroups = { ...selectedGroup, [index]: e.target.value };
     setSelectedGroup(newSelectedGroups);
-    setActiveIndex(index)
-  }
+    setActiveIndex(index);
+  };
 
   const addShowtime = () => {
     if (activeIndex === null || !filteredShows || !filteredShows[activeIndex]) {
@@ -129,19 +126,18 @@ export default function Showtimes() {
       img: selectedShow.Images.EventMediumImagePortrait?._text,
     };
 
-    setShowtimeData(newShowtimeData)
+    setShowtimeData(newShowtimeData);
 
-      axios
-        .post(`/groupST/addshowtime`, newShowtimeData)
-        .then((response) => {
-          console.log("Server response :", response)
-        })
-        .catch((error) => {
-          console.error("Lisäys epäonnistui: ", error);
-        }) 
+    axios
+      .post(`/groupST/addshowtime`, newShowtimeData)
+      .then((response) => {
+        console.log("Server response :", response);
+      })
+      .catch((error) => {
+        console.error("Lisäys epäonnistui: ", error);
+      });
   };
 
-  
   return (
     <div className="showtimes-container" ref={resultsRef}>
       <div className="filter-container">
@@ -169,7 +165,11 @@ export default function Showtimes() {
       ) : filteredShows && filteredShows.length > 0 ? (
         <ul className="st-list">
           {filteredShows.map((show, index) => (
-            <li className="st-item" key={index} onClick={() => setActiveIndex(index)}>
+            <li
+              className="st-item"
+              key={index}
+              onClick={() => setActiveIndex(index)}
+            >
               <p className="st-time">{formatDate(show.dttmShowStart?._text)}</p>
               <h1 className="st-title">{show.Title?._text}</h1>
               <p className="st-details">Teatteri: {show.Theatre?._text}</p>
@@ -181,7 +181,10 @@ export default function Showtimes() {
               {user && (
                 <>
                   <p>Lisää ryhmän sivulle</p>
-                  <select onChange={handleGroupSelect(index)} value={selectedGroup[index] || ''}>
+                  <select
+                    onChange={handleGroupSelect(index)}
+                    value={selectedGroup[index] || ""}
+                  >
                     <option value="">Valitse ryhmä</option>
                     {userGroups.map((group, index) => (
                       <option key={index} value={group.name}>
@@ -191,7 +194,9 @@ export default function Showtimes() {
                   </select>
                   {selectedGroup[index] && (
                     <div className="submit_button">
-                      <button type="submit" onClick={addShowtime}>Lisää</button>
+                      <button type="submit" onClick={addShowtime}>
+                        Lisää
+                      </button>
                     </div>
                   )}
                 </>

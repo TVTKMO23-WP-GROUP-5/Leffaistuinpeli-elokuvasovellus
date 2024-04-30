@@ -1,133 +1,135 @@
 .members {
-    display:flex;
-    flex-direction: column;
-    width: 95vw;
-    
+  display: flex;
+  flex-direction: column;
+  width: 95vw;
 }
 
-p, h1, h2, h3, h4 {
-    color: var(--dark-foreground-color);
+p,
+h1,
+h2,
+h3,
+h4 {
+  color: var(--dark-foreground-color);
 }
 
-.groups{
-    display: flex;
-    justify-content: space-around;
-    width: 95vw;
-    flex-wrap: wrap;
+.groups {
+  display: flex;
+  justify-content: space-around;
+  width: 95vw;
+  flex-wrap: wrap;
 }
 
 .applications {
-    display: flex;
-    justify-content: space-around;
-    width: 95vw;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+  width: 95vw;
+  flex-wrap: wrap;
 }
 
 .groupmembers-list {
-    border: 2px solid black;
-    border-radius: 8px;
-    width: 48%;
-    min-width: 600px;
-    margin: 0.5em;
-    background-color: var(--dark-background-color);
+  border: 2px solid black;
+  border-radius: 8px;
+  width: 48%;
+  min-width: 600px;
+  margin: 0.5em;
+  background-color: var(--dark-background-color);
 }
 
 .group-title {
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    margin: 0.5em;
-    padding: 0.5em;
-    background-color: var(--light-background-color);
-    border-radius: 8px;
-    border: 5px solid black;    
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5em;
+  padding: 0.5em;
+  background-color: var(--light-background-color);
+  border-radius: 8px;
+  border: 5px solid black;
 }
 
 .deleteButton {
-    width: 200px;
-    max-height: 50px;
-    padding: 0.5em;
+  width: 200px;
+  max-height: 50px;
+  padding: 0.5em;
 }
 
 .gr-title-descripe {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.group-title button{
-    width: 200px;
-    max-height: 50px;
-    padding: 0.5em;
+.group-title button {
+  width: 200px;
+  max-height: 50px;
+  padding: 0.5em;
 }
 
 .group-descripe {
-    margin-top: 0.1em;
-    margin: 0.5em;
-    
+  margin-top: 0.1em;
+  margin: 0.5em;
 }
 
-.members-list{
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 8px;
-    margin: 0.5em;
-    padding: 0.5em;
-    background-color: var(--light-background-color);
+.members-list {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 8px;
+  margin: 0.5em;
+  padding: 0.5em;
+  background-color: var(--light-background-color);
 }
 
-.members-list button{
-    width: 200px;
-    padding: 0.5em;
+.members-list button {
+  width: 200px;
+  padding: 0.5em;
 }
 
-.members > *{
-    margin: 0.5em;
+.members > * {
+  margin: 0.5em;
 }
 
-.members h3{
-    margin-top: 2em;
+.members h3 {
+  margin-top: 2em;
 }
 
 .admin {
-    position: absolute;
-    right: 0;
-    display: flex;
-    flex-direction: column;
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
 
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .emptygroup {
-    margin: 0.5em;
+  margin: 0.5em;
 }
 
-.emptygroup p{
-    color: var(--light-foreground-color);
+.emptygroup p {
+  color: var(--light-foreground-color);
 }
 
-h5{
-    color: var(--light-foreground-color);
+h5 {
+  color: var(--light-foreground-color);
 }
 
-@media only screen and (max-width: 800px){
-    .groupmembers-list {
-        width: 90vw;
-        min-width: 300px;
-    }
+@media only screen and (max-width: 800px) {
+  .groupmembers-list {
+    width: 90vw;
+    min-width: 300px;
+  }
 
-    .members-list{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .members-list > *{
-        margin: 0.3em;
-    }
+  .members-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .members-list > * {
+    margin: 0.3em;
+  }
 
-    .group-title {
-        flex-direction: column;
-        align-items: center;
-    }
+  .group-title {
+    flex-direction: column;
+    align-items: center;
+  }
 }
