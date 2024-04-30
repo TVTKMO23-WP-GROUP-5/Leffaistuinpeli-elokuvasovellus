@@ -19,9 +19,9 @@ export default function AllGroups() {
   useEffect(() => {
     let isMounted = true;
 
-    const fetchGroups = axios.get(process.env.REACT_APP_URL + '/groups/allgroups');
+    const fetchGroups = axios.get('/groups/allgroups');
     const username = sessionStorage.getItem('username');
-    const fetchUserGroups = user ? axios.get(process.env.REACT_APP_URL + `/groups/owngroups?username=${username}`) : Promise.resolve({ data: [] });
+    const fetchUserGroups = user ? axios.get(`/groups/owngroups?username=${username}`) : Promise.resolve({ data: [] });
 
     Promise.all([fetchGroups, fetchUserGroups])
       .then(([groupsResponse, userGroupsResponse]) => {
@@ -63,12 +63,12 @@ export default function AllGroups() {
   const handleUserResponse = (userChoise, groupOwner, groupName, username) => {
     setActiveGroup(null);
     if (userChoise) {
-      axios.post(process.env.REACT_APP_URL + '/getmembers/insertapplication', { groupOwner: groupOwner, groupName: groupName, username: username })
+      axios.post('/getmembers/insertapplication', { groupOwner: groupOwner, groupName: groupName, username: username })
         .then(response => {
           console.log(response.data);
           alert('Liittymispyyntö lähetetty');
 
-          axios.post(process.env.REACT_APP_URL + '/getmembers/groupstatus', { username: user })
+          axios.post('/getmembers/groupstatus', { username: user })
             .then(response => {
               setApplicationStatus(response.data);
             })
@@ -88,7 +88,7 @@ export default function AllGroups() {
 
   // Tarkistetaan käyttäjän status ryhmään nähden
   useEffect(() => {
-    axios.post(process.env.REACT_APP_URL + '/getmembers/groupstatus', { username: user })
+    axios.post('/getmembers/groupstatus', { username: user })
       .then(response => {
         setApplicationStatus(response.data);
       })

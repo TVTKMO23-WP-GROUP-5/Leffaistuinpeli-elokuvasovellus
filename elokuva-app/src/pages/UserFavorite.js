@@ -18,7 +18,7 @@ export default function UserFavorite() {
     const username = user ? user : sessionStorage.getItem("username");
     try {
       axios
-        .get(process.env.REACT_APP_URL + `/favorite/getownfavorites`, {
+        .get(`/favorite/getownfavorites`, {
           params: {
             username: username,
           },
