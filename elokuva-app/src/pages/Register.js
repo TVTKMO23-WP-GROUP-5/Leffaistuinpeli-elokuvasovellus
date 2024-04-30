@@ -43,7 +43,7 @@ const handleSubmit = (event) => {
 
     console.log(registerData)
 
-    axios.post(process.env.REACT_APP_URL + '/auth/register', registerData)
+    axios.post('/auth/register', registerData)
         .then(response => {
             if (response.data.message === "success"){
                 console.log('User registered successfully:', response.data);
