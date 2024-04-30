@@ -78,13 +78,13 @@ export default function Register() {
             />
           </div>
           <div className="kuvaus">
-            <input
-              type="text"
-              name="description"
-              placeholder="Kuvaus"
-              value={groupRegisterData.description}
-              onChange={handleChange}
-            />
+          <textarea
+    name="description"
+    placeholder="Kuvaus"
+    value={groupRegisterData.description}
+    onChange={handleChange}
+    rows="5"
+  ></textarea>
           </div>
           {error && <div className="error">{error}</div>}
           <div className="nappi">

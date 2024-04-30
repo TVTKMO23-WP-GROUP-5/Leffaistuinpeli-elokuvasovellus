@@ -57,6 +57,24 @@ form {
     box-sizing: border-box;
     
 }
+
+.kuvaus textarea {
+    margin: 0em;
+    padding: 0.5em;
+    min-width: 350px;
+    min-height: 220px;
+    max-height: 700px;
+    width: 100%;
+    border-radius: 8px;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+    resize: vertical;
+    text-align: left;
+    vertical-align: top;
+    background-color: inherit; 
+    color: inherit; 
+  }
+
 .light .kuvaus *{
     background-color: #fff; 
     color: black; 
