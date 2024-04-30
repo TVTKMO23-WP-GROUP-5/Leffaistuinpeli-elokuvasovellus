@@ -8,4 +8,25 @@ footer {
   height: 60px;
   width: 100%;
   bottom: 0;
+  text-align: center;
+  font-size: 1.2vw;
+  font-style: italic;
+  font-family: 'Arial', sans-serif;
+}
+
+.footerLogo {
+  margin-right: 8px;
+  margin-top: 10px;
+}
+
+@media (max-width: 800px) {
+  footer {
+    font-size: calc(2vw + 1px);
+  }
+}
+
+@media (max-width: 600px) {
+  footer {
+    font-size: calc(3vw + 1px);
+  }
 }

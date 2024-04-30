@@ -88,6 +88,11 @@ nav {
   background-color: var(--accent-color);
 }
 
+.burger-menu:focus, .theme:focus {
+  background-color: transparent;
+  color: inherit;
+}
+
 .menu {
   /*background-color: rgba(255, 255, 255, 0.1);*/
   background-color: transparent;
@@ -284,7 +289,7 @@ nav {
   }
 
   #menu a {
-    font-size: 2vw;
+    font-size: 2.4vw;
   }
 
   .theme {
@@ -327,7 +332,6 @@ nav {
   .menu {
     top: 124.863px;
     width: 100%;
-    padding-left: 80px;
   }
 
   #menu a {
@@ -347,7 +351,7 @@ nav {
 
   .burger-menu {
     position: absolute;
-    left: 50%;
+    left: 47%;
     transform: translate(-50%, -50%);
   }
 
@@ -360,6 +364,12 @@ nav {
 
   nav {
     justify-content: flex-start;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1000px) {
+  menu a {
+    font-size: calc(3.4vw + 1px);
   }
 }
 
@@ -377,6 +387,12 @@ nav {
     display: none;
   }
 
+  .burger-menu {
+    position: absolute;
+    left: 48.5%;
+    transform: translate(-50%, -50%);
+  }
+
   .theme,
   .burger-menu {
     order: 1;
@@ -392,11 +408,7 @@ nav {
   .menu {
     top: 124.863px;
     width: 100%;
-    padding-left: 40px;
-  }
-
-  #menu a {
-    font-size: 4vw;
+    padding-left: 0;
   }
 
   .container {
@@ -409,7 +421,31 @@ nav {
   }
 }
 
+@media (min-width: 601px) and (max-width: 800px) {
+  #menu a {
+    font-size: calc(4vw + 1px);
+  }
+}
+
 @media (max-width: 600px) {
+  #menu a {
+    font-size: calc(5.3vw + 1px);
+  }
+
+  #menu {
+    margin-bottom: 50px;
+  }
+
+  .signButton {
+    display: none;
+  }
+}
+
+@media (max-width: 470px) {
+  #menu a {
+    font-size: calc(6.3vw + 1px);
+  }
+
   .signButton {
     display: none;
   }
