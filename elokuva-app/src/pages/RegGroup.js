@@ -7,7 +7,7 @@ import { useTheme } from '../context/ThemeContext';
 
 export default function Register() {
   const { user, setIsAdmin, setGroupMembers } = useUser();
-  const { theme } = useTheme(); 
+  const { theme } = useTheme();
   const [groupRegisterData, setGroupRegisterData] = useState({
     groupname: '',
     description: '',
@@ -67,30 +67,32 @@ export default function Register() {
         <div className="otsikko">
           <h2>Luo ryhmäsivu</h2>
         </div>
-        <form onSubmit={handleSubmit}>
-          <div className="ryhmännimi">
-            <input
-              type="text"
-              name="groupname"
-              placeholder="Ryhmän nimi"
-              value={groupRegisterData.groupname}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="kuvaus">
-          <textarea
-    name="description"
-    placeholder="Kuvaus"
-    value={groupRegisterData.description}
-    onChange={handleChange}
-    rows="5"
-  ></textarea>
-          </div>
-          {error && <div className="error">{error}</div>}
-          <div className="nappi">
-            <button type="submit">Jatka</button>
-          </div>
-        </form>
+        <div className = "groupRegister">
+          <form className = "groupRegister" onSubmit={handleSubmit}>
+            <div className="ryhmännimi">
+              <input
+                type="text"
+                name="groupname"
+                placeholder="Ryhmän nimi"
+                value={groupRegisterData.groupname}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="kuvaus">
+              <textarea
+                name="description"
+                placeholder="Kuvaus"
+                value={groupRegisterData.description}
+                onChange={handleChange}
+                rows="5"
+              ></textarea>
+            </div>
+            {error && <div className="error">{error}</div>}
+            <div className="nappi">
+              <button type="submit">Jatka</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
