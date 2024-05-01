@@ -1,98 +1,36 @@
-h2 {
-    text-align: center;
+.otsikko {
+  margin-top: 2em;
 }
 
-form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-  
-.rekisteröidy:first-child{
-    margin-top: 50px;
-}
-  
-.ryhmäsivu *{
-    margin: 1em;
-    padding: 0.5em;
-    min-width: 350px;
-    border-radius: 8px;
-    box-sizing: border-box;
+.groupRegister {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 80vh;
+  width: 75vw; 
+  max-width: 500px;
 }
 
-.otsikko *{
-    margin: 0em;
-    padding: 0.5em;
-    min-width: 350px;
-    min-height: 25px;
-    border-radius: 8px;
-    box-sizing: border-box;
+.groupRegister > *{
+  width: 100%;
+  max-width: 350px;
+  margin: 1em;
 }
 
-.ryhmännimi *{
-    margin: 0em;
-    padding: 0.5em;
-    min-width: 350px;
-    min-height: 2px;
-    border-radius: 8px;
-    box-sizing: border-box;
+.kuvaus > *{
+  width: 100%;
+  height: 40vh;
+  min-height: 200px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 1.2em;
 }
-.light .ryhmännimi *{
-    background-color: #fff; 
-    color: black; 
-  }
-  
-  .dark .ryhmännimi *{
-    background-color: white; 
-    color: black; 
-  }
-
-.kuvaus *{
-    margin: 0em;
-    padding: 0.5em;
-    min-width: 350px;
-    min-height: 220px;
-    border-radius: 8px;
-    box-sizing: border-box;
-    
+.groupRegister button{
+  padding: 0.5em;
 }
 
-.kuvaus textarea {
-    margin: 0em;
-    padding: 0.5em;
-    min-width: 350px;
-    min-height: 220px;
-    max-height: 700px;
-    width: 100%;
-    border-radius: 8px;
-    box-sizing: border-box;
-    overflow-wrap: break-word;
-    resize: vertical;
-    text-align: left;
-    vertical-align: top;
-    background-color: inherit; 
-    color: inherit; 
-  }
-
-.light .kuvaus *{
-    background-color: #fff; 
-    color: black; 
-  }
-  
-  .dark .kuvaus *{
-    background-color: white; 
-    color: black; 
-  }
-  
-
-.nappi *{
-    background-color: #293887;
-    color: white;
-    margin: 0em;
-    padding: 0.5em;
-    min-width: 350px;
-    min-height: 22px;
-    border-radius: 8px;
-    box-sizing: border-box;
+.groupRegister input {
+  font-size: 1.2em;
+  padding: 0.5em;
 }

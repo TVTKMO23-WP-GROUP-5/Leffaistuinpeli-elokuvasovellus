@@ -98,7 +98,7 @@ export default function UserProvider({ children }) {
     if (user) {
       const username = sessionStorage.getItem('username')
       axios
-        .get(`/owngroups?username=${username}`)
+        .get(`/groups/owngroups?username=${username}`)
         .then((response) => {
           setUserGroups(response.data);
         })
