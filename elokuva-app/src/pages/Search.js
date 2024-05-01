@@ -20,10 +20,10 @@ export default function Search() {
     pages: "5"
   })
   
-  const { moviePick, setMoviePick } = useUser();
+  const { moviePick, setMoviePick } = useUser()
+  const { page, setPage } = useUser()
   const [searchType, setSearchType] = useState("basic")
   const resultsRef = useRef(null);
-  const [page, setPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(24)
   const [startIndex, setStartIndex] = useState(0)
   const [endIndex, setEndIndex] = useState(24)
@@ -167,16 +167,25 @@ export default function Search() {
   const handleClickNext = () => {
     setPage(prevPage => {
         const nextPage = prevPage + 1;
-        sessionStorage.setItem('page', nextPage);
-        return nextPage;
+        sessionStorage.setItem('page', parseInt(nextPage));
+        if (moviePick === null) {
+          return 1
+        } else {
+          return nextPage
+        }
+        
     });
 };
 
 const handleClickPrevious = () => {
     setPage(prevPage => {
         const prevPageValue = Math.max(prevPage - 1, 1);
-        sessionStorage.setItem('page', prevPageValue);
-        return prevPageValue;
+        sessionStorage.setItem('page', parseInt(prevPageValue));
+        if (moviePick === null) {
+          return 1
+        } else {
+          return prevPageValue;
+        }
     });
 };
 
@@ -193,6 +202,7 @@ const handleClickPrevious = () => {
     <div className={`searchpage-container ${theme === 'dark' ? 'dark-theme' : 'light-theme'}`}>
       <div className = "search-type">
       <select onChange={handleSearchType}>
+          <option value="" disabled selected>Hakusuodatus</option>
           <option value = "basic" >Nimihaku</option>
           <option value = "filtered" >Tarkempi elokuvahaku</option>
           <option value = "filtered-series">Tarkempi sarjahaku</option>
