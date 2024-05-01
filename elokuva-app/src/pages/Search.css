@@ -9,9 +9,24 @@
   margin-top: 50px;
 }
 
-.search-type {
-  display:flex;
-  margin-bottom: 0.3em;
+.search-type{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 30vw;
+}
+
+.search-type select{
+  border: 2px solid var(--dark-background-color);
+  text-align: center;
+  font-size: 1.2em;
+  padding: 10px;
+  width: 100%;
+  margin: 0.5em;
+  margin-bottom: 10px;
+  border-radius: 18px;
+  
 }
 
 #search {
@@ -44,6 +59,7 @@
   width: 90vw;
   height: 100px;
   margin: 10px auto;
+  flex-grow: 1;
 }
 
 .name-search >* {
@@ -88,6 +104,10 @@
   width: 100%;
   margin-bottom: 10px;
   background-color: white;
+}
+
+.search-bars{
+  display: flex;
 }
 
 .search-bars select {
@@ -143,7 +163,7 @@
 
 .searchPrevious{
   position: absolute;
-  left: 5px;
+  left: 10px;
 }
 
 .searchButton {
@@ -153,7 +173,7 @@
 
 .searchNext{
   position: absolute;
-  right: 5px;
+  right: 10px;
 }
 
 
@@ -196,11 +216,55 @@ input:-webkit-autofill:focus {
     width: 29vw;
   }
 
+  .search-type{
+    width: 90vw;
+  }
+
+  .search-type select{
+    margin: 0;
+  }
+
+  .name-search {
+    flex-direction: column;
+    height: 200px;
+  }
+
 }
 
 @media only screen and (max-width: 600px){
   .poster {
     width: 45vw;
+  }
+
+  .filtered-search {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0.1em;
+    margin-top: 0.3em;
+  }
+
+  .filtered-search div {
+    justify-content: flex-start;
+    margin: 0;
+    height: 100%;
+    width: 90vw;
+  }
+
+  .filtered-search button{
+    margin: 0.1;
+  }
+
+  .filtered-search select{
+    margin: 0.1;
+  }
+
+  .filtered-search input{
+    margin: 0.1;
+  }
+
+  .filtered-search > :nth-child(2){
+    border-bottom: 0;
   }
 
 }

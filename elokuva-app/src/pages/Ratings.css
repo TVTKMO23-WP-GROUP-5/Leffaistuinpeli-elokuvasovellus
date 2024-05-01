@@ -79,13 +79,17 @@
     margin-top: 1em;
     margin-bottom: 1em;
 }
+
+.choises div {
+    width: 40%;
+}
   
 .choises select {
     border: 2px solid var(--dark-background-color);
     text-align: center;
     font-size: 1.2em;
     padding: 10px;
-    max-width: 100%;
+    width: 100%;
     margin-bottom: 10px;
     border-radius: 18px;
   }
@@ -95,7 +99,7 @@
     text-align: center;
     font-size: 1.2em;
     padding: 10px;
-    max-width: 100%;
+    width: 100%;
     margin-top: 10px;
     border-radius: 18px;
     box-sizing: border-box;
@@ -103,6 +107,9 @@
 
 .ratingslist{
     border-bottom: 3px solid var(--dark-foreground-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }  
 
 .movieRatings {
@@ -111,7 +118,6 @@
     border-right: 3px solid var(--dark-foreground-color);
     width: 75vw;
     display: flex;
-    
 }
 
 .movieRatings img{
@@ -167,7 +173,6 @@
 .changePage {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     margin-top: 1em;
     margin-bottom: 1em;
     position: relative;
@@ -176,12 +181,12 @@
 
 .ratingsPrevious{
     position: absolute;
-    left: 5px;
+    left: 10px;
 }
 
 .ratingsNext{
     position: absolute;
-    right: 5px;
+    right: 10px;
 }
 
 .changePage button {
@@ -236,6 +241,10 @@
     .average{
         margin-left: 1.5em;
         font-size: 10px;
+    }
+
+    .choises div {
+        width: 100%;
     }
     
 }

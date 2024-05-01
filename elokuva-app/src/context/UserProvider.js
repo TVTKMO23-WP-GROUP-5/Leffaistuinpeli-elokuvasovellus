@@ -17,6 +17,7 @@ export default function UserProvider({ children }) {
   const [movies, setMovies] = useState([])
   const [groupMembers, setGroupMembers] = useState({})
   const [ratingsList, setRatingsList] = useState([])
+  const [page, setPage] = useState(1)
   const navigate = useNavigate()
 
   const login = async (uname, password) => {
@@ -97,7 +98,7 @@ export default function UserProvider({ children }) {
     if (user) {
       const username = sessionStorage.getItem('username')
       axios
-        .get(`/groups/owngroups?username=${username}`)
+        .get(`/owngroups?username=${username}`)
         .then((response) => {
           setUserGroups(response.data);
         })
@@ -107,13 +108,18 @@ export default function UserProvider({ children }) {
     }
   }, [user]);
 
+  useEffect(() => {
+    sessionStorage.removeItem('moviePick')
+    sessionStorage.setItem('page', parseInt(1))
+  }, []);
 
   return (
     <UserContext.Provider value={{
       user, setUser, registerData, setRegisterData,
       movieData, setMovieData, moviePick, setMoviePick, isHome, setIsHome,
       loading, setLoading, movies, setMovies, groups, setGroups, userGroups, setUserGroups, login,
-      isAdmin, setIsAdmin, groupMembers, setGroupMembers, ratingsList, setRatingsList
+      isAdmin, setIsAdmin, groupMembers, setGroupMembers, ratingsList, setRatingsList,
+      page, setPage
     }}>
       {children}
     </UserContext.Provider>

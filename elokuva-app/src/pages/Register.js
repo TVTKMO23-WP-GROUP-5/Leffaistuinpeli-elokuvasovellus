@@ -74,11 +74,19 @@ return (
                 <input type="email" className="registerInput" name="email" placeholder='Sähköposti' onChange={handleChange} />
                 <input type="text" className="registerInput" name="username" placeholder='Käyttäjätunnus' onChange={handleChange} />
                 <input type="password" className="registerInput" name="first_password" placeholder='Salasana' onChange={handleChange} />
-                <p style={{ color: passwordLength < 8 ? 'red' : 'black' }}>
+                    <p style={{ color: passwordLength < 8 ? 'red' : 'black' }}>
                     {passwordLength < 8 
-                        ? `Salasanassa täytyy olla vähintään 8 merkkiä. Salasanasi pituus on ${passwordLength}` 
-                        : `Salasana ok. Pituus: ${passwordLength}`}
-                </p>
+                            ? (
+                                <>
+                                    Vähintään 8 merkkiä. Pituus: {passwordLength}
+                                </>
+                            ) 
+                            : (
+                                <>
+                                    Salasana ok. Pituus: {passwordLength}
+                                </>
+                            )}
+                    </p>
                 <input type="password" className="registerInput" name="password" placeholder='Salasana uudestaan' onChange={handleChange} />
                 <button type="submit" className="continue">Jatka</button>
             </form>

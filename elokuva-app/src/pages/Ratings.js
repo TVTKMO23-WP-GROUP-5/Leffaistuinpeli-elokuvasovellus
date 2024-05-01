@@ -126,6 +126,7 @@ export default function Ratings() {
         <div className="marginiaYlos">
         <div className={theme === 'dark' ? 'dark-theme' : ''}>
             <div className="choises">
+                <div>
                 <select name="sort" onChange={(e) => {
                     setSortType(e.target.value)
                     sortMovies(e.target.value, isChecked)
@@ -139,6 +140,7 @@ export default function Ratings() {
                     <option value="user">Arvostelija</option>
 
                 </select>
+                </div>
                 <label className="toggle-switch">
                     <input type="checkbox" checked={isChecked} onChange={(e) => {
                         setIsChecked(e.target.checked)
@@ -156,6 +158,7 @@ export default function Ratings() {
                         setFilter(e.target.value)
                         setIsButton(false)
                         setItemsPerPage(1000)
+                        setPage(1)
                     }} />
                 </div>
             </div>
