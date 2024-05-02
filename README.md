@@ -53,11 +53,11 @@ Suunnittelu perustui mobiili ensin -periaatteeseen, mutta hahmottelimme samalla,
 
 ### Linkki julkaistulle nettisivulle
 
-Https://leffaistuinpeli.onrender.com
+https://leffaistuinpeli.onrender.com
 
 ### Sovelluksen esittely
 
-(https://www.youtube.com/watch?v=6kzl6SzgHRg)
+https://www.youtube.com/watch?v=6kzl6SzgHRg
 
 ![Haku](elokuva-app/src/images/haku.png)
 *KUVA 4. Leffaistuinpelin elokuvahaku*
