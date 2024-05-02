@@ -48,7 +48,7 @@ const handleSubmit = (event) => {
             if (response.data.message === "success"){
                 console.log('User registered successfully:', response.data);
                 alert("Käyttäjätunnuksen luominen onnistui")
-                navigate('/userpage')
+                navigate('/login')
             } else {
                 console.log('Something went wrong:', response.data);
                 alert("Tunnuksen luominen epäonnistui...")

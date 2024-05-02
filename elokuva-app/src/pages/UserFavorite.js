@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useUser } from "../context/UseUser";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./UserFavorite.css";
 
 export default function UserFavorite() {
@@ -11,29 +11,32 @@ export default function UserFavorite() {
   const [showArrowsTV, setShowArrowsTV] = useState(false);
   const scrollMoviesRef = useRef(null);
   const scrollTVRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
   
-
+  
   // ----- Suosikkien haku -----
   useEffect(() => {
-    const username = user ? user : sessionStorage.getItem("username");
-    try {
-      axios
-        .get(`/favorite/getownfavorites`, {
-          params: {
-            username: username,
-          },
-        })
-        .then((response) => {
-          console.log("Movies fetched:", response.data);
-          setMoviePick(response.data);
-        })
-        .catch((error) => {
-          console.error("Failed to fetch movies:", error);
+    const fetchFavorites = async (username) => {
+      try {
+        const response = await axios.get(`/favorite/getownfavorites`, {
+          params: { username }
         });
-    } catch (error) {
-      console.error("Jokin meni pieleen", error);
-    }
-  }, [user, setMoviePick]);
+        console.log("Movies fetched:", response.data);
+        setMoviePick(response.data);
+      } catch (error) {
+        console.error("Failed to fetch movies:", error);
+      }
+    };
+
+    const pathname = location.pathname;
+    const segments = pathname.split('/');
+    const usernameFromURL = segments[1];
+
+    const username = usernameFromURL;
+    
+    fetchFavorites(username);
+  }, [location, navigate]);
 
 
   // ----- Nuolinäppäimet piiloon, mikäli ei scrollattavaa -----
