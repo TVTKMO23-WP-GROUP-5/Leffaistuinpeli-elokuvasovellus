@@ -53,7 +53,7 @@ Suunnittelu perustui mobiili ensin -periaatteeseen, mutta hahmottelimme samalla,
 
 ### Linkki julkaistulle nettisivulle
 
-[Tähän linkki nettisivuille]
+Https://leffaistuinpeli.onrender.com
 
 ### Sovelluksen esittely
 
