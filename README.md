@@ -57,7 +57,7 @@ Https://leffaistuinpeli.onrender.com
 
 ### Sovelluksen esittely
 
-[Tähän linkki videoon, jolla esitellään video]
+(https://www.youtube.com/watch?v=6kzl6SzgHRg)
 
 ![Haku](elokuva-app/src/images/haku.png)
 *KUVA 4. Leffaistuinpelin elokuvahaku*
